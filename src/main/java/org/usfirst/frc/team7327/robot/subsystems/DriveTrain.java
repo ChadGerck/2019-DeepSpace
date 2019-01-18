@@ -25,10 +25,10 @@ public class DriveTrain extends Subsystem {
 	static final double tkD = .04; //.04 cement , .05 carpet
 	
 	
-	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -184.2);
-	public static Potentiometer abeNE = new AnalogPotentiometer(1, 360, -73.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(2, 360, -281.3);
-	public static Potentiometer abeSE = new AnalogPotentiometer(3, 360, -70.7);
+	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -165.7); 
+	public static Potentiometer abeNE = new AnalogPotentiometer(1, 360, -63.85);
+	public static Potentiometer abeSW = new AnalogPotentiometer(2, 360, -11.3); 
+	public static Potentiometer abeSE = new AnalogPotentiometer(3, 360, -279.7); 
 	
 	public DriveTrain() {
 		moduleNE = new SwerveModule(3, 2, abeNE, kP, kI, kD,true);

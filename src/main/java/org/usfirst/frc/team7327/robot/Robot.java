@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team7327.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team7327.robot.subsystems.Vision;
@@ -28,7 +30,10 @@ public class Robot extends TimedRobot {
 	public static SwerveDrive swervedrive; 
 	//CameraServer Camera;
 	
-	public static ADXRS450_Gyro gyro; 
+	//public static ADXRS450_Gyro gyro; 
+
+
+	public static AHRS nav;  
 	
 	public static Vision vision; 
 	
@@ -44,15 +49,19 @@ public class Robot extends TimedRobot {
 		myTimer.reset();
 		myTimer.start();
 		
-		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+		//gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+
+		nav = new AHRS(I2C.Port.kMXP);
 				
 		oi = new OI();
 		drivetrain = new DriveTrain();
 		//Camera = CameraServer.getInstance();
 		//Camera.startAutomaticCapture();
 		//Camera.getVideo();
+
+
 		
-		gyro.calibrate();
+		//gyro.calibrate();
 		
 		arduino = new I2C(I2C.Port.kOnboard, 0x54);
 		
@@ -74,7 +83,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		myTimer.reset();
 		myTimer.start();
-		gyro.reset();
+		//gyro.reset();
 		
 	}
 	
@@ -85,7 +94,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		gyro.reset();
+		//gyro.reset();
+		nav.reset();
 		
 	}
 	
@@ -99,47 +109,38 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 	}
 	
-	static void UpdateLEDs(String WriteString) // Constructor, pass it a string argument.
-	{
-		char[] CharArray = WriteString.toCharArray();  //Create an array of characters.  This breaks up the information into something that can be passed over the I2C bus.
-		byte[] RobotStatus = new byte[CharArray.length]; //Characters cannot be passed over I2C, thus we must convert them to bytes. This line creates the byte array.  
-		for (int i = 0; i < CharArray.length; i++)//Create a loop that fills the new  byte array. The new byte array is the same size as the character array. 
-		{
-			RobotStatus[i] = (byte) CharArray[i];  //Pass information slot by slot. This also converts the characters into bytes.
-		}
-		
-		//arduino.transaction(RobotStatus, RobotStatus.length, null, 0);  //One type of sending info over the I2C bus.  This method asks for a response from the receiving unit. Caused null point exceptions. 
-		arduino.writeBulk(RobotStatus, RobotStatus.length); //This method sends info one way, without demanding a response from reader unit. 
-		
-	}
-	
-	public static void ReadData()
-	{
-		byte[] f = new byte[16];
-		 arduino.readOnly(f, f.length);
-		 for( int i = 0; i < f.length; i++ ) {
-			System.out.print(f[i]+", ");
-		 }
-		 System.out.println("");
-	}
-	
 	public static void AddressWorking()
 	{
 		System.out.println(arduino.addressOnly()); 
 	}
-	
+
+	public static double NavAngle() {
+		double angle = Robot.nav.getAngle(); 
+		while(angle > 360) angle -= 360; 
+		while(angle < 0)   angle += 360;
+		return angle; 
+	}
+	public static double NavAngle(double add) {
+		double angle = Robot.nav.getAngle(); 
+		while(angle > 360) angle -= 360; 
+		while(angle < 0)   angle += 360;
+		return angle; 
+	}
+	/*
 	public static double GyroAngle() {
 		double angle = Robot.gyro.getAngle();
 		while(angle > 360) angle -= 360; 
 		while(angle < 0)   angle += 360;
 		return angle; 
 	}
-	
+
 	public static double GyroAngle(double add) {
 		double angle = Robot.gyro.getAngle() + add;
 		while(angle > 360)  angle -= 360; 
 		while(angle < 0)    angle += 360; 
 		return angle; 
 	}
+	*/
+
 	
 }

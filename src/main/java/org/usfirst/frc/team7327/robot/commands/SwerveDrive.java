@@ -23,15 +23,19 @@ public class SwerveDrive extends Command {
 		
 		Robot.vision.testGearPixy();
 		
-		
 		if(Robot.oi.getYButton(Player1)) {
 			Robot.AddressWorking();
 		}
 		
-		SmartDashboard.putNumber("Gyro: ", Robot.GyroAngle());
+		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle());
 		SmartDashboard.putNumber("Angular Setpoint", Robot.drivetrain.getSteeringSetpoint());
 		SmartDashboard.putNumber("Angular Error", Robot.drivetrain.getSteeringError());
 		SmartDashboard.putNumber("Angular Position", Robot.drivetrain.getSteeringPosition());
+
+		SmartDashboard.putNumber("NWab", Robot.drivetrain.abeNW.get()); 
+		SmartDashboard.putNumber("NEab", Robot.drivetrain.abeNE.get()); 
+		SmartDashboard.putNumber("SWab", Robot.drivetrain.abeSW.get()); 
+		SmartDashboard.putNumber("SEab", Robot.drivetrain.abeSE.get()); 
 		
 		double degreesL = Math.toDegrees(Math.atan2(Robot.oi.getLeftStickY(Player1),  Robot.oi.getLeftStickX(Player1))) + 90;
 		double magnitudeL = Math.sqrt(Math.pow(Robot.oi.getLeftStickX(Player1), 2) + Math.pow(Robot.oi.getLeftStickY(Player1), 2));
@@ -42,7 +46,7 @@ public class SwerveDrive extends Command {
 		if(magnitudeR > .5) setDegree = 360-degreesR;
 		
 		
-		if(Robot.oi.getStartButton(Player1)) Robot.gyro.reset();
+		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
 		
 		if(Robot.oi.getAButton(Player1))    { setting = 0; Robot.drivetrain.turning.setOn(false); }
 		if(Robot.oi.getLeftBumper(Player1)) { setting = 0; Robot.drivetrain.turning.setOn(false); }
@@ -54,7 +58,7 @@ public class SwerveDrive extends Command {
 		
 		switch(setting) {
 		case 0: //Power Mode
-			Robot.drivetrain.setAllDegrees(setDegree+Robot.GyroAngle());
+			Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
 			Robot.drivetrain.setAllSpeed(Robot.oi.getLeftStickY(Player1)-Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1));
 			break;
 		case 1: //Turn Mode
@@ -67,7 +71,7 @@ public class SwerveDrive extends Command {
 			if(Robot.oi.Dpad(Player1) == -1) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 			break; 
 		case 4: //Precision Mode 
-			Robot.drivetrain.setAllDegrees(setDegree+Robot.GyroAngle());
+			Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
 			Robot.drivetrain.setAllSpeed(-Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1));
 			if(magnitudeL > .5) { setting = 5; Robot.drivetrain.turning.setOn(true); }
 			break; 
