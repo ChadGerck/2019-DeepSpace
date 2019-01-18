@@ -67,6 +67,30 @@ public class DriveTrain extends Subsystem {
 		moduleSE.setSteeringDeg(SE);
 		moduleSW.setSteeringDeg(SW);
 	}
+
+	//angle magnitude
+	public void setNWWheel(double deg, double speed) {
+		moduleNW.setDrive(speed);
+		moduleNW.setSteeringDeg(deg);
+	}
+
+	
+	public void setNEWheel(double deg, double speed) {
+		moduleNE.setDrive(speed);
+		moduleNE.setSteeringDeg(deg);
+	}
+
+	
+	public void setSWWheel(double deg, double speed) {
+		moduleSW.setDrive(speed);
+		moduleSW.setSteeringDeg(deg);
+	}
+
+	
+	public void setSEWheel(double deg, double speed) {
+		moduleSE.setDrive(speed);
+		moduleSE.setSteeringDeg(deg);
+	}
 	
 	public double getSteeringSetpoint() { return moduleNW.getSteeringSetpoint(); }
 	

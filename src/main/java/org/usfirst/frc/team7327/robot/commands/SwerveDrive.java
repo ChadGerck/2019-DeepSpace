@@ -45,6 +45,7 @@ public class SwerveDrive extends Command {
 		
 		if(magnitudeR > .5) setDegree = 360-degreesR;
 		
+		System.out.println(setting); 
 		
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
 		
@@ -52,12 +53,13 @@ public class SwerveDrive extends Command {
 		if(Robot.oi.getLeftBumper(Player1)) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 		if(Robot.oi.getRightBumper(Player1)){ setting = 1; Robot.drivetrain.turning.setOn(false); }
 		if(Robot.oi.getBButton(Player1))    { setting = 4; Robot.drivetrain.turning.setOn(false); }
+		if(Robot.oi.getYButton(Player1))    { setting = 7; Robot.drivetrain.turning.setOn(false); }
 		
 		if(Robot.oi.Dpad(Player1) >= 0 )    { setting = 2; Robot.drivetrain.turning.setOn(true);  }
 		
 		
 		switch(setting) {
-		case 0: //Power Mode
+		case 7: //Power Mode
 			Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
 			Robot.drivetrain.setAllSpeed(Robot.oi.getLeftStickY(Player1)-Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1));
 			break;
@@ -68,7 +70,7 @@ public class SwerveDrive extends Command {
 		case 2: //D-Pad in Use
 			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
 			Robot.drivetrain.turning.setYaw(Robot.oi.Dpad(Player1));
-			if(Robot.oi.Dpad(Player1) == -1) { setting = 0; Robot.drivetrain.turning.setOn(false); }
+			//if(Robot.oi.Dpad(Player1) == -1) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 			break; 
 		case 4: //Precision Mode 
 			Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
@@ -80,9 +82,64 @@ public class SwerveDrive extends Command {
 			Robot.drivetrain.turning.setYaw(degreesL);
 			if(magnitudeL <= .5) { setting = 4; Robot.drivetrain.turning.setOn(false); }
 			break; 
+		case 0:
+			driveRadially(Robot.oi.getLeftStickX(Player1), Robot.oi.getLeftStickY(Player1), -Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1)+Robot.oi.getRightStickY(Player1));
+			System.out.println("hey"); 
+			break; 
+
 		}
 		
 	}
+
+	
+	private double width = 1.0;
+	private double length = 1.0;
+
+	public void driveRadially(double centerX, double centerY, double velocity) {
+		double NWAngle, SWAngle, NEAngle, SEAngle = 0.0;
+		if (velocity > 0) {
+			NWAngle = Math.toDegrees(Math.atan2(length/2.0 - centerY, -width/2.0 - centerX)) - 90.0;
+			SWAngle = Math.toDegrees(Math.atan2(-length/2.0-centerY, -width/2.0-centerX)) - 90.0;
+			NEAngle = Math.toDegrees(Math.atan2(length/2.0-centerY, width/2.0-centerX)) - 90.0;
+			SEAngle = Math.toDegrees(Math.atan2(-length/2.0-centerY, width/2.0-centerX)) - 90.0;
+		} else {
+			NWAngle = Math.toDegrees(Math.atan2(length/2.0 - centerY, -width/2.0 - centerX)) + 90.0;
+			SWAngle = Math.toDegrees(Math.atan2(-length/2.0-centerY, -width/2.0-centerX)) + 90.0;
+			NEAngle = Math.toDegrees(Math.atan2(length/2.0-centerY, width/2.0-centerX)) + 90.0;
+			SEAngle = Math.toDegrees(Math.atan2(-length/2.0-centerY, width/2.0-centerX)) + 90.0;
+		}
+		if (NWAngle > 180) NWAngle -= 360;
+		if (SWAngle > 180) SWAngle -= 360;
+		if (NEAngle > 180) NEAngle -= 360;
+		if (SEAngle > 180) SEAngle -= 360;
+		
+		if (NWAngle < -180) NWAngle += 360;
+		if (SWAngle < -180) SWAngle += 360;
+		if (NEAngle < -180) NEAngle += 360;
+		if (SEAngle < -180) SEAngle += 360;
+		
+		double NWMag, SWMag, NEMag, SEMag, MaxMag = 0.0;
+		NEMag = Math.sqrt(Math.pow(length/2.0-centerY, 2) + Math.pow(width/2.0-centerX, 2));
+		MaxMag = NEMag;
+		NWMag = Math.sqrt(Math.pow(length/2.0-centerY,2) + Math.pow(-width/2.0-centerX, 2));
+		if (NWMag > MaxMag) MaxMag = NWMag;
+		SEMag = Math.sqrt(Math.pow(-length/2.0-centerY, 2) + Math.pow(width/2.0-centerX, 2));
+		if (SEMag > MaxMag) MaxMag = SEMag;
+		SWMag = Math.sqrt(Math.pow(-length/2.0-centerY, 2) + Math.pow(-width/2.0-centerX,2));
+		if (SWMag > MaxMag) MaxMag = SWMag;
+
+		NEMag = NEMag / MaxMag * Math.abs(velocity);
+		NWMag = NWMag / MaxMag * Math.abs(velocity);
+		SEMag = SEMag / MaxMag * Math.abs(velocity);
+		SWMag = SWMag / MaxMag * Math.abs(velocity);
+
+		Robot.drivetrain.setNWWheel(NWAngle, NWMag);
+		Robot.drivetrain.setNEWheel(NEAngle, NWMag);
+		Robot.drivetrain.setSWWheel(SWAngle, NWMag);
+		Robot.drivetrain.setSEWheel(SEAngle, NWMag);
+		
+	}
+
 	
 	protected boolean isFinished() {
 
