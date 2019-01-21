@@ -57,10 +57,11 @@ public class SwerveDrive extends Command {
 		
 		
 		switch(setting) {
-		case 0: //Power Mode
-			Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
-			Robot.drivetrain.setAllSpeed(Robot.oi.getLeftStickY(Player1)-Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1));
-			break;
+		case 0: //Precision Mode 
+		Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
+		Robot.drivetrain.setAllSpeed(-Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1));
+		if(magnitudeL > .5) { setting = 5; Robot.drivetrain.turning.setOn(true); }
+		break; 
 		case 1: //Turn Mode
 			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
 			Robot.drivetrain.setAllSpeed(Robot.oi.getLeftStickX(Player1)+Robot.oi.getRightTrigger(Player1)-Robot.oi.getLeftTrigger(Player1));
@@ -70,11 +71,10 @@ public class SwerveDrive extends Command {
 			Robot.drivetrain.turning.setYaw(Robot.oi.Dpad(Player1));
 			if(Robot.oi.Dpad(Player1) == -1) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 			break; 
-		case 4: //Precision Mode 
-			Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
-			Robot.drivetrain.setAllSpeed(-Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1));
-			if(magnitudeL > .5) { setting = 5; Robot.drivetrain.turning.setOn(true); }
-			break; 
+		case 4: //Power Mode
+		Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
+		Robot.drivetrain.setAllSpeed(Robot.oi.getLeftStickY(Player1)-Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1));
+		break;
 		case 5: 
 			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
 			Robot.drivetrain.turning.setYaw(degreesL);
