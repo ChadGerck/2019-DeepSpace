@@ -29,7 +29,7 @@ public class SwerveDrive extends Command {
 		double degreesR = Math.toDegrees(Math.atan2(Robot.oi.getRightStickY(Player1),  Robot.oi.getRightStickX(Player1))) + 90;
 		double magnitudeR = Math.sqrt(Math.pow(Robot.oi.getRightStickX(Player1), 2) + Math.pow(Robot.oi.getRightStickY(Player1), 2));
 		
-		if(magnitudeR > .5) setDegree = 360-degreesR;
+		if(magnitudeL > .5) setDegree = 360-degreesL;
 		
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
 		
@@ -37,12 +37,12 @@ public class SwerveDrive extends Command {
 		case 0: //Precision Mode 
 			Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
 			Robot.drivetrain.setAllSpeed(-Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1));
-			if(magnitudeL > .5) { setting = 1; Robot.drivetrain.turning.setOn(true); }
+			if(magnitudeR > .5) { setting = 1; Robot.drivetrain.turning.setOn(true); }
 			break; 
 		case 1: 
 			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
-			Robot.drivetrain.turning.setYaw(degreesL);
-			if(magnitudeL <= .5) { setting = 0; Robot.drivetrain.turning.setOn(false); }
+			Robot.drivetrain.turning.setYaw(degreesR);
+			if(magnitudeR <= .5) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 			break; 
 		}
 		
