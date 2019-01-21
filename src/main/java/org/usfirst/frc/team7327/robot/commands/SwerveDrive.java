@@ -16,18 +16,18 @@ public class SwerveDrive extends Command {
 	protected void initialize() { 
 		setting = 0; 
 	}
-	double setDegree = 0;
-	
-	
+
+	double degreesL, magnitudeL, degreesR, magnitudeR, setDegree =  0; 
+
 	protected void execute(){
 		
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
 		
-		double degreesL = Math.toDegrees(Math.atan2(Robot.oi.getLeftStickY(Player1),  Robot.oi.getLeftStickX(Player1))) + 90;
-		double magnitudeL = Math.sqrt(Math.pow(Robot.oi.getLeftStickX(Player1), 2) + Math.pow(Robot.oi.getLeftStickY(Player1), 2));
+		degreesL = Math.toDegrees(Math.atan2(Robot.oi.getLeftStickY(Player1),  Robot.oi.getLeftStickX(Player1))) + 90;
+		magnitudeL = Math.sqrt(Math.pow(Robot.oi.getLeftStickX(Player1), 2) + Math.pow(Robot.oi.getLeftStickY(Player1), 2));
 
-		double degreesR = Math.toDegrees(Math.atan2(Robot.oi.getRightStickY(Player1),  Robot.oi.getRightStickX(Player1))) + 90;
-		double magnitudeR = Math.sqrt(Math.pow(Robot.oi.getRightStickX(Player1), 2) + Math.pow(Robot.oi.getRightStickY(Player1), 2));
+		degreesR = Math.toDegrees(Math.atan2(Robot.oi.getRightStickY(Player1),  Robot.oi.getRightStickX(Player1))) + 90;
+		magnitudeR = Math.sqrt(Math.pow(Robot.oi.getRightStickX(Player1), 2) + Math.pow(Robot.oi.getRightStickY(Player1), 2));
 		
 		if(magnitudeL > .5) setDegree = 360-degreesL;
 		
@@ -45,7 +45,6 @@ public class SwerveDrive extends Command {
 			if(magnitudeR <= .5) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 			break; 
 		}
-		
 	}
 	
 	protected boolean isFinished() {
