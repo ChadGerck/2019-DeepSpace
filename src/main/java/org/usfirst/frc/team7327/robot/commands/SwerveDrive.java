@@ -35,8 +35,7 @@ public class SwerveDrive extends Command {
 		
 		switch(setting) {
 		case 0: //Precision Mode 
-			Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
-			Robot.drivetrain.setAllSpeed(-Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1));
+			Robot.drivetrain.setEverything(setDegree+Robot.NavAngle(), -Robot.oi.getRightTrigger(Player1)+Robot.oi.getLeftTrigger(Player1)); 
 			if(magnitudeR > .5) { setting = 1; Robot.drivetrain.turning.setOn(true); }
 			break; 
 		case 1: 

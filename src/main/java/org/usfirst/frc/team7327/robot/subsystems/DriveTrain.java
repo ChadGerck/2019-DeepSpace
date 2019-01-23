@@ -1,5 +1,6 @@
 package org.usfirst.frc.team7327.robot.subsystems;
 
+import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.SwerveModule;
 import org.usfirst.frc.team7327.robot.TurnModule;
 import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
@@ -55,10 +56,50 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setAllDegrees(double deg) {
+
+
 		moduleNW.setSteeringDeg(deg);
 		moduleNE.setSteeringDeg(deg);
 		moduleSW.setSteeringDeg(deg);
 		moduleSE.setSteeringDeg(deg);
+	}
+
+	public void setEverything(double deg, double speed){
+		double degNW = deg; 
+		double speedNW = speed; 
+		if (Math.abs(degNW - moduleNW.getSteeringEncoder() ) > 90 && Math.abs(degNW - moduleNW.getSteeringEncoder()) < 270) {
+			degNW = ((int)degNW + 180) % 360;
+			speedNW = -speedNW;
+		}
+		moduleNW.setDrive(speedNW);
+		moduleNW.setSteeringDeg(degNW);
+
+		double degNE = deg; 
+		double speedNE = speed; 
+		if (Math.abs(degNE - moduleNE.getSteeringEncoder() ) > 90 && Math.abs(degNE - moduleNE.getSteeringEncoder()) < 270) {
+			degNE = ((int)degNE + 180) % 360;
+			speedNE = -speedNE;
+		}
+		moduleNE.setDrive(speedNE);
+		moduleNE.setSteeringDeg(degNE);
+
+		double degSW = deg; 
+		double speedSW = speed; 
+		if (Math.abs(degSW - moduleSW.getSteeringEncoder() ) > 90 && Math.abs(degSW - moduleSW.getSteeringEncoder()) < 270) {
+			degSW = ((int)degSW + 180) % 360;
+			speedSW = -speedSW;
+		}
+		moduleSW.setDrive(speedSW);
+		moduleSW.setSteeringDeg(degSW);
+
+		double degSE = deg; 
+		double speedSE = speed; 
+		if (Math.abs(degSE - moduleSE.getSteeringEncoder() ) > 90 && Math.abs(degSE - moduleSE.getSteeringEncoder()) < 270) {
+			degSE = ((int)degSE + 180) % 360;
+			speedSE = -speedSE;
+		}
+		moduleSE.setDrive(speedSE);
+		moduleSE.setSteeringDeg(degSE);
 	}
 	
 	public void setEachDegree(double NE, double NW, double SE, double SW ) {
