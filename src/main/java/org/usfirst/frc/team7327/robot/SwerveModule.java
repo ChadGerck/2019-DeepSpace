@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Notifier;
-//import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class SwerveModule{
