@@ -65,41 +65,18 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setEverything(double deg, double speed){
-		double degNW = deg; 
-		double speedNW = speed; 
-		if (Math.abs(degNW - moduleNW.getSteeringEncoder() ) > 90 && Math.abs(degNW - moduleNW.getSteeringEncoder()) < 270) {
-			degNW = ((int)degNW + 180) % 360;
-			speedNW = -speedNW;
+		if (Math.abs(deg - moduleNW.getSteeringEncoder() ) > 90 && Math.abs(deg - moduleNW.getSteeringEncoder()) < 270) {
+			deg = ((int)deg + 180) % 360;
+			speed = -speed;
 		}
-		moduleNW.setDrive(speedNW);
-		moduleNW.setSteeringDeg(degNW);
-
-		double degNE = deg; 
-		double speedNE = speed; 
-		if (Math.abs(degNE - moduleNE.getSteeringEncoder() ) > 90 && Math.abs(degNE - moduleNE.getSteeringEncoder()) < 270) {
-			degNE = ((int)degNE + 180) % 360;
-			speedNE = -speedNE;
-		}
-		moduleNE.setDrive(speedNE);
-		moduleNE.setSteeringDeg(degNE);
-
-		double degSW = deg; 
-		double speedSW = speed; 
-		if (Math.abs(degSW - moduleSW.getSteeringEncoder() ) > 90 && Math.abs(degSW - moduleSW.getSteeringEncoder()) < 270) {
-			degSW = ((int)degSW + 180) % 360;
-			speedSW = -speedSW;
-		}
-		moduleSW.setDrive(speedSW);
-		moduleSW.setSteeringDeg(degSW);
-
-		double degSE = deg; 
-		double speedSE = speed; 
-		if (Math.abs(degSE - moduleSE.getSteeringEncoder() ) > 90 && Math.abs(degSE - moduleSE.getSteeringEncoder()) < 270) {
-			degSE = ((int)degSE + 180) % 360;
-			speedSE = -speedSE;
-		}
-		moduleSE.setDrive(speedSE);
-		moduleSE.setSteeringDeg(degSE);
+		moduleNW.setDrive(speed);
+		moduleNW.setSteeringDeg(deg);
+		moduleNE.setDrive(speed);
+		moduleNE.setSteeringDeg(deg);
+		moduleSW.setDrive(speed);
+		moduleSW.setSteeringDeg(deg);
+		moduleSE.setDrive(speed);
+		moduleSE.setSteeringDeg(deg);
 	}
 	
 	public void setEachDegree(double NE, double NW, double SE, double SW ) {
