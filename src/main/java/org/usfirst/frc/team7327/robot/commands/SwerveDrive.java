@@ -6,6 +6,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 public class SwerveDrive extends Command {
 	public SwerveDrive() {
 		requires(Robot.drivetrain); 
@@ -21,6 +25,31 @@ public class SwerveDrive extends Command {
 
 	protected void execute(){
 		
+		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+		NetworkTableEntry tx = table.getEntry("tx");
+		NetworkTableEntry ty = table.getEntry("ty");
+		NetworkTableEntry ta = table.getEntry("ta");
+
+		//read values periodically
+		double x = tx.getDouble(0.0);	
+		double y = ty.getDouble(0.0);
+		double area = ta.getDouble(0.0);
+
+		//post to smart dashboard periodically
+		SmartDashboard.putNumber("LimelightX", x);
+		SmartDashboard.putNumber("LimelightY", y);
+		SmartDashboard.putNumber("LimelightArea", area);
+	
+		float Kp = -0.1f;
+		float min_command = 0.05f;
+
+
+		if (Robot.oi.getYButton(Player1))
+		{
+			setting = 2; 
+		}
+
+
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
 		
 		degreesL = Math.toDegrees(Math.atan2(Robot.oi.getLeftStickY(Player1),  Robot.oi.getLeftStickX(Player1))) + 90;
@@ -44,6 +73,19 @@ public class SwerveDrive extends Command {
 			Robot.drivetrain.turning.setYaw(degreesR);
 			if(magnitudeR <= .5) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 			break; 
+		case 2: 
+			double heading_error = -x;
+			double steering_adjust = 0.0;
+			if (x > 1.0)
+			{
+				steering_adjust = Kp*heading_error - min_command;
+			}
+			else if (x < 1.0)
+			{
+				steering_adjust = Kp*heading_error + min_command;
+			}
+			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
+			Robot.drivetrain.setAllSpeed(steering_adjust);
 		}
 	}
 	
