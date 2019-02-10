@@ -22,6 +22,7 @@ public class SwerveDrive extends Command {
 	}
 
 	double degreesL, magnitudeL, degreesR, magnitudeR, setDegree =  0; 
+	double throttle = .1; 
 
 	protected void execute(){
 		
@@ -52,6 +53,8 @@ public class SwerveDrive extends Command {
 		if(magnitudeL > .5) setDegree = 360-degreesL;
 		
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
+
+		Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player1) - Robot.oi.getRightTrigger(Player1)));
 		
 		switch(setting) {
 		case 0: //Precision Mode 

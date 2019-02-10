@@ -4,6 +4,9 @@ import org.usfirst.frc.team7327.robot.SwerveModule;
 import org.usfirst.frc.team7327.robot.TurnModule;
 import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX; 
+
 
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -13,6 +16,9 @@ import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 public class DriveTrain extends Subsystem {
 	
 	private SwerveModule moduleNE, moduleNW, moduleSE, moduleSW;
+
+	private TalonSRX LiftTalon; 
+
 	
 	public TurnModule turning; 
 	
@@ -37,6 +43,8 @@ public class DriveTrain extends Subsystem {
 		moduleSW = new SwerveModule(5, 4, abeSW, kP, kI, kD,false);
 
 		turning = new TurnModule(tkP, tkI, tkD);
+
+		LiftTalon = new TalonSRX(8); 
 	}
 	
 	public void setAllSpeed(double speed) {
@@ -66,6 +74,10 @@ public class DriveTrain extends Subsystem {
 		moduleNW.setSteeringDeg(NW);
 		moduleSE.setSteeringDeg(SE);
 		moduleSW.setSteeringDeg(SW);
+	}
+
+	public void setRawElevator(double speed){
+		LiftTalon.set(ControlMode.PercentOutput, speed);
 	}
 	
 	public double getSteeringSetpoint() { return moduleNW.getSteeringSetpoint(); }
