@@ -11,6 +11,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 
@@ -21,10 +22,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.I2C; 
 
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+//import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.motorcontrol.can.*;
+//import com.ctre.phoenix.motorcontrol.can.*;
 
 public class Robot extends TimedRobot { 
 	public static OI oi;
@@ -34,10 +35,13 @@ public class Robot extends TimedRobot {
 	public static AHRS nav;  
 
 	
+	
 	public static double NWdegree, NEdegree, SWdegree, SEdegree = 0;
 	
 	public static Timer myTimer = new Timer();
 	public static boolean done = true; 
+	
+	PlotThread _plotThread;
 	
 	@Override
 	public void robotInit() {
@@ -46,8 +50,6 @@ public class Robot extends TimedRobot {
 
 		nav = new AHRS(I2C.Port.kMXP);
 		
-		drivetrain.LiftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
-		drivetrain.LiftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 				
 		oi = new OI();
 		drivetrain = new DriveTrain();
@@ -79,6 +81,15 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 		nav.reset();
+
+		
+		drivetrain.LiftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
+		drivetrain.LiftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+
+		
+		/* Fire the plotter */
+		_plotThread = new PlotThread(this);
+		new Thread(_plotThread).start();
 		
 	}
 	
@@ -127,7 +138,7 @@ public class Robot extends TimedRobot {
 				}
 
 				/* Grab the latest signal update from our 1ms frame update */
-				double velocity = this.robot.drivetrain.LiftTalon.getSelectedSensorVelocity(0);
+				double velocity = drivetrain.LiftTalon.getSelectedSensorVelocity(0);
 				SmartDashboard.putNumber("vel", velocity);
 			}
 		}
