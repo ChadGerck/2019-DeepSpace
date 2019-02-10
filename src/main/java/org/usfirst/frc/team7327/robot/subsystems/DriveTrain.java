@@ -17,7 +17,7 @@ public class DriveTrain extends Subsystem {
 	
 	private SwerveModule moduleNE, moduleNW, moduleSE, moduleSW;
 
-	private TalonSRX LiftTalon; 
+	public static TalonSRX LiftTalon; 
 
 	
 	public TurnModule turning; 
