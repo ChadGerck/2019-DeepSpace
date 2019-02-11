@@ -51,6 +51,11 @@ public class SwerveDrive extends Command {
 		SmartDashboard.putNumber("LimelightArea", area);
 
 
+		SmartDashboard.putNumber("NWab", Robot.drivetrain.abeNW.get()); 
+		SmartDashboard.putNumber("NEab", Robot.drivetrain.abeNE.get()); 
+		SmartDashboard.putNumber("SWab", Robot.drivetrain.abeSW.get()); 
+		SmartDashboard.putNumber("SEab", Robot.drivetrain.abeSE.get()); 
+
 		if(magnitudeL > .5) setDegree = 360-degreesL;
 		
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
@@ -67,6 +72,8 @@ public class SwerveDrive extends Command {
 			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
 			Robot.drivetrain.turning.setYaw(degreesR);
 			if(magnitudeR <= .5) { setting = 0; Robot.drivetrain.turning.setOn(false); }
+			break; 
+		case 2: 
 			break; 
 		}
 	}

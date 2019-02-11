@@ -30,17 +30,19 @@ public class DriveTrain extends Subsystem {
 	static final double tkI = .000001;
 	static final double tkD = .04; //.04 cement , .05 carpet
 	
+	//larger negative degree rotates counter-clockwise
 	
-	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -165.7); 
-	public static Potentiometer abeNE = new AnalogPotentiometer(1, 360, -63.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(2, 360, -11.3); 
-	public static Potentiometer abeSE = new AnalogPotentiometer(3, 360, -279.7); 
+	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
+	public static Potentiometer abeNE = new AnalogPotentiometer(1, 360, -197.85);
+	public static Potentiometer abeSW = new AnalogPotentiometer(2, 360, -279.3); 
+	public static Potentiometer abeSE = new AnalogPotentiometer(3, 360, -9.7); 
 	
 	public DriveTrain() {
-		moduleNE = new SwerveModule(3, 2, abeNE, kP, kI, kD,true);
+		
 		moduleNW = new SwerveModule(1, 0, abeNW, kP, kI, kD,false);
-		moduleSE = new SwerveModule(7, 6, abeSE, kP, kI, kD,true);
+		moduleNE = new SwerveModule(3, 2, abeNE, kP, kI, kD,true);
 		moduleSW = new SwerveModule(5, 4, abeSW, kP, kI, kD,false);
+		moduleSE = new SwerveModule(7, 6, abeSE, kP, kI, kD,true);
 
 		turning = new TurnModule(tkP, tkI, tkD);
 

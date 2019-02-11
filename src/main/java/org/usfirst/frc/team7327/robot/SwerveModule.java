@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class SwerveModule{
-    private TalonSRX mDrive;
+    private TalonSRX mDrive; 
     private VictorSPX mSteer;
     private Notifier SteeringPID;
     private double error, sumError, diffError, lastError;
