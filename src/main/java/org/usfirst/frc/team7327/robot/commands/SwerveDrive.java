@@ -36,8 +36,25 @@ public class SwerveDrive extends Command {
 		double x = tx.getDouble(0.0);	
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
+		/*
+		if(area < 0 && area < 75) {
+			if(x < 0) {
+				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
+				Robot.drivetrain.turning.setYaw(degreesL);
+			} else if(x > 0) {
+				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
+				Robot.drivetrain.turning.setYaw(degreesR);
+			} else {
+				Robot.drivetrain.setAllDegrees(0);
+				Robot.drivetrain.setAllSpeed(0.5);
+			}
+		}
 		
-		
+
+		if(area > 75) {
+			Robot.drivetrain.setAllSpeed(0);
+		}
+		*/
 
 		//post to smart dashboard periodically
 		SmartDashboard.putNumber("LimelightX", x);
@@ -49,7 +66,7 @@ public class SwerveDrive extends Command {
 
 
 		if (Robot.oi.getYButton(Player1)) { setting = 2; }
-		if (Robot.oi.getXButton(Player1)) { setting = 3; }
+
 
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
 		
@@ -90,22 +107,6 @@ public class SwerveDrive extends Command {
 			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
 			Robot.drivetrain.setAllSpeed(steering_adjust);
 			break; 
-		case 3:			
-			if(area < 0 && area < 75) {
-			if(x < 0) {
-				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
-				Robot.drivetrain.turning.setYaw(degreesL);
-			} else if(x > 0) {
-				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
-				Robot.drivetrain.turning.setYaw(degreesR);
-			} else {
-				Robot.drivetrain.setAllDegrees(0);
-				Robot.drivetrain.setAllSpeed(0.5);
-			}
-		}
-		if(area > 75) {
-			Robot.drivetrain.setAllSpeed(0);
-			}
 		}
 	}
 	
