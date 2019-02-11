@@ -140,6 +140,8 @@ public class Robot extends TimedRobot {
 				/* Grab the latest signal update from our 1ms frame update */
 				double velocity = drivetrain.LiftTalon.getSelectedSensorVelocity(0);
 				SmartDashboard.putNumber("vel", velocity);
+				double position = drivetrain.LiftTalon.getSelectedSensorPosition(0);
+				SmartDashboard.putNumber("Position: ", position); 
 			}
 		}
 	}
