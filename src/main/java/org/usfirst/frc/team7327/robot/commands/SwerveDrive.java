@@ -49,11 +49,12 @@ public class SwerveDrive extends Command {
 				Robot.drivetrain.setAllSpeed(0.5);
 			}
 		}
-		*/
+		
 
 		if(area > 75) {
 			Robot.drivetrain.setAllSpeed(0);
 		}
+		*/
 
 		//post to smart dashboard periodically
 		SmartDashboard.putNumber("LimelightX", x);
@@ -74,29 +75,6 @@ public class SwerveDrive extends Command {
 
 		degreesR = Math.toDegrees(Math.atan2(Robot.oi.getRightStickY(Player1),  Robot.oi.getRightStickX(Player1))) + 90;
 		magnitudeR = Math.sqrt(Math.pow(Robot.oi.getRightStickX(Player1), 2) + Math.pow(Robot.oi.getRightStickY(Player1), 2));
-		
-		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-		NetworkTableEntry tx = table.getEntry("tx");
-		NetworkTableEntry ty = table.getEntry("ty");
-		NetworkTableEntry ta = table.getEntry("ta");
-
-		//read values periodically
-		double x = tx.getDouble(0.0);
-		double y = ty.getDouble(0.0);
-		double area = ta.getDouble(0.0);
-
-		//post to smart dashboard periodically
-		SmartDashboard.putNumber("LimelightX", x);
-		SmartDashboard.putNumber("LimelightY", y);
-		SmartDashboard.putNumber("LimelightArea", area);
-
-
-		SmartDashboard.putNumber("NWab", Robot.drivetrain.getAbeNW()); 
-		SmartDashboard.putNumber("NEab", Robot.drivetrain.getAbeNE()); 
-		SmartDashboard.putNumber("SWab", Robot.drivetrain.getAbeSW()); 
-		SmartDashboard.putNumber("SEab", Robot.drivetrain.getAbeSE()); 
-
-		SmartDashboard.putNumber("test", Robot.drivetrain.getAbeNW()); 
 
 		if(magnitudeL > .5) setDegree = 360-degreesL;
 		
