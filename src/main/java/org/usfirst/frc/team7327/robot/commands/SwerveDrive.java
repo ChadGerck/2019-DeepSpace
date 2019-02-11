@@ -1,6 +1,7 @@
 package org.usfirst.frc.team7327.robot.commands;
 
 import org.usfirst.frc.team7327.robot.Robot;
+import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
@@ -38,7 +39,7 @@ public class SwerveDrive extends Command {
 		double area = ta.getDouble(0.0);
 		
 		
-		SmartDashboard.putNumber("abeNW", drivetrain.getAbeNW());
+		SmartDashboard.putNumber("abeNW", robot.drivetrain
 		SmartDashboard.putNumber("abeNE", abeNE);
 		SmartDashboard.putNumber("abeSW", abeSW);
 		SmartDashboard.putNumber("abeSE", abeSE);
