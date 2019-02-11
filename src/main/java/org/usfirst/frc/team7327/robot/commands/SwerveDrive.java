@@ -34,7 +34,7 @@ public class SwerveDrive extends Command {
 		double x = tx.getDouble(0.0);	
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
-
+		/*
 		if(area < 0 && area < 75) {
 			if(x < 0) {
 				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
@@ -47,6 +47,7 @@ public class SwerveDrive extends Command {
 				Robot.drivetrain.setAllSpeed(0.5);
 			}
 		}
+		*/
 
 		if(area > 75) {
 			Robot.drivetrain.setAllSpeed(0);
