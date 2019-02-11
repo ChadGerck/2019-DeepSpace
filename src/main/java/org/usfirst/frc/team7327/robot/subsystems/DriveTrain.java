@@ -45,6 +45,15 @@ public class DriveTrain extends Subsystem {
 		moduleSW = new SwerveModule(5, 4, abeSW, kP, kI, kD,false);
 		moduleSE = new SwerveModule(7, 6, abeSE, kP, kI, kD,true);
 
+
+		
+		getAbeNW();
+		getAbeNE(); 
+		getAbeSW(); 
+		getAbeSE();
+
+
+
 		turning = new TurnModule(tkP, tkI, tkD);
 
 		LiftTalon = new TalonSRX(8); 

@@ -38,6 +38,10 @@ public class SwerveDrive extends Command {
 		double area = ta.getDouble(0.0);
 		
 		
+		SmartDashboard.putNumber("abeNW", drivetrain.getAbeNW());
+		SmartDashboard.putNumber("abeNE", abeNE);
+		SmartDashboard.putNumber("abeSW", abeSW);
+		SmartDashboard.putNumber("abeSE", abeSE);
 
 		//post to smart dashboard periodically
 		SmartDashboard.putNumber("LimelightX", x);
@@ -64,7 +68,7 @@ public class SwerveDrive extends Command {
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
 
 		Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player2) - Robot.oi.getRightTrigger(Player2)));
-		
+		/*
 		switch(setting) {
 		case 0: //Precision Mode 
 			Robot.drivetrain.setAllDegrees(setDegree+Robot.NavAngle());
@@ -108,6 +112,7 @@ public class SwerveDrive extends Command {
 			}
 		}
 	}
+	*/
 	
 	protected boolean isFinished() {
 
