@@ -23,7 +23,7 @@ public class SwerveDrive extends Command {
 	}
 
 	double degreesL, magnitudeL, degreesR, magnitudeR, setDegree =  0; 
-	double throttle = .1; 
+	double throttle = .75; 
 
 	protected void execute(){
 		
