@@ -22,11 +22,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.I2C; 
 
 
-//import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-//import com.ctre.phoenix.motorcontrol.can.*;
-
 public class Robot extends TimedRobot { 
 	public static OI oi;
 	public static DriveTrain drivetrain;
@@ -82,10 +77,8 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		nav.reset();
 
-		
-		drivetrain.LiftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
-		drivetrain.LiftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-
+		drivetrain.setTalonStatus();
+		drivetrain.configFeedbackSensor();
 		
 		/* Fire the plotter */
 		_plotThread = new PlotThread(this);
@@ -138,10 +131,8 @@ public class Robot extends TimedRobot {
 				}
 
 				/* Grab the latest signal update from our 1ms frame update */
-				double velocity = drivetrain.LiftTalon.getSelectedSensorVelocity(0);
-				SmartDashboard.putNumber("vel", velocity);
-				double position = drivetrain.LiftTalon.getSelectedSensorPosition(0);
-				SmartDashboard.putNumber("Position: ", position); 
+				SmartDashboard.putNumber("vel", drivetrain.getLiftVelocity());
+				SmartDashboard.putNumber("Position: ", drivetrain.getLiftPosition()); 
 			}
 		}
 	}

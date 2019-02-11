@@ -7,7 +7,8 @@ import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX; 
 
-
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -48,6 +49,11 @@ public class DriveTrain extends Subsystem {
 
 		LiftTalon = new TalonSRX(8); 
 	}
+
+	public double getAbeNW(){ return abeNW.get(); }
+	public double getAbeNE(){ return abeNE.get(); }
+	public double getAbeSW(){ return abeSW.get(); }
+	public double getAbeSE(){ return abeSE.get(); }
 	
 	public void setAllSpeed(double speed) {
 		moduleNW.setDrive(speed);
@@ -87,6 +93,13 @@ public class DriveTrain extends Subsystem {
 	public double getSteeringError() { return moduleNW.getError(); }
 	
 	public double getSteeringPosition() { return moduleNW.getSteeringEncoder(); }
+
+	public void setTalonStatus()       { LiftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);       }
+	public void configFeedbackSensor() { LiftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); }
+
+	public double getLiftVelocity() { return LiftTalon.getSelectedSensorVelocity(0); }
+	public double getLiftPosition() { return LiftTalon.getSelectedSensorPosition(0); }
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new SwerveDrive());
