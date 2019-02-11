@@ -44,10 +44,7 @@ public class SwerveDrive extends Command {
 		float min_command = 0.05f;
 
 
-		if (Robot.oi.getYButton(Player1))
-		{
-			setting = 2; 
-		}
+		if (Robot.oi.getYButton(Player1)) { setting = 2; }
 
 
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
