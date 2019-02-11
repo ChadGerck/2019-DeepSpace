@@ -39,10 +39,10 @@ public class SwerveDrive extends Command {
 		double area = ta.getDouble(0.0);
 		
 		
-		SmartDashboard.putNumber("abeNW", robot.drivetrain
-		SmartDashboard.putNumber("abeNE", abeNE);
-		SmartDashboard.putNumber("abeSW", abeSW);
-		SmartDashboard.putNumber("abeSE", abeSE);
+		SmartDashboard.putNumber("abeNW", Robot.drivetrain.getAbeNW()); 
+		SmartDashboard.putNumber("abeNE", Robot.drivetrain.getAbeNE());
+		SmartDashboard.putNumber("abeSW", Robot.drivetrain.getAbeSW());
+		SmartDashboard.putNumber("abeSE", Robot.drivetrain.getAbeSE());
 
 		//post to smart dashboard periodically
 		SmartDashboard.putNumber("LimelightX", x);
@@ -112,8 +112,9 @@ public class SwerveDrive extends Command {
 			Robot.drivetrain.setAllSpeed(0);
 			}
 		}
+		*/
 	}
-	*/
+	
 	
 	protected boolean isFinished() {
 
