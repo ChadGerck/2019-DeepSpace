@@ -84,8 +84,15 @@ public class Robot extends TimedRobot {
 		_plotThread = new PlotThread(this);
 		new Thread(_plotThread).start();
 		
+	} 
+
+	/* Sarah Code
+	public static final boolean Track = true; 
+	if(Track) {Robot.drivetrain.setEachDegree(225, 315, 135, 45);
+		Robot.drivetrain.turning.setYaw(degreesR);
+		if(magnitudeR <= .5) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 	}
-	
+	*/
 
 	@Override
 	public void teleopPeriodic() {

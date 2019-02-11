@@ -28,15 +28,17 @@ public class SwerveDrive extends Command {
 	protected void execute(){
 		
 		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+		NetworkTableEntry tv = table.getEntry("tv");
 		NetworkTableEntry tx = table.getEntry("tx");
 		NetworkTableEntry ty = table.getEntry("ty");
 		NetworkTableEntry ta = table.getEntry("ta");
 
 		//read values periodically
+		double v = tv.getDouble(0.0); 
 		double x = tx.getDouble(0.0);	
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
-		/*
+		/*  Christian code
 		if(area < 0 && area < 75) {
 			if(x < 0) {
 				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
@@ -61,11 +63,13 @@ public class SwerveDrive extends Command {
 		SmartDashboard.putNumber("LimelightY", y);
 		SmartDashboard.putNumber("LimelightArea", area);
 	
-		float Kp = -0.1f;
-		float min_command = 0.05f;
+		float Kp = -0.03f;
+		float min_command = 0.03f;
 
 
 		if (Robot.oi.getYButton(Player1)) { setting = 2; }
+
+		if(Robot.oi.getXButton(Player1)) { setting = 0; }
 
 
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
@@ -94,19 +98,23 @@ public class SwerveDrive extends Command {
 			if(magnitudeR <= .5) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 			break; 
 		case 2: 
-			double heading_error = -x;
-			double steering_adjust = 0.0;
-			if (x > 1.0)
-			{
-				steering_adjust = Kp*heading_error - min_command;
+			if(v == 1) {
+				Robot.drivetrain.turning.setOn(false);
+				double heading_error = -x;
+				double steering_adjust = 0.0;
+				System.out.println("Your heading error is: " + heading_error);
+				if (x > 1.0) { steering_adjust = Kp*heading_error - min_command; }
+				else if (x < 1.0) { steering_adjust = Kp*heading_error + min_command; }
+
+				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
+				Robot.drivetrain.setAllSpeed(steering_adjust);
+				break; 
 			}
-			else if (x < 1.0)
-			{
-				steering_adjust = Kp*heading_error + min_command;
+			else if( v == 0 ) {
+				Robot.drivetrain.turning.setOn(true);
+				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
+				Robot.drivetrain.turning.setYaw(degreesR);
 			}
-			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
-			Robot.drivetrain.setAllSpeed(steering_adjust);
-			break; 
 		}
 	}
 	
