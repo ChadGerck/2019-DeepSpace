@@ -17,6 +17,7 @@ public class SwerveDrive extends Command {
 
 	int setting = 0; 
 	public static XboxController Player1 = Robot.oi.Controller0; 
+	public static XboxController Player2 = Robot.oi.Controller1; 
 	protected void initialize() { 
 		setting = 0; 
 	}
@@ -54,7 +55,7 @@ public class SwerveDrive extends Command {
 		
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
 
-		Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player1) - Robot.oi.getRightTrigger(Player1)));
+		Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player2) - Robot.oi.getRightTrigger(Player2)));
 		
 		switch(setting) {
 		case 0: //Precision Mode 
