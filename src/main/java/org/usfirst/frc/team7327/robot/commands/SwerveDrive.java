@@ -17,11 +17,13 @@ public class SwerveDrive extends Command {
 
 	int setting = 0; 
 	public static XboxController Player1 = Robot.oi.Controller0; 
+	public static XboxController Player2 = Robot.oi.Controller1; 
 	protected void initialize() { 
 		setting = 0; 
 	}
 
 	double degreesL, magnitudeL, degreesR, magnitudeR, setDegree =  0; 
+	double throttle = .75; 
 
 	protected void execute(){
 		
@@ -73,9 +75,34 @@ public class SwerveDrive extends Command {
 		degreesR = Math.toDegrees(Math.atan2(Robot.oi.getRightStickY(Player1),  Robot.oi.getRightStickX(Player1))) + 90;
 		magnitudeR = Math.sqrt(Math.pow(Robot.oi.getRightStickX(Player1), 2) + Math.pow(Robot.oi.getRightStickY(Player1), 2));
 		
+		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+		NetworkTableEntry tx = table.getEntry("tx");
+		NetworkTableEntry ty = table.getEntry("ty");
+		NetworkTableEntry ta = table.getEntry("ta");
+
+		//read values periodically
+		double x = tx.getDouble(0.0);
+		double y = ty.getDouble(0.0);
+		double area = ta.getDouble(0.0);
+
+		//post to smart dashboard periodically
+		SmartDashboard.putNumber("LimelightX", x);
+		SmartDashboard.putNumber("LimelightY", y);
+		SmartDashboard.putNumber("LimelightArea", area);
+
+
+		SmartDashboard.putNumber("NWab", Robot.drivetrain.getAbeNW()); 
+		SmartDashboard.putNumber("NEab", Robot.drivetrain.getAbeNE()); 
+		SmartDashboard.putNumber("SWab", Robot.drivetrain.getAbeSW()); 
+		SmartDashboard.putNumber("SEab", Robot.drivetrain.getAbeSE()); 
+
+		SmartDashboard.putNumber("test", Robot.drivetrain.getAbeNW()); 
+
 		if(magnitudeL > .5) setDegree = 360-degreesL;
 		
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
+
+		Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player2) - Robot.oi.getRightTrigger(Player2)));
 		
 		switch(setting) {
 		case 0: //Precision Mode 
@@ -101,6 +128,7 @@ public class SwerveDrive extends Command {
 			}
 			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
 			Robot.drivetrain.setAllSpeed(steering_adjust);
+			break; 
 		}
 	}
 	
