@@ -109,6 +109,13 @@ public class Robot extends TimedRobot {
 		return angle; 
 	}
 
+	public static void gotoUp(double goTo) { while(goTo < drivetrain.getLiftPosition()) { Robot.drivetrain.setRawElevator(.5); } }
+	public static void gotoDown(double goTo) { while(goTo > drivetrain.getLiftPosition()) { Robot.drivetrain.setRawElevator(-.5); } }
+
+	
+	public static void gotoPosition(double goTo) { while(goTo > drivetrain.getLiftPosition()) { Robot.drivetrain.setRawElevator(-.5); } }
+
+
 	class PlotThread implements Runnable {
 		Robot robot;
 

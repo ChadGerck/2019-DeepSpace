@@ -1,6 +1,8 @@
 package org.usfirst.frc.team7327.robot.commands;
 
+
 import org.usfirst.frc.team7327.robot.Robot;
+import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,6 +13,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class SwerveDrive extends Command {
+
 	public SwerveDrive() {
 		requires(Robot.drivetrain); 
 	}
@@ -25,8 +28,39 @@ public class SwerveDrive extends Command {
 	double degreesL, magnitudeL, degreesR, magnitudeR, setDegree =  0; 
 	double throttle = .75; 
 
+	
+
+	int height_1 = 2;
+	int height_2 = 4;
+	int height_3 = 6; 
+	boolean flag= true;
+
 	protected void execute(){
 		
+
+		
+		if(flag) { Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player2) - Robot.oi.getRightTrigger(Player2))); }
+
+		if(Robot.oi.getAButton(Player2)) {
+			if(height_1 < Robot.drivetrain.getLiftPosition()) 
+				Robot.gotoUp(height_1);
+			else if(height_1 > Robot.drivetrain.getLiftPosition())
+				Robot.gotoDown(height_1);
+		}
+		else if(Robot.oi.getBButton(Player2)) {
+			if(height_2 < Robot.drivetrain.getLiftPosition())
+				Robot.gotoUp(height_2);
+			else if(height_2 > Robot.drivetrain.getLiftPosition())
+				Robot.gotoDown(height_2);
+		}
+		else if(Robot.oi.getYButton(Player2)) {
+			if(height_3 < Robot.drivetrain.getLiftPosition())
+				Robot.gotoUp(height_3);
+			else if(height_3 > Robot.drivetrain.getLiftPosition())
+				Robot.gotoDown(height_3);
+		}
+	 
+
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
 		
 		degreesL = Math.toDegrees(Math.atan2(Robot.oi.getLeftStickY(Player1),  Robot.oi.getLeftStickX(Player1))) + 90;
