@@ -108,12 +108,15 @@ public class Robot extends TimedRobot {
 		while(angle < 0)   angle += 360;
 		return angle; 
 	}
-
-	public static void gotoUp(double goTo) { while(goTo < drivetrain.getLiftPosition()) { Robot.drivetrain.setRawElevator(.5); } }
-	public static void gotoDown(double goTo) { while(goTo > drivetrain.getLiftPosition()) { Robot.drivetrain.setRawElevator(-.5); } }
-
 	
-	public static void gotoPosition(double goTo) { while(goTo > drivetrain.getLiftPosition()) { Robot.drivetrain.setRawElevator(-.5); } }
+	public static void gotoPosition(double goTo) { 
+		if(goTo < Robot.drivetrain.getLiftPosition()) 
+			while(goTo < drivetrain.getLiftPosition() && !SwerveDrive.kill) { Robot.drivetrain.setRawElevator(.5); }
+		else if(goTo > Robot.drivetrain.getLiftPosition()) { 
+			while(goTo > drivetrain.getLiftPosition() && !SwerveDrive.kill) { Robot.drivetrain.setRawElevator(-.5); } 
+		}
+		SwerveDrive.flag = true; 
+	}
 
 
 	class PlotThread implements Runnable {

@@ -30,10 +30,18 @@ public class SwerveDrive extends Command {
 
 	
 
-	int height_1 = 2;
-	int height_2 = 4;
-	int height_3 = 6; 
-	boolean flag= true;
+	int heightH0 = 2; 
+	int heightH1 = 2;
+	int heightH2 = 4;
+	int heightH3 = 6; 
+	
+	int heightB0 = 0; 
+	int heightB1 = 3;
+	int heightB2 = 5;
+	int heightB3 = 7; 
+	public static boolean flag= true;
+	public static boolean kill=false; 
+	boolean Dpressed = false; 
 
 	protected void execute(){
 		
@@ -41,25 +49,29 @@ public class SwerveDrive extends Command {
 		
 		if(flag) { Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player2) - Robot.oi.getRightTrigger(Player2))); }
 
-		if(Robot.oi.getAButton(Player2)) {
-			if(height_1 < Robot.drivetrain.getLiftPosition()) 
-				Robot.gotoUp(height_1);
-			else if(height_1 > Robot.drivetrain.getLiftPosition())
-				Robot.gotoDown(height_1);
+		if((Robot.oi.getBButton(Player2) || Robot.oi.getAButton(Player2) && flag)) {
+			Robot.gotoPosition(heightH1);
+			flag = false; 
 		}
-		else if(Robot.oi.getBButton(Player2)) {
-			if(height_2 < Robot.drivetrain.getLiftPosition())
-				Robot.gotoUp(height_2);
-			else if(height_2 > Robot.drivetrain.getLiftPosition())
-				Robot.gotoDown(height_2);
+		else if(Robot.oi.getYButton(Player2)&& flag) {
+			Robot.gotoPosition(heightH2);
+			flag = false; 
 		}
-		else if(Robot.oi.getYButton(Player2)) {
-			if(height_3 < Robot.drivetrain.getLiftPosition())
-				Robot.gotoUp(height_3);
-			else if(height_3 > Robot.drivetrain.getLiftPosition())
-				Robot.gotoDown(height_3);
+		else if(Robot.oi.getXButton(Player2) && flag) {
+			Robot.gotoPosition(heightH3);
+			flag = false; 
 		}
 	 
+		if(Robot.oi.Dpad(Player2) >= 0) { Dpressed = true; }else{ Dpressed = false; }
+		
+		if(((Robot.oi.Dpad(Player2) >= 0 && Robot.oi.Dpad(Player2) < 45) || (Robot.oi.Dpad(Player2) >= 315 && Robot.oi.Dpad(Player2) < 360) )&& flag) { 
+			Robot.gotoPosition(heightB2); flag = false; }
+		else if((Robot.oi.Dpad(Player2) >= 45 && Robot.oi.Dpad(Player2) < 135)&&flag) { Robot.gotoPosition(heightB1);  flag = false; }
+		else if((Robot.oi.Dpad(Player2) >= 135 && Robot.oi.Dpad(Player2) < 225)&&flag) { Robot.gotoPosition(heightB0); flag = false; }
+		else if((Robot.oi.Dpad(Player2) >= 225 && Robot.oi.Dpad(Player2) < 315)&&flag) { Robot.gotoPosition(heightB3); flag = false; }
+
+		if(Robot.oi.getBackButton(Player2)){ kill = true; }
+		
 
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
 		

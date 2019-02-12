@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX; 
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -48,6 +49,8 @@ public class DriveTrain extends Subsystem {
 		turning = new TurnModule(tkP, tkI, tkD);
 
 		LiftTalon = new TalonSRX(8); 
+		//LiftTalon.setNeutralMode(NeutralMode.Brake);
+
 	}
 
 	public double getAbeNW(){ return abeNW.get(); }
