@@ -15,11 +15,18 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
+
+
+
+
 public class DriveTrain extends Subsystem {
 	
 	private SwerveModule moduleNE, moduleNW, moduleSE, moduleSW;
 
 	public static TalonSRX LiftTalon; 
+	
+    //Intake 2/12
+    public static TalonSRX Intake;
 
 	
 	public TurnModule turning; 
@@ -49,6 +56,9 @@ public class DriveTrain extends Subsystem {
 		turning = new TurnModule(tkP, tkI, tkD);
 
 		LiftTalon = new TalonSRX(8); 
+		
+		Intake = new TalonSRX(9); 
+		
 		//LiftTalon.setNeutralMode(NeutralMode.Brake);
 
 	}
@@ -102,6 +112,10 @@ public class DriveTrain extends Subsystem {
 
 	public double getLiftVelocity() { return LiftTalon.getSelectedSensorVelocity(0); }
 	public double getLiftPosition() { return LiftTalon.getSelectedSensorPosition(0); }
+
+	
+       //INTAKE 2/12
+	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
 
 	@Override
 	protected void initDefaultCommand() {

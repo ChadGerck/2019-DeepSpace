@@ -43,8 +43,18 @@ public class SwerveDrive extends Command {
 	public static boolean kill=false; 
 	boolean Dpressed = false; 
 
+	double throottle = 0; //2/12
+
 	protected void execute(){
 		
+		// Intake 2/12
+		if(Robot.oi.getRightBumper(Player2) == true) { 
+			throottle = .85; 
+			}
+		else if(Robot.oi.getLeftBumper(Player2) == true) { 
+			throottle = -.85;
+			}
+		else { throottle = 0; }
 
 		
 		if(flag) { Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player2) - Robot.oi.getRightTrigger(Player2))); }
