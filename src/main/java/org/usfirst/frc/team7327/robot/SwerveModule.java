@@ -42,9 +42,6 @@ public class SwerveModule{
 
        //INTAKE 2/12
   //depending on where plugged in
-public void setRawIntake(double intakevalue) {
-	Intake.set(ControlMode.PercentOutput, intakevalue);	
-} 
 
     public double getError(){
         return Math.sin(Math.toRadians(setPoint - getSteeringEncoder()));

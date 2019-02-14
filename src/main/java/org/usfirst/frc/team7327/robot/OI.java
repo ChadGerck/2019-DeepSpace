@@ -51,9 +51,19 @@ public class OI {
 		boolean raw = Controller.getBumperPressed(Hand.kLeft);
 		return raw;
 	}
-	
+
+	public boolean getLeftBumperDown(XboxController Controller) {
+		boolean raw = Controller.getBumper(Hand.kLeft);
+		return raw;
+	}
+
 	public boolean getRightBumper(XboxController Controller) {
 		boolean raw = Controller.getBumperPressed(Hand.kRight);
+		return raw;
+	}
+
+	public boolean getRightBumperDown(XboxController Controller) {
+		boolean raw = Controller.getBumper(Hand.kRight);
 		return raw;
 	}
 

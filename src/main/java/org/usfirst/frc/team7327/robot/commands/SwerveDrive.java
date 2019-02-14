@@ -2,7 +2,6 @@ package org.usfirst.frc.team7327.robot.commands;
 
 
 import org.usfirst.frc.team7327.robot.Robot;
-import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
@@ -48,16 +47,17 @@ public class SwerveDrive extends Command {
 	protected void execute(){
 		
 		// Intake 2/12
-		if(Robot.oi.getRightBumper(Player2) == true) { 
+		if(Robot.oi.getRightBumperDown(Player2) == true) { 
 			throottle = .85; 
-			}
-		else if(Robot.oi.getLeftBumper(Player2) == true) { 
+		}
+		else if(Robot.oi.getLeftBumperDown(Player2) == true) { 
 			throottle = -.85;
-			}
+		}
 		else { throottle = 0; }
 
-		
-		if(flag) { Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player2) - Robot.oi.getRightTrigger(Player2))); }
+		Robot.drivetrain.setRawIntake(throottle);
+
+		if(flag) { Robot.drivetrain.setRawElevator(throttle*(-Robot.oi.getLeftTrigger(Player2) + Robot.oi.getRightTrigger(Player2))); }
 
 		if((Robot.oi.getBButton(Player2) || Robot.oi.getAButton(Player2) && flag)) {
 			Robot.gotoPosition(heightH1);
