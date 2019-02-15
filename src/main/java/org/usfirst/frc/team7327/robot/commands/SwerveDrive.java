@@ -25,19 +25,19 @@ public class SwerveDrive extends Command {
 	}
 
 	double degreesL, magnitudeL, degreesR, magnitudeR, setDegree =  0; 
-	double throttle = .75; 
+	double throttle = .5; 
 
 	
 
-	int heightH0 = 2; 
-	int heightH1 = 2;
-	int heightH2 = 4;
-	int heightH3 = 6; 
+	int heightH0 = -1888; 
+	int heightH1 = -1888;
+	int heightH2 = -18921;
+	int heightH3 = -32861; 
 	
-	int heightB0 = 0; 
-	int heightB1 = 3;
-	int heightB2 = 5;
-	int heightB3 = 7; 
+	int heightB0 = -2000; 
+	int heightB1 = -11445;
+	int heightB2 = -26029;
+	int heightB3 = -37000; 
 	public static boolean flag= true;
 	public static boolean kill=false; 
 	boolean Dpressed = false; 
@@ -82,7 +82,7 @@ public class SwerveDrive extends Command {
 
 		if(Robot.oi.getBackButton(Player2)){ kill = true; }
 		
-
+		
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
 		
 		degreesL = Math.toDegrees(Math.atan2(Robot.oi.getLeftStickY(Player1),  Robot.oi.getLeftStickX(Player1))) + 90;
@@ -112,9 +112,7 @@ public class SwerveDrive extends Command {
 		SmartDashboard.putNumber("SWab", Robot.drivetrain.getAbeSW()); 
 		SmartDashboard.putNumber("SEab", Robot.drivetrain.getAbeSE()); 
 
-		SmartDashboard.putNumber("test", Robot.drivetrain.getAbeNW()); 
-
-		if(magnitudeL > .5) setDegree = 360-degreesL;
+		if(magnitudeL > .5) setDegree = 180-degreesL;
 		
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
 
