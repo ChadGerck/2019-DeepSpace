@@ -27,8 +27,6 @@ public class SwerveDrive extends Command {
 	double degreesL, magnitudeL, degreesR, magnitudeR, setDegree =  0; 
 	double throttle = .5; 
 
-	
-
 	int heightH0 = -1888; 
 	int heightH1 = -1888;
 	int heightH2 = -18921;
@@ -46,6 +44,8 @@ public class SwerveDrive extends Command {
 
 	protected void execute(){
 		
+		Robot.drivetrain.setRawElevator(throttle*(-Robot.oi.getLeftTrigger(Player2) + Robot.oi.getRightTrigger(Player2)));
+		
 		// Intake 2/12
 		if(Robot.oi.getRightBumperDown(Player2) == true) { 
 			throottle = .85; 
@@ -57,31 +57,24 @@ public class SwerveDrive extends Command {
 
 		Robot.drivetrain.setRawIntake(throottle);
 
-		if(flag) { Robot.drivetrain.setRawElevator(throttle*(-Robot.oi.getLeftTrigger(Player2) + Robot.oi.getRightTrigger(Player2))); }
-
-		if((Robot.oi.getBButton(Player2) || Robot.oi.getAButton(Player2) && flag)) {
-			flag = false; 
-			Robot.gotoPosition(heightH1);
-			
+		/*
+		if((Robot.oi.getBButtonDown(Player2) || Robot.oi.getAButtonDown(Player2)) && flag) {
+			Robot.drivetrain.setRawElevator(heightH1);
 		}
-		else if(Robot.oi.getYButton(Player2)&& flag) {
-			flag = false; 
-			Robot.gotoPosition(heightH2);
-			
+		else if(Robot.oi.getYButtonDown(Player2)&& flag) {
+			Robot.drivetrain.setRawElevator(heightH2);
 		}
-		else if(Robot.oi.getXButton(Player2) && flag) {
-			flag = false; 
-			Robot.gotoPosition(heightH3);
-			
+		else if(Robot.oi.getXButtonDown(Player2) && flag) {
+			Robot.drivetrain.setRawElevator(heightH3);
 		}
+		*/
 	 
 		if(Robot.oi.Dpad(Player2) >= 0) { Dpressed = true; }else{ Dpressed = false; }
 		
-		if(((Robot.oi.Dpad(Player2) >= 0 && Robot.oi.Dpad(Player2) < 45) || (Robot.oi.Dpad(Player2) >= 315 && Robot.oi.Dpad(Player2) < 360) )&& flag) { 
-			flag = false; Robot.gotoPosition(heightB2);  }
-		else if((Robot.oi.Dpad(Player2) >= 45 && Robot.oi.Dpad(Player2) < 135)&&flag) { flag = false; Robot.gotoPosition(heightB1);  }
-		else if((Robot.oi.Dpad(Player2) >= 135 && Robot.oi.Dpad(Player2) < 225)&&flag) { flag = false; Robot.gotoPosition(heightB0); }
-		else if((Robot.oi.Dpad(Player2) >= 225 && Robot.oi.Dpad(Player2) < 315)&&flag) { flag = false; Robot.gotoPosition(heightB3); }
+		if(((Robot.oi.Dpad(Player2) >= 0 && Robot.oi.Dpad(Player2) < 45) || (Robot.oi.Dpad(Player2) >= 315 && Robot.oi.Dpad(Player2) < 360) )&& flag) { Robot.drivetrain.setRawElevator(heightB0);  }
+		else if((Robot.oi.Dpad(Player2) >= 45 && Robot.oi.Dpad(Player2) < 135)&&flag) { Robot.drivetrain.setRawElevator(heightB1); }
+		else if((Robot.oi.Dpad(Player2) >= 135 && Robot.oi.Dpad(Player2) < 225)&&flag) { Robot.drivetrain.setRawElevator(heightB2);}
+		else if((Robot.oi.Dpad(Player2) >= 225 && Robot.oi.Dpad(Player2) < 315)&&flag) { Robot.drivetrain.setRawElevator(heightB3); }
 
 		if(Robot.oi.getBackButton(Player2)){ kill = true; }
 		
@@ -119,7 +112,6 @@ public class SwerveDrive extends Command {
 		
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
 
-		Robot.drivetrain.setRawElevator(throttle*(Robot.oi.getLeftTrigger(Player2) - Robot.oi.getRightTrigger(Player2)));
 		
 		switch(setting) {
 		case 0: //Precision Mode 

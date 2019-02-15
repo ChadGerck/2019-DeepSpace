@@ -77,8 +77,8 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		nav.reset();
 
-		drivetrain.setTalonStatus();
-		drivetrain.configFeedbackSensor();
+		drivetrain.LiftTalon.setTalonStatus();
+		drivetrain.LiftTalon.configFeedbackSensor();
 		
 		/* Fire the plotter */
 		_plotThread = new PlotThread(this);
@@ -109,15 +109,16 @@ public class Robot extends TimedRobot {
 		return angle; 
 	}
 	
+	/*
 	public static void gotoPosition(double goTo) { 
-		if(goTo < Robot.drivetrain.getLiftPosition()) 
-			while(goTo < drivetrain.getLiftPosition() && !SwerveDrive.kill) { Robot.drivetrain.setRawElevator(.5); }
+		if(goTo < Robot.drivetrain.getLiftPosition()) {
+			while(goTo < drivetrain.getLiftPosition() && !SwerveDrive.kill) { Robot.drivetrain.setRawElevator(.5); } }
 		else if(goTo > Robot.drivetrain.getLiftPosition()) { 
 			while(goTo > drivetrain.getLiftPosition() && !SwerveDrive.kill) { Robot.drivetrain.setRawElevator(-.5); } 
 		}
 		SwerveDrive.flag = true; 
 	}
-
+	*/
 
 	class PlotThread implements Runnable {
 		Robot robot;
@@ -135,14 +136,14 @@ public class Robot extends TimedRobot {
 			while (true) {
 				/* Yield for a Ms or so - this is not meant to be accurate */
 				try {
-					Thread.sleep(1);
+					Thread.sleep(100);
 				} catch (Exception e) {
 					/* Do Nothing */
 				}
 
 				/* Grab the latest signal update from our 1ms frame update */
-				SmartDashboard.putNumber("vel", drivetrain.getLiftVelocity());
-				SmartDashboard.putNumber("Position: ", drivetrain.getLiftPosition()); 
+				SmartDashboard.putNumber("vel", drivetrain.LiftTalon.getLiftVelocity());
+				SmartDashboard.putNumber("Position: ", drivetrain.LiftTalon.getLiftPosition()); 
 			}
 		}
 	}

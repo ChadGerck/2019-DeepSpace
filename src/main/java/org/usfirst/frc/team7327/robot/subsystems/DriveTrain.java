@@ -1,5 +1,6 @@
 package org.usfirst.frc.team7327.robot.subsystems;
 
+import org.usfirst.frc.team7327.robot.ElevatorModule;
 import org.usfirst.frc.team7327.robot.SwerveModule;
 import org.usfirst.frc.team7327.robot.TurnModule;
 import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
@@ -8,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX; 
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-//import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -16,14 +17,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 
-
-
-
 public class DriveTrain extends Subsystem {
 	
 	private SwerveModule moduleNE, moduleNW, moduleSE, moduleSW;
 
-	public static TalonSRX LiftTalon; 
+	public static ElevatorModule LiftTalon; 
 	
     //Intake 2/12
     public static TalonSRX Intake;
@@ -38,6 +36,10 @@ public class DriveTrain extends Subsystem {
 	static final double tkP = .4;  //.4 cement , .6 carpet
 	static final double tkI = .000001;
 	static final double tkD = .04; //.04 cement , .05 carpet
+
+	static final double ekP = .1;
+	static final double ekI = 0; 
+	static final double ekD = 0; 
 	
 	//larger negative degree rotates counter-clockwise
 	
@@ -54,12 +56,10 @@ public class DriveTrain extends Subsystem {
 		moduleSE = new SwerveModule(7, 6, abeSE, kP, kI, kD,true);
 
 		turning = new TurnModule(tkP, tkI, tkD);
-
-		LiftTalon = new TalonSRX(8); 
+ 
+		LiftTalon = new ElevatorModule(8, ekP, ekI, ekD); 
 		
 		Intake = new TalonSRX(9); 
-		
-		//LiftTalon.setNeutralMode(NeutralMode.Brake);
 
 	}
 
@@ -97,8 +97,8 @@ public class DriveTrain extends Subsystem {
 		moduleSW.setSteeringDeg(SW);
 	}
 
-	public void setRawElevator(double speed){
-		LiftTalon.set(ControlMode.PercentOutput, speed);
+	public void setRawElevator(double position){
+		LiftTalon.setPosition(position);
 	}
 	
 	public double getSteeringSetpoint() { return moduleNW.getSteeringSetpoint(); }
@@ -107,14 +107,6 @@ public class DriveTrain extends Subsystem {
 	
 	public double getSteeringPosition() { return moduleNW.getSteeringEncoder(); }
 
-	public void setTalonStatus()       { LiftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);       }
-	public void configFeedbackSensor() { LiftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); }
-
-	public double getLiftVelocity() { return LiftTalon.getSelectedSensorVelocity(0); }
-	public double getLiftPosition() { return LiftTalon.getSelectedSensorPosition(0); }
-
-	
-       //INTAKE 2/12
 	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
 
 	@Override

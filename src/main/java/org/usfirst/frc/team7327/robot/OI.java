@@ -72,8 +72,18 @@ public class OI {
 		return raw;
 	}
 
+	public boolean getAButtonDown(XboxController Controller) {
+		boolean raw = Controller.getAButton(); 
+		return raw;
+	}
+
 	public boolean getBButton(XboxController Controller) {
 		boolean raw = Controller.getBButtonPressed();
+		return raw;
+	}
+	
+	public boolean getBButtonDown(XboxController Controller) {
+		boolean raw = Controller.getBButton(); 
 		return raw;
 	}
 
@@ -81,9 +91,19 @@ public class OI {
 		boolean raw = Controller.getXButtonPressed();
 		return raw;
 	}
+
+	public boolean getXButtonDown(XboxController Controller) {
+		boolean raw = Controller.getXButton(); 
+		return raw;
+	}
 	
 	public boolean getYButton(XboxController Controller) {
 		boolean raw = Controller.getYButtonPressed();
+		return raw;
+	}
+
+	public boolean getYButtonDown(XboxController Controller) {
+		boolean raw = Controller.getYButton();
 		return raw;
 	}
 	
