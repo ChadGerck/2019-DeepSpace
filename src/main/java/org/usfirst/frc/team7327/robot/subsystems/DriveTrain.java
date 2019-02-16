@@ -97,6 +97,10 @@ public class DriveTrain extends Subsystem {
 	public void setRawElevator(double speed){
 		Elevator.setRawElev(speed);
 	}
+
+	public void setRawBallIn(double speed){
+		BallVictor.set(ControlMode.PercentOutput, speed);
+	}
 	
 	public double getSteeringSetpoint() { return moduleNW.getSteeringSetpoint(); }
 	
