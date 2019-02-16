@@ -55,6 +55,7 @@ public class ElevatorModule{
     
 	public void setTalonStatus()       { mLift.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);       }
 	public void configFeedbackSensor() { mLift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); }
+    public void ElevatorReset()        { mLift.setSelectedSensorPosition(0, 0, 0); }
 
     public boolean setOn(boolean flipOn) { 
     	on = flipOn; 

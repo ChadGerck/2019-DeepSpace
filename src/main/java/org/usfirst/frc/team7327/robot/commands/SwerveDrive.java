@@ -28,15 +28,16 @@ public class SwerveDrive extends Command {
 	double degreesL, magnitudeL, degreesR, magnitudeR, setDegree =  0; 
 	double throttle = .5; 
 
-	int heightH0 = 1888; 
-	int heightH1 = 1888;
-	int heightH2 = 18921;
-	int heightH3 = 32861; 
+	//subtract 1888
+	int heightH0 = 0; 
+	int heightH1 = 0;
+	int heightH2 = 17033;
+	int heightH3 = 30973; 
 	
-	int heightB0 = 2000; 
-	int heightB1 = 11445;
-	int heightB2 = 26029;
-	int heightB3 = 37000; 
+	int heightB0 = 0; 
+	int heightB1 = 9557;
+	int heightB2 = 24141;
+	int heightB3 = 35000; 
 
 	double throottle = 0; 
 	double ballThrottle = .4; 
@@ -50,31 +51,6 @@ public class SwerveDrive extends Command {
 		Robot.drivetrain.setRawIntake(throottle);
 		
 		Robot.drivetrain.setRawBallIn(ballThrottle * -Robot.oi.getRightStickY(Player2)); 
-
-		/*
-		if((Robot.oi.getBButtonDown(Player2) || Robot.oi.getAButtonDown(Player2)) {
-			Robot.drivetrain.setRawElevator(heightH1);
-		}
-		else if(Robot.oi.getYButtonDown(Player2)) {
-			Robot.drivetrain.setRawElevator(heightH2);
-		}
-		else if(Robot.oi.getXButtonDown(Player2)) {
-			Robot.drivetrain.setRawElevator(heightH3);
-		}
-		*/
-	 
-		if(Robot.oi.Dpad(Player2) >= 0) { 
-		if(((Robot.oi.Dpad(Player2) >= 0 && Robot.oi.Dpad(Player2) < 45) || (Robot.oi.Dpad(Player2) >= 315 && Robot.oi.Dpad(Player2) < 360))) { 
-			Robot.drivetrain.Elevator.setOn(true); ElevSetting = 3;  }
-		else if((Robot.oi.Dpad(Player2) >= 45 && Robot.oi.Dpad(Player2) < 135)) { 
-			Robot.drivetrain.Elevator.setOn(true); ElevSetting = 2; }
-		else if((Robot.oi.Dpad(Player2) >= 135 && Robot.oi.Dpad(Player2) < 225)) { 
-			Robot.drivetrain.Elevator.setOn(true); ElevSetting = 1;}
-		else if((Robot.oi.Dpad(Player2) >= 225 && Robot.oi.Dpad(Player2) < 315)) { 
-			Robot.drivetrain.Elevator.setOn(true); ElevSetting = 4; } 
-		}else{ ElevSetting = 0; Robot.drivetrain.Elevator.setOn(false); }
-
-		
 		
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
 		
@@ -109,6 +85,27 @@ public class SwerveDrive extends Command {
 		
 		if(Robot.oi.getStartButton(Player1)) Robot.nav.reset();
 
+		if(Robot.oi.getStartButton(Player2)) { Robot.drivetrain.Elevator.ElevatorReset();}
+		
+		if(Robot.oi.Dpad(Player2) >= 0 || Robot.oi.getAButtonDown(Player2) || Robot.oi.getBButtonDown(Player2) || Robot.oi.getYButtonDown(Player2) || Robot.oi.getXButtonDown(Player2)) { 
+			
+			if(((Robot.oi.Dpad(Player2) >= 0 && Robot.oi.Dpad(Player2) < 45) || (Robot.oi.Dpad(Player2) >= 315 && Robot.oi.Dpad(Player2) < 360))) { 
+				Robot.drivetrain.Elevator.setOn(true); ElevSetting = 3;  }
+			else if((Robot.oi.Dpad(Player2) >= 45 && Robot.oi.Dpad(Player2) < 135)) { 
+				Robot.drivetrain.Elevator.setOn(true); ElevSetting = 2; }
+			else if((Robot.oi.Dpad(Player2) >= 135 && Robot.oi.Dpad(Player2) < 225)) { 
+				Robot.drivetrain.Elevator.setOn(true); ElevSetting = 1;}
+			else if((Robot.oi.Dpad(Player2) >= 225 && Robot.oi.Dpad(Player2) < 315)) { 
+				Robot.drivetrain.Elevator.setOn(true); ElevSetting = 4; } 
+			else if((Robot.oi.getBButtonDown(Player2) || Robot.oi.getAButtonDown(Player2))) {
+				Robot.drivetrain.Elevator.setOn(true); ElevSetting = 5;}
+			else if(Robot.oi.getYButtonDown(Player2)) {
+				Robot.drivetrain.Elevator.setOn(true); ElevSetting = 6;}
+			else if(Robot.oi.getXButtonDown(Player2)) {
+				Robot.drivetrain.Elevator.setOn(true); ElevSetting = 7;}
+		}
+		else{ Robot.drivetrain.Elevator.setOn(false); ElevSetting = 0;  }
+
 		switch(ElevSetting) {
 		case 0: 
 			Robot.drivetrain.setRawElevator(throttle*(-Robot.oi.getLeftTrigger(Player2) + Robot.oi.getRightTrigger(Player2)));
@@ -124,6 +121,15 @@ public class SwerveDrive extends Command {
 			break;
 		case 4: 
 			Robot.drivetrain.Elevator.setPosition(heightB3);
+			break; 
+		case 5:
+			Robot.drivetrain.Elevator.setPosition(heightH1);
+			break;
+		case 6: 
+			Robot.drivetrain.Elevator.setPosition(heightH2);
+			break; 
+		case 7: 
+			Robot.drivetrain.Elevator.setPosition(heightH3);
 			break; 
 		}
 
