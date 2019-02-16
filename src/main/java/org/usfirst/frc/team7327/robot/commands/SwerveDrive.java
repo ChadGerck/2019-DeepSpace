@@ -39,6 +39,7 @@ public class SwerveDrive extends Command {
 	int heightB3 = 37000; 
 
 	double throottle = 0; 
+	double ballThrottle = .4; 
 
 	protected void execute(){
 		
@@ -47,6 +48,8 @@ public class SwerveDrive extends Command {
 		else { throottle = 0; }
 
 		Robot.drivetrain.setRawIntake(throottle);
+		
+		Robot.drivetrain.setRawBallIn(ballThrottle * -Robot.oi.getRightStickY(Player2)); 
 
 		/*
 		if((Robot.oi.getBButtonDown(Player2) || Robot.oi.getAButtonDown(Player2)) {
