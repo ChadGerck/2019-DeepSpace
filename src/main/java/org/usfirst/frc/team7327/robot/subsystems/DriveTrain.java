@@ -21,7 +21,7 @@ public class DriveTrain extends Subsystem {
 	
 	private SwerveModule moduleNE, moduleNW, moduleSE, moduleSW;
 
-	public static ElevatorModule LiftTalon; 
+	public static ElevatorModule Elevator; 
 	
     //Intake 2/12
     public static TalonSRX Intake;
@@ -57,7 +57,7 @@ public class DriveTrain extends Subsystem {
 
 		turning = new TurnModule(tkP, tkI, tkD);
  
-		LiftTalon = new ElevatorModule(8, ekP, ekI, ekD); 
+		Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
 		
 		Intake = new TalonSRX(9); 
 
@@ -98,7 +98,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setRawElevator(double position){
-		LiftTalon.setPosition(position);
+		Elevator.setPosition(position);
 	}
 	
 	public double getSteeringSetpoint() { return moduleNW.getSteeringSetpoint(); }
