@@ -77,8 +77,8 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		nav.reset();
 
-		drivetrain.LiftTalon.setTalonStatus();
-		drivetrain.LiftTalon.configFeedbackSensor();
+		drivetrain.Elevator.setTalonStatus();
+		drivetrain.Elevator.configFeedbackSensor();
 		
 		/* Fire the plotter */
 		_plotThread = new PlotThread(this);
@@ -142,8 +142,8 @@ public class Robot extends TimedRobot {
 				}
 
 				/* Grab the latest signal update from our 1ms frame update */
-				SmartDashboard.putNumber("vel", drivetrain.LiftTalon.getLiftVelocity());
-				SmartDashboard.putNumber("Position: ", drivetrain.LiftTalon.getLiftPosition()); 
+				SmartDashboard.putNumber("vel", drivetrain.Elevator.getLiftVelocity());
+				SmartDashboard.putNumber("Position: ", drivetrain.Elevator.getLiftPosition()); 
 			}
 		}
 	}

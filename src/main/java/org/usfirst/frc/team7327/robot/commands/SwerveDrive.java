@@ -124,8 +124,6 @@ public class SwerveDrive extends Command {
 			Robot.drivetrain.turning.setYaw(degreesR);
 			if(magnitudeR <= .5) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 			break; 
-		case 2: 
-			break; 
 		}
 	}
 	
