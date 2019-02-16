@@ -3,6 +3,10 @@ package org.usfirst.frc.team7327.robot.commands;
 
 import org.usfirst.frc.team7327.robot.Robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+
+import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +31,18 @@ public class SwerveDrive extends Command {
 	double degreesL, magnitudeL, degreesR, magnitudeR, setDegree =  0; 
 	double throttle = .5; 
 
+
+	public void robotInit(){
+	}
 	
+	DigitalInput forwardLimitSwitch = new DigitalInput(0);
+	DigitalInput reverseLimitSwitch = new DigitalInput(1);
+
+    public void teleopPeriodic()
+    {
+		
+    }
+
 
 	int heightH0 = -1888; 
 	int heightH1 = -1888;
@@ -45,6 +60,8 @@ public class SwerveDrive extends Command {
 	double throottle = 0; //2/12
 
 	protected void execute(){
+		
+		System.out.println("output is: " + forwardLimitSwitch.get());
 		
 		// Intake 2/12
 		if(Robot.oi.getRightBumperDown(Player2) == true) { 
@@ -107,6 +124,7 @@ public class SwerveDrive extends Command {
 		SmartDashboard.putNumber("LimelightArea", area);
 
 
+
 		SmartDashboard.putNumber("NWab", Robot.drivetrain.getAbeNW()); 
 		SmartDashboard.putNumber("NEab", Robot.drivetrain.getAbeNE()); 
 		SmartDashboard.putNumber("SWab", Robot.drivetrain.getAbeSW()); 
@@ -132,6 +150,8 @@ public class SwerveDrive extends Command {
 		case 2: 
 			break; 
 		}
+
+		
 	}
 	
 	protected boolean isFinished() {
