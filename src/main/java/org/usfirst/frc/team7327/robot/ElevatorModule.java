@@ -15,6 +15,7 @@ public class ElevatorModule{
     private double error, sumError, diffError, lastError;
     private double setPoint;
     private double PIDOutput;
+    private boolean on; 
     public ElevatorModule(int kDriveID, double kP, double kI, double kD) {
         mLift = new TalonSRX(kDriveID);
         sumError = 0;
@@ -25,7 +26,8 @@ public class ElevatorModule{
             diffError = lastError - getError();
             sumError += getError();
             PIDOutput = kP * getError() + kI * sumError + kD * diffError;
-            mLift.set(ControlMode.PercentOutput, -PIDOutput);
+            PIDOutput = Math.min(.6, PIDOutput);
+            if(on) mLift.set(ControlMode.PercentOutput, PIDOutput);
             
             lastError = error;
         });
@@ -38,19 +40,25 @@ public class ElevatorModule{
         return setPoint - getLiftPosition();
     }
 
-    public void setPosition(double pow){
-        mLift.set(ControlMode.PercentOutput, pow);
+    public void setPosition(double position){
+        setPoint = position; 
+    }
+
+    public void setRawElev(double speed){
+        mLift.set(ControlMode.PercentOutput, speed);
     }
 
     
-	public double getLiftVelocity() { return mLift.getSelectedSensorVelocity(0); }
-	public double getLiftPosition() { return mLift.getSelectedSensorPosition(0); }
+	public double getLiftVelocity() { return -mLift.getSelectedSensorVelocity(0); }
+	public double getLiftPosition() { return -mLift.getSelectedSensorPosition(0); }
     
     
 	public void setTalonStatus()       { mLift.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);       }
 	public void configFeedbackSensor() { mLift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); }
 
-  
-    public double getSteeringSetpoint() { return setPoint; }
+    public boolean setOn(boolean flipOn) { 
+    	on = flipOn; 
+    	return on; 
+    }
 
 }

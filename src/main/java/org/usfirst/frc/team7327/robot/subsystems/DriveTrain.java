@@ -37,7 +37,7 @@ public class DriveTrain extends Subsystem {
 	static final double tkI = .000001;
 	static final double tkD = .04; //.04 cement , .05 carpet
 
-	static final double ekP = .1;
+	static final double ekP = .0004;
 	static final double ekI = 0; 
 	static final double ekD = 0; 
 	
@@ -97,8 +97,8 @@ public class DriveTrain extends Subsystem {
 		moduleSW.setSteeringDeg(SW);
 	}
 
-	public void setRawElevator(double position){
-		Elevator.setPosition(position);
+	public void setRawElevator(double speed){
+		Elevator.setRawElev(speed);
 	}
 	
 	public double getSteeringSetpoint() { return moduleNW.getSteeringSetpoint(); }
