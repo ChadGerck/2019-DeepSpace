@@ -6,11 +6,8 @@ import org.usfirst.frc.team7327.robot.TurnModule;
 import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX; 
-
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -23,9 +20,9 @@ public class DriveTrain extends Subsystem {
 
 	public static ElevatorModule Elevator; 
 	
-    //Intake 2/12
     public static TalonSRX Intake;
-
+	
+	public static VictorSPX BallVictor; 
 	
 	public TurnModule turning; 
 	
