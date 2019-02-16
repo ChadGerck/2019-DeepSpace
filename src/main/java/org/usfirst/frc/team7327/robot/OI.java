@@ -51,9 +51,19 @@ public class OI {
 		boolean raw = Controller.getBumperPressed(Hand.kLeft);
 		return raw;
 	}
-	
+
+	public boolean getLeftBumperDown(XboxController Controller) {
+		boolean raw = Controller.getBumper(Hand.kLeft);
+		return raw;
+	}
+
 	public boolean getRightBumper(XboxController Controller) {
 		boolean raw = Controller.getBumperPressed(Hand.kRight);
+		return raw;
+	}
+
+	public boolean getRightBumperDown(XboxController Controller) {
+		boolean raw = Controller.getBumper(Hand.kRight);
 		return raw;
 	}
 
@@ -62,8 +72,18 @@ public class OI {
 		return raw;
 	}
 
+	public boolean getAButtonDown(XboxController Controller) {
+		boolean raw = Controller.getAButton(); 
+		return raw;
+	}
+
 	public boolean getBButton(XboxController Controller) {
 		boolean raw = Controller.getBButtonPressed();
+		return raw;
+	}
+	
+	public boolean getBButtonDown(XboxController Controller) {
+		boolean raw = Controller.getBButton(); 
 		return raw;
 	}
 
@@ -71,9 +91,19 @@ public class OI {
 		boolean raw = Controller.getXButtonPressed();
 		return raw;
 	}
+
+	public boolean getXButtonDown(XboxController Controller) {
+		boolean raw = Controller.getXButton(); 
+		return raw;
+	}
 	
 	public boolean getYButton(XboxController Controller) {
 		boolean raw = Controller.getYButtonPressed();
+		return raw;
+	}
+
+	public boolean getYButtonDown(XboxController Controller) {
+		boolean raw = Controller.getYButton();
 		return raw;
 	}
 	
@@ -91,7 +121,6 @@ public class OI {
 		boolean raw = Controller.getRawButtonPressed(7);
 		return raw; 
 	}
-	
 	
 	public OI () {
 		
