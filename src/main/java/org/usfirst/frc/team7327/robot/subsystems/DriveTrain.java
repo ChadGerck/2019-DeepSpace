@@ -6,7 +6,7 @@ import org.usfirst.frc.team7327.robot.TurnModule;
 import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -41,10 +41,10 @@ public class DriveTrain extends Subsystem {
 	
 	//larger negative degree rotates counter-clockwise
 	
-	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
-	public static Potentiometer abeNE = new AnalogPotentiometer(1, 360, -207.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(2, 360, -279.3); 
-	public static Potentiometer abeSE = new AnalogPotentiometer(3, 360, -9.7); 
+	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -265.2); 
+	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -27.85);
+	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -369.3); 
+	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -39.7); 
 	
 	public DriveTrain() {
 		
