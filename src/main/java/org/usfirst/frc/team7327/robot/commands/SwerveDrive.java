@@ -2,6 +2,7 @@ package org.usfirst.frc.team7327.robot.commands;
 
 import org.usfirst.frc.team7327.robot.Robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,13 +24,12 @@ public class SwerveDrive extends Command {
 	protected void initialize() { 
 		setting = 0; 
 		ElevSetting = 0; 
+		DoubleSolenoid.clearAllPCMStickyFaults(0); 
 	}
 
 	double degreesL, magnitudeL, degreesR, magnitudeR, magnitudeR2, setDegree =  0; 
 	double throttle = .5; 
 
-	int heightH0 = 0; 
-	int heightH1 = 0;
 	int heightH2 = 17033;
 	int heightH3 = 30973; 
 	
@@ -39,22 +39,39 @@ public class SwerveDrive extends Command {
 	int heightB3 = 35000; 
 
 	double throottle = 0; 
-	double ballThrottle = .4; 
+	double ballThrottle = 0; 
+
+	DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
 	protected void execute(){
 
+		//B to flex 
+		if(Robot.oi.getBButton(Player2)){
+			Flex = DoubleSolenoid.Value.kForward; 
+		}
+		//A to finish that curl
+		else if(Robot.oi.getAButton(Player2)){
+			Flex = DoubleSolenoid.Value.kReverse; 
+		}
+		else {
+			Flex = DoubleSolenoid.Value.kOff; 
+		}
+		Robot.drivetrain.setRawBicep(Flex); 
 		
-		magnitudeR2 = Math.sqrt(Math.pow(Robot.oi.getRightStickX(Player2), 2) + Math.pow(Robot.oi.getRightStickY(Player2), 2));
-
-		if(Robot.oi.getRightBumperDown(Player2) == true) { throottle = .4; }
-		else if(Robot.oi.getLeftBumperDown(Player2) == true ) { throottle = -.4; }
+		if(Robot.oi.getRightBumperDown(Player2) == true) { throottle = .6; }
+		else if(Robot.oi.getLeftBumperDown(Player2) == true) { throottle = -.6;}
 		else { throottle = 0; }
-
-		if(magnitudeR2 > .3) { ballThrottle = .75 * Robot.oi.getRightStickY(Player2); } 
-		else if(Robot.oi.getRightBumperDown(Player2) == true) { ballThrottle = -.4; }
-		else { ballThrottle = 0; }
-
 		Robot.drivetrain.setRawIntake(throottle);
+
+		magnitudeR2 = Math.sqrt(Math.pow(Robot.oi.getRightStickX(Player2), 2) + Math.pow(Robot.oi.getRightStickY(Player2), 2));
+		
+		if(magnitudeR2 > .3) { ballThrottle = .75*-Robot.oi.getRightStickY(Player2); }
+		else if(Robot.oi.getRightBumperDown(Player2)) {
+			ballThrottle = -.5; 
+		}
+		else{
+			ballThrottle = 0; 
+		}
 		
 		Robot.drivetrain.setRawBallIn(ballThrottle); 
 		
@@ -93,7 +110,7 @@ public class SwerveDrive extends Command {
 
 		if(Robot.oi.getStartButton(Player2)) { Robot.drivetrain.ResetElevator(); }
 		
-		if(Robot.oi.Dpad(Player2) >= 0 || Robot.oi.getAButtonDown(Player2) || Robot.oi.getBButtonDown(Player2) || Robot.oi.getYButtonDown(Player2) || Robot.oi.getXButtonDown(Player2)) { 
+		if(Robot.oi.Dpad(Player2) >= 0 || Robot.oi.getYButtonDown(Player2) || Robot.oi.getXButtonDown(Player2)) { 
 			
 			if(((Robot.oi.Dpad(Player2) >= 0 && Robot.oi.Dpad(Player2) < 45) || (Robot.oi.Dpad(Player2) >= 315 && Robot.oi.Dpad(Player2) < 360))) { 
 				Robot.drivetrain.setElevatorOn(true); ElevSetting = 3;  }
@@ -103,8 +120,6 @@ public class SwerveDrive extends Command {
 				Robot.drivetrain.setElevatorOn(true); ElevSetting = 1;}
 			else if((Robot.oi.Dpad(Player2) >= 225 && Robot.oi.Dpad(Player2) < 315)) { 
 				Robot.drivetrain.setElevatorOn(true); ElevSetting = 4; } 
-			else if((Robot.oi.getBButtonDown(Player2) || Robot.oi.getAButtonDown(Player2))) {
-				Robot.drivetrain.setElevatorOn(true); ElevSetting = 5;}
 			else if(Robot.oi.getYButtonDown(Player2)) {
 				Robot.drivetrain.setElevatorOn(true); ElevSetting = 6;}
 			else if(Robot.oi.getXButtonDown(Player2)) {
@@ -120,7 +135,6 @@ public class SwerveDrive extends Command {
 		case 2: Robot.drivetrain.setElevatorPosition(heightB1); break; 
 		case 3: Robot.drivetrain.setElevatorPosition(heightB2); break;
 		case 4: Robot.drivetrain.setElevatorPosition(heightB3); break; 
-		case 5: Robot.drivetrain.setElevatorPosition(heightH1); break;
 		case 6: Robot.drivetrain.setElevatorPosition(heightH2); break; 
 		case 7: Robot.drivetrain.setElevatorPosition(heightH3); break; 
 		}

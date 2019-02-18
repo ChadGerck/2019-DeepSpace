@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
@@ -18,11 +19,11 @@ public class DriveTrain extends Subsystem {
 	
 	private SwerveModule moduleNE, moduleNW, moduleSE, moduleSW;
 
-	public static ElevatorModule Elevator; 
+	private DoubleSolenoid Bicep; 
+
+	public static ElevatorModule Elevator;
 	
-    public static TalonSRX Intake;
-	
-	public static VictorSPX BallVictor; 
+	public static VictorSPX BallVictor, Intake;
 	
 	public TurnModule turning; 
 	
@@ -41,7 +42,7 @@ public class DriveTrain extends Subsystem {
 	//larger negative degree rotates counter-clockwise
 	
 	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
-	public static Potentiometer abeNE = new AnalogPotentiometer(1, 360, -197.85);
+	public static Potentiometer abeNE = new AnalogPotentiometer(1, 360, -207.85);
 	public static Potentiometer abeSW = new AnalogPotentiometer(2, 360, -279.3); 
 	public static Potentiometer abeSE = new AnalogPotentiometer(3, 360, -9.7); 
 	
@@ -56,9 +57,15 @@ public class DriveTrain extends Subsystem {
  
 		Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
 		
-		Intake = new TalonSRX(9); 
+		Intake = new VictorSPX(9); 
 		BallVictor = new VictorSPX(10); 
 
+		Bicep = new DoubleSolenoid(1,2);
+
+	}
+
+	public void setRawBicep(DoubleSolenoid.Value Flex){
+		Bicep.set(Flex); 
 	}
 
 	public double getAbeNW(){ return abeNW.get(); }
