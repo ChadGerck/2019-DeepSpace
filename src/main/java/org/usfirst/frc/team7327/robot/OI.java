@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 public class OI {
 	
-	// new code 1/29
 	public static final double DEADZONE_LIMIT = 0.2;
 	
 	public final XboxController Controller0 = new XboxController(RobotMap.XBOX_CONTROLLER0.value);

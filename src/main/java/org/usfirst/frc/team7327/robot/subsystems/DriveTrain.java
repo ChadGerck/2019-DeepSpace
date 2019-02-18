@@ -67,48 +67,33 @@ public class DriveTrain extends Subsystem {
 	public double getAbeSE(){ return abeSE.get(); }
 	
 	public void setAllSpeed(double speed) {
-		moduleNW.setDrive(speed);
-		moduleNE.setDrive(speed);
-		moduleSW.setDrive(speed);
-		moduleSE.setDrive(speed);
-			
+		moduleNE.setDrive(speed); moduleNW.setDrive(speed);
+		moduleSE.setDrive(speed); moduleSW.setDrive(speed);
 	} 
 	
 	public void setEachSpeed(double sNW, double sNE, double sSW, double sSE) {
-		moduleNW.setDrive(sNW);
-		moduleNE.setDrive(sNE);
-		moduleSW.setDrive(sSW);
-		moduleSE.setDrive(sSE);
+		moduleNE.setDrive(sNE); moduleNW.setDrive(sNW);
+		moduleSE.setDrive(sSE); moduleSW.setDrive(sSW);
 	}
 
 	public void setAllDegrees(double deg) {
-		moduleNW.setSteeringDeg(deg);
-		moduleNE.setSteeringDeg(deg);
-		moduleSW.setSteeringDeg(deg);
-		moduleSE.setSteeringDeg(deg);
+		moduleNE.setSteeringDeg(deg); moduleNW.setSteeringDeg(deg);
+		moduleSE.setSteeringDeg(deg); moduleSW.setSteeringDeg(deg);
 	}
 	
 	public void setEachDegree(double NE, double NW, double SE, double SW ) {
-		moduleNE.setSteeringDeg(NE);
-		moduleNW.setSteeringDeg(NW);
-		moduleSE.setSteeringDeg(SE);
-		moduleSW.setSteeringDeg(SW);
+		moduleNE.setSteeringDeg(NE); moduleNW.setSteeringDeg(NW);
+		moduleSE.setSteeringDeg(SE); moduleSW.setSteeringDeg(SW);
 	}
 
-	public void setRawElevator(double speed){
-		Elevator.setRawElev(speed);
-	}
-
-	public void setRawBallIn(double speed){
-		BallVictor.set(ControlMode.PercentOutput, speed);
-	}
-	
+	public void setRawElevator(double speed){ Elevator.setRawElev(speed); }
+	public void setElevatorPosition(double position){ Elevator.setPosition(position); }
+	public void setElevatorOn(boolean On) { Elevator.setOn(On); }
+	public void ResetElevator() { Elevator.ElevatorReset(); }
+	public void setRawBallIn(double speed){ BallVictor.set(ControlMode.PercentOutput, speed); }
 	public double getSteeringSetpoint() { return moduleNW.getSteeringSetpoint(); }
-	
 	public double getSteeringError() { return moduleNW.getError(); }
-	
 	public double getSteeringPosition() { return moduleNW.getSteeringEncoder(); }
-
 	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
 
 	@Override

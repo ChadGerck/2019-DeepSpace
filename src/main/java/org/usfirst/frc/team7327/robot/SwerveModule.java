@@ -40,9 +40,6 @@ public class SwerveModule{
         mSteer.enableVoltageCompensation(true);
     }
 
-       //INTAKE 2/12
-  //depending on where plugged in
-
     public double getError(){
         return Math.sin(Math.toRadians(setPoint - getSteeringEncoder()));
     }

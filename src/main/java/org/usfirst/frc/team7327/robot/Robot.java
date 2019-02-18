@@ -14,11 +14,8 @@ import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-
 import edu.wpi.first.wpilibj.Timer;
-
 import edu.wpi.first.wpilibj.command.Scheduler;
-
 import edu.wpi.first.wpilibj.I2C; 
 
 
@@ -28,9 +25,6 @@ public class Robot extends TimedRobot {
 	public static SwerveDrive swervedrive; 
 
 	public static AHRS nav;  
-
-	
-	
 	public static double NWdegree, NEdegree, SWdegree, SEdegree = 0;
 	
 	public static Timer myTimer = new Timer();
@@ -44,11 +38,9 @@ public class Robot extends TimedRobot {
 		myTimer.start();
 
 		nav = new AHRS(I2C.Port.kMXP);
-		
 				
 		oi = new OI();
 		drivetrain = new DriveTrain();
-		
 	}
 
 	@Override
@@ -65,7 +57,6 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		myTimer.reset();
 		myTimer.start();
-		
 	}
 	
 	@Override
@@ -108,17 +99,6 @@ public class Robot extends TimedRobot {
 		while(angle < 0)   angle += 360;
 		return angle; 
 	}
-	
-	/*
-	public static void gotoPosition(double goTo) { 
-		if(goTo < Robot.drivetrain.getLiftPosition()) {
-			while(goTo < drivetrain.getLiftPosition() && !SwerveDrive.kill) { Robot.drivetrain.setRawElevator(.5); } }
-		else if(goTo > Robot.drivetrain.getLiftPosition()) { 
-			while(goTo > drivetrain.getLiftPosition() && !SwerveDrive.kill) { Robot.drivetrain.setRawElevator(-.5); } 
-		}
-		SwerveDrive.flag = true; 
-	}
-	*/
 
 	class PlotThread implements Runnable {
 		Robot robot;
