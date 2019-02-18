@@ -11,7 +11,6 @@ package org.usfirst.frc.team7327.robot;
 
 public enum RobotMap {
 	//PWM Motor Mapping	
-	LIFT_MOTOR(0), 
 	//Control Mapping
 	XBOX_CONTROLLER0(0),
 	XBOX_CONTROLLER1(1);

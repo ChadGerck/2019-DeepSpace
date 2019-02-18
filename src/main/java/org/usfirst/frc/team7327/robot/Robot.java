@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj.command.Scheduler;
-
-import edu.wpi.first.wpilibj.I2C; 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.I2C;
 
 
 public class Robot extends TimedRobot { 
@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
 
 	public static AHRS nav;  
 
-	
+	Compressor c = new Compressor(0);
 	
 	public static double NWdegree, NEdegree, SWdegree, SEdegree = 0;
 	
@@ -49,6 +49,11 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		drivetrain = new DriveTrain();
 		
+		
+
+		c.setClosedLoopControl(true);
+		//c.enabled();
+
 	}
 
 	@Override
