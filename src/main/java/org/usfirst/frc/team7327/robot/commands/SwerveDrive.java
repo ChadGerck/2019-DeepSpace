@@ -59,19 +59,18 @@ public class SwerveDrive extends Command {
 		Robot.drivetrain.setRawBicep(Flex); 
 		
 		if(Robot.oi.getRightBumperDown(Player2) == true) { throottle = .6; }
+		else if(Robot.oi.getRightBumperDown(Player1) == true) {throottle = .6; }
 		else if(Robot.oi.getLeftBumperDown(Player2) == true) { throottle = -.6;}
+		else if(Robot.oi.getLeftBumperDown(Player1) == true) { throottle = -6;}
 		else { throottle = 0; }
 		Robot.drivetrain.setRawIntake(throottle);
 
 		magnitudeR2 = Math.sqrt(Math.pow(Robot.oi.getRightStickX(Player2), 2) + Math.pow(Robot.oi.getRightStickY(Player2), 2));
 		
 		if(magnitudeR2 > .3) { ballThrottle = .75*-Robot.oi.getRightStickY(Player2); }
-		else if(Robot.oi.getRightBumperDown(Player2)) {
-			ballThrottle = -.5; 
-		}
-		else{
-			ballThrottle = 0; 
-		}
+		else if(Robot.oi.getRightBumperDown(Player2)) { ballThrottle = -.5; }
+		else if(Robot.oi.getRightBumperDown(Player1)) { ballThrottle = -.5; }
+		else{ ballThrottle = 0; }
 		
 		Robot.drivetrain.setRawBallIn(ballThrottle); 
 		

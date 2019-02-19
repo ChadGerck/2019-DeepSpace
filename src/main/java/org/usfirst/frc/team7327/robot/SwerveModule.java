@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class SwerveModule{
 
-    private TalonSRX mDrive;
-    private VictorSPX mSteer;
+    private TalonSRX mDrive, mSteer;
     private Notifier SteeringPID;
     private double error, sumError, diffError, lastError;
     private double setPoint;
@@ -20,7 +19,7 @@ public class SwerveModule{
     public SwerveModule(int kDriveID, int kSteerID, Potentiometer steeringEncoder, double kP, double kI, double kD,
             boolean isFlipped) {
         mDrive = new TalonSRX(kDriveID);
-        mSteer = new VictorSPX(kSteerID);
+        mSteer = new TalonSRX(kSteerID);
         this.steeringEncoder = steeringEncoder;
         sumError = 0;
         lastError = getError();
