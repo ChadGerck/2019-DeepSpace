@@ -97,10 +97,11 @@ public class DriveTrain extends Subsystem {
 	public void setElevatorPosition(double position){ Elevator.setPosition(position); }
 	public void setElevatorOn(boolean On) { Elevator.setOn(On); }
 	public void ResetElevator() { Elevator.ElevatorReset(); }
+	public void ConfigElevator() { Elevator.configFeedbackSensor(); }
+	public void SetElevatorStatus() { Elevator.setTalonStatus(); }
+	public double getLiftVelocity() { return Elevator.getLiftVelocity(); }
+	public double getLiftPosition() { return Elevator.getLiftPosition(); }
 	public void setRawBallIn(double speed){ BallVictor.set(ControlMode.PercentOutput, speed); }
-	public double getSteeringSetpoint() { return moduleNW.getSteeringSetpoint(); }
-	public double getSteeringError() { return moduleNW.getError(); }
-	public double getSteeringPosition() { return moduleNW.getSteeringEncoder(); }
 	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
 
 	@Override
