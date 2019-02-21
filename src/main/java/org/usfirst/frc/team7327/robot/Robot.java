@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		drivetrain = new DriveTrain();
 
-		c.setClosedLoopControl(false);
+		c.setClosedLoopControl(true);
 
 	}
 

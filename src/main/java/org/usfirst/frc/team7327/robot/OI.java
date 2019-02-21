@@ -121,6 +121,15 @@ public class OI {
 		return raw; 
 	}
 	
+	public boolean getLSClick(XboxController Controller) {
+		boolean raw = Controller.getStickButtonPressed(Hand.kLeft);
+		return raw; 
+	}
+
+	public boolean getRSClick(XboxController Controller) {
+		boolean raw = Controller.getStickButtonPressed(Hand.kRight);
+		return raw; 
+	}
 	public OI () {
 		
 	}
