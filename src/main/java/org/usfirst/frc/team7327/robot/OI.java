@@ -36,7 +36,7 @@ public class OI {
 	
 	public boolean DpadUp(XboxController Controller){
 		double POV = Controller.getPOV(); 
-		if((POV >= 0 && POV < 45) || (POV >= 315 && POV < 360)) { return true; }
+		if((POV >= 0 && POV < 45) || (POV >= 315 && POV <= 360)) { return true; }
 		else { return false; }
 	}
 	public boolean DpadRight(XboxController Controller){
@@ -53,6 +53,17 @@ public class OI {
 		double POV = Controller.getPOV(); 
 		if(POV >= 225 && POV < 315) { return true; }
 		else { return false; }
+	}
+
+	public int RoundDegrees(double degrees){
+	if     (degrees >= 22.5  && degrees < 67.5 ){ return 45; }
+	else if(degrees >= 67.5  && degrees < 112.5){ return 90; }
+	else if(degrees >= 112.5 && degrees < 157.5){ return 135;}
+	else if(degrees >= 157.5 && degrees < 202.5){ return 180;}
+	else if(degrees >= 202.5 && degrees < 247.5){ return 225;}
+	else if(degrees >= 247.5 && degrees < 292.5){ return 270;}
+	else if(degrees >= 292.5 && degrees < 337.5){ return 315;}
+	else { return 0; }
 	}
 
 	public OI () { }

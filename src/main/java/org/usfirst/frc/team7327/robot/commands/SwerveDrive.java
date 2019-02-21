@@ -22,13 +22,15 @@ public class SwerveDrive extends Command {
 	int DriveSetting, ElevSetting = 0; 
 	protected void initialize() { DriveSetting = 0; ElevSetting = 0; DoubleSolenoid.clearAllPCMStickyFaults(0); }
 
-	double degreesL, magnitudeL, degreesR, magnitudeR, magnitudeR2, setDegree =  0; 
+	double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
 	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 17033, heightH3 = 30973; 
 	//int heightB1 = 19893; 
 
 	double throttle = .3, throottle = 0, ballThrottle = 0; 
 
 	DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
+
+	int supportMode; 
 
 	protected void execute(){
 		
@@ -51,7 +53,7 @@ public class SwerveDrive extends Command {
 		drive.setRawBicep(Flex); 
 		
 		if     (oi.RightBumperDown(P1)|| oi.RightBumperDown(P2)) { throottle =  .6; }
-		else if(oi.LeftBumperDown(P1) || oi.LeftBumperDown(P2) ){ throottle = -.6; }
+		else if(oi.LeftBumperDown(P1) || oi.LeftBumperDown(P2) ) { throottle = -.6; }
 		else { throottle =   0; }
 		drive.setRawIntake(throottle);
 
@@ -88,6 +90,11 @@ public class SwerveDrive extends Command {
 		if(magnitudeL > .5) setDegree = 180-degreesL;
 		if     (oi.LSClick(P1)){ DriveSetting = 2; turning.setOn(false); } 
 		else if(oi.RSClick(P1)){ DriveSetting = 3; turning.setOn(false); }
+
+		degreesL2 = Math.toDegrees(Math.atan2(oi.LeftStickY(P1),  oi.LeftStickX(P1))) + 90;
+		magnitudeL2 = Math.sqrt(Math.pow(oi.LeftStickX(P1), 2) + Math.pow(oi.LeftStickY(P1), 2));
+		if(magnitudeL2 > .5){ supportMode = oi.RoundDegrees(degreesL2); }
+		else{ supportMode = -1; }
 		
 		switch(DriveSetting) {
 		case 0:  
@@ -97,6 +104,7 @@ public class SwerveDrive extends Command {
 			break; 
 		case 1: 
 			drive.setEachDegree(225, 315, 135, 45);
+			if(oi.RoundDegrees(degreesR) == supportMode) { degreesR = supportMode; }
 			turning.setYaw(degreesR);
 			if(magnitudeR <= .5){ DriveSetting = 0; turning.setOn(false); }
 			break; 
