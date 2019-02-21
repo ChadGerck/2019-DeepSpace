@@ -13,12 +13,12 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class SwerveDrive extends Command {
-	public static DriveTrain drive;
-	public static OI oi; 
-	public static TurnModule turning; 
+	private static DriveTrain drive;
+	private static OI oi; 
+	private static TurnModule turning; 
 	public SwerveDrive() { requires(drive); }
 	
-	public static XboxController P1 = oi.Controller0, P2 = oi.Controller1; 
+	private static XboxController P1 = oi.Controller0, P2 = oi.Controller1; 
 	int DriveSetting, ElevSetting = 0; 
 	protected void initialize() { DriveSetting = 0; ElevSetting = 0; DoubleSolenoid.clearAllPCMStickyFaults(0); }
 

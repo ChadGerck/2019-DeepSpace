@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 public class OI {
 	
-	public static final double DEADZONE_LIMIT = 0.2;
+	private static final double DEADZONE_LIMIT = 0.2;
 	
 	public final XboxController Controller0 = new XboxController(RobotMap.XBOX_CONTROLLER0.value);
 	public final XboxController Controller1 = new XboxController(RobotMap.XBOX_CONTROLLER1.value);

@@ -36,7 +36,7 @@ public class ElevatorModule{
 		mLift.setNeutralMode(NeutralMode.Brake);
     }
 
-    public double getError(){ return setPoint - getLiftPosition(); }
+    private double getError(){ return setPoint - getLiftPosition(); }
     public void setPosition(double position){ setPoint = position; }
     public void setRawElev(double speed){ mLift.set(ControlMode.PercentOutput, speed); }
     
@@ -47,6 +47,6 @@ public class ElevatorModule{
 	public void configFeedbackSensor() { mLift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); }
     public void ElevatorReset()        { mLift.setSelectedSensorPosition(0, 0, 0); }
 
-    public boolean setOn(boolean flipOn) { on = flipOn; return on; }
+    public void setOn(boolean flipOn) { on = flipOn; }
 
 }

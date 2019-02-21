@@ -19,10 +19,10 @@ public class DriveTrain extends Subsystem {
 	
 	private SwerveModule moduleNE, moduleNW, moduleSE, moduleSW;
 	private DoubleSolenoid Bicep; 
-	public static ElevatorModule Elevator;
-	public static VictorSPX BallVictor;
+	private static ElevatorModule Elevator;
+	private static VictorSPX BallVictor;
 	//public static VictorSPX Intake;
-	public static TalonSRX Intake; 
+	private static TalonSRX Intake; 
 	public TurnModule turning; 
 	
 	static final double kP = 2.5, kI = 0, kD = 0;

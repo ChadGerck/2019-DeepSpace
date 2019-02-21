@@ -1,7 +1,6 @@
 package org.usfirst.frc.team7327.robot;
 
 import com.kauailabs.navx.frc.AHRS;
-import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -11,9 +10,7 @@ import edu.wpi.first.wpilibj.I2C;
 public class Robot extends TimedRobot { 
 	public static OI oi;
 	public static DriveTrain drivetrain;
-	public static SwerveDrive swervedrive; 
 	public static AHRS nav;  
-	public static double NWdegree, NEdegree, SWdegree, SEdegree = 0;
 
 	Compressor c = new Compressor(0);
 	

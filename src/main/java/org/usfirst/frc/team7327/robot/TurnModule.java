@@ -27,14 +27,12 @@ public class TurnModule{
     	TurningPID.startPeriodic(0.01);
     }
 
-    public double getError(){
+    private double getError(){
     	double navFinal = navTo - Robot.NavAngle(); 
     	if(navFinal <= 0 ) navFinal += 360; 
         return Math.sin(Math.toRadians(navFinal));
     }
-    
     public void setYaw(double degree){ navTo = degree; }
-    
-    public boolean setOn(boolean flipOn) { on = flipOn; return on; }
+    public void setOn(boolean flipOn) { on = flipOn; }
 
 }
