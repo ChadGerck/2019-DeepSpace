@@ -51,7 +51,7 @@ public class SwerveDrive extends Command {
 		drive.setRawBicep(Flex); 
 		
 		if     (oi.RightBumperDown(P1)|| oi.RightBumperDown(P2)) { throottle =  .6; }
-		else if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P2) ){ throottle = -.6; }
+		else if(oi.LeftBumperDown(P1) || oi.LeftBumperDown(P2) ){ throottle = -.6; }
 		else { throottle =   0; }
 		drive.setRawIntake(throottle);
 
