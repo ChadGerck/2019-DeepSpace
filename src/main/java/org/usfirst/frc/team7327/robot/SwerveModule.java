@@ -40,9 +40,7 @@ public class SwerveModule{
         mSteer.enableVoltageCompensation(true);
     }
 
-    public double getError(){
-        return Math.sin(Math.toRadians(setPoint - getSteeringEncoder()));
-    }
+    public double getError(){ return Math.sin(Math.toRadians(setPoint - getSteeringEncoder())); }
 
     public double getSteeringEncoder(){
         double angle = steeringEncoder.get();
@@ -51,9 +49,9 @@ public class SwerveModule{
 		return angle; 
     }
 
-    public void setDrive(double pow){
-    	if(isFlipped) mDrive.set(ControlMode.PercentOutput, -pow);
-    	else          mDrive.set(ControlMode.PercentOutput, pow);
+    public void setDrive(double power){
+    	if(isFlipped) mDrive.set(ControlMode.PercentOutput, -power);
+    	else          mDrive.set(ControlMode.PercentOutput, power);
     }
 
     public void setSteeringDeg(double deg) { setPoint = deg; }
