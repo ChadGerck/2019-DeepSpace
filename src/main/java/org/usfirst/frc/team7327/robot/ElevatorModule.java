@@ -29,7 +29,6 @@ public class ElevatorModule{
             PIDOutput = Math.min(.8, PIDOutput);
             PIDOutput = Math.max(-.6, PIDOutput); 
             if(on) { mLift.set(ControlMode.PercentOutput, PIDOutput); }
-            
             lastError = error;
         });
         SteeringPID.startPeriodic(0.01);
@@ -37,30 +36,17 @@ public class ElevatorModule{
 		mLift.setNeutralMode(NeutralMode.Brake);
     }
 
-    public double getError(){
-        return setPoint - getLiftPosition();
-    }
-
-    public void setPosition(double position){
-        setPoint = position; 
-    }
-
-    public void setRawElev(double speed){
-        mLift.set(ControlMode.PercentOutput, speed);
-    }
-
+    public double getError(){ return setPoint - getLiftPosition(); }
+    public void setPosition(double position){ setPoint = position; }
+    public void setRawElev(double speed){ mLift.set(ControlMode.PercentOutput, speed); }
     
 	public double getLiftVelocity() { return -mLift.getSelectedSensorVelocity(0); }
-	public double getLiftPosition() { return -mLift.getSelectedSensorPosition(0); }
-    
+	public double getLiftPosition() { return -mLift.getSelectedSensorPosition(0); } 
     
 	public void setTalonStatus()       { mLift.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);       }
 	public void configFeedbackSensor() { mLift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); }
     public void ElevatorReset()        { mLift.setSelectedSensorPosition(0, 0, 0); }
 
-    public boolean setOn(boolean flipOn) { 
-    	on = flipOn; 
-    	return on; 
-    }
+    public boolean setOn(boolean flipOn) { on = flipOn; return on; }
 
 }

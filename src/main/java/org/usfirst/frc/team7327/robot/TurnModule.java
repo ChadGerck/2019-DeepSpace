@@ -25,7 +25,6 @@ public class TurnModule{
             lastError = error;
     	}); 
     	TurningPID.startPeriodic(0.01);
-    	
     }
 
     public double getError(){
@@ -36,9 +35,6 @@ public class TurnModule{
     
     public void setYaw(double degree){ navTo = degree; }
     
-    public boolean setOn(boolean flipOn) { 
-    	on = flipOn; 
-    	return on; 
-    }
+    public boolean setOn(boolean flipOn) { on = flipOn; return on; }
 
 }

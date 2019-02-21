@@ -32,7 +32,6 @@ public class SwerveModule{
             sumError += getError();
             PIDOutput = kP * getError() + kI * sumError + kD * diffError;
             mSteer.set(ControlMode.PercentOutput, PIDOutput);
-            
             lastError = error;
         });
         SteeringPID.startPeriodic(0.01);
@@ -58,8 +57,6 @@ public class SwerveModule{
     }
 
     public void setSteeringDeg(double deg) { setPoint = deg; }
-    
-  
     public double getSteeringSetpoint() { return setPoint; }
 
 }

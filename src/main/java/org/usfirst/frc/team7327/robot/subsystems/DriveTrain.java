@@ -18,38 +18,23 @@ import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 public class DriveTrain extends Subsystem {
 	
 	private SwerveModule moduleNE, moduleNW, moduleSE, moduleSW;
-
 	private DoubleSolenoid Bicep; 
-
 	public static ElevatorModule Elevator;
-	
 	public static VictorSPX BallVictor;
 	//public static VictorSPX Intake;
 	public static TalonSRX Intake; 
-	
 	public TurnModule turning; 
 	
-	static final double kP = 2.5;
-	static final double kI = 0;
-	static final double kD = 0;
-	
-	static final double tkP = .4;  //.4 cement , .6 carpet
-	static final double tkI = .000001;
-	static final double tkD = .04; //.04 cement , .05 carpet
-
-	static final double ekP = .0004;
-	static final double ekI = 0; 
-	static final double ekD = 0; 
+	static final double kP = 2.5, kI = 0, kD = 0;
+	static final double tkP = .4, tkI = .000001, tkD = .04; //tKP .4 cement , .6 carpet tkD .04 cement , .05 carpet
+	static final double ekP = .0004, ekI = 0, ekD = 0; 
 	
 	//larger negative degree rotates counter-clockwise
-
 	//Harbi
 	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
 	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -207.85);
 	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -235.3); 
 	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -9.7);
-	
-
 	//Discovery
 	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -94.2); 
 	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
@@ -76,9 +61,7 @@ public class DriveTrain extends Subsystem {
 
 	}
 
-	public void setRawBicep(DoubleSolenoid.Value Flex){
-		Bicep.set(Flex); 
-	}
+	public void setRawBicep(DoubleSolenoid.Value Flex){ Bicep.set(Flex); }
 
 	public double getAbeNW(){ return abeNW.get(); }
 	public double getAbeNE(){ return abeNE.get(); }
@@ -89,17 +72,14 @@ public class DriveTrain extends Subsystem {
 		moduleNE.setDrive(speed); moduleNW.setDrive(speed);
 		moduleSE.setDrive(speed); moduleSW.setDrive(speed);
 	} 
-	
 	public void setEachSpeed(double sNW, double sNE, double sSW, double sSE) {
 		moduleNE.setDrive(sNE); moduleNW.setDrive(sNW);
 		moduleSE.setDrive(sSE); moduleSW.setDrive(sSW);
 	}
-
 	public void setAllDegrees(double deg) {
 		moduleNE.setSteeringDeg(deg); moduleNW.setSteeringDeg(deg);
 		moduleSE.setSteeringDeg(deg); moduleSW.setSteeringDeg(deg);
 	}
-	
 	public void setEachDegree(double NE, double NW, double SE, double SW ) {
 		moduleNE.setSteeringDeg(NE); moduleNW.setSteeringDeg(NW);
 		moduleSE.setSteeringDeg(SE); moduleSW.setSteeringDeg(SW);
@@ -107,7 +87,7 @@ public class DriveTrain extends Subsystem {
 
 	public void setRawElevator(double speed){ Elevator.setRawElev(speed); }
 	public void setElevatorPosition(double position){ Elevator.setPosition(position); }
-	public void setElevatorOn(boolean On) { Elevator.setOn(On); }
+	public void ElevOn(boolean On) { Elevator.setOn(On); }
 	public void ResetElevator() { Elevator.ElevatorReset(); }
 	public void ConfigElevator() { Elevator.configFeedbackSensor(); }
 	public void SetElevatorStatus() { Elevator.setTalonStatus(); }
@@ -117,8 +97,6 @@ public class DriveTrain extends Subsystem {
 	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
 
 	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new SwerveDrive());
-	}
+	protected void initDefaultCommand() { setDefaultCommand(new SwerveDrive()); }
 
 }
