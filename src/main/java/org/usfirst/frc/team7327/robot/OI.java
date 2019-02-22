@@ -55,7 +55,8 @@ public class OI {
         else { return false; }
     }
 
-	/*public int RoundDegrees(double degrees){
+	public int RoundDegrees(double degrees){
+		degrees = Degrees(degrees)}
 		if     (degrees >= 22.5  && degrees < 67.5 ){ return 45; }
 		else if(degrees >= 67.5  && degrees < 112.5){ return 90; }
 		else if(degrees >= 112.5 && degrees < 157.5){ return 135;}
@@ -64,17 +65,12 @@ public class OI {
 		else if(degrees >= 247.5 && degrees < 292.5){ return 270;}
 		else if(degrees >= 292.5 && degrees < 337.5){ return 315;}
 		else { return 0; }
-		}*/
-	public int RoundDegrees(double degrees){
-		if     (degrees >= 22.5  && degrees < 67.5 ){ return 45; }
-		else if(degrees >= 67.5  && degrees < 112.5){ return 90; }
-		else if(degrees >= 112.5 && degrees < 157.5){ return 135;}
-		else if(degrees >= 157.5 && degrees < 180){ return 180;}
-		else if(degrees <= -157.5 && degrees > -180){ return 180;}
-		else if(degrees <= -112.5 && degrees > -157.5){ return -135;}
-		else if(degrees <= -67.5 && degrees > -112.5){ return -90;}
-		else if(degrees <= -22.5 && degrees > -67.5){ return -45;}
-		else { return 0; }
+	}
+
+	public static double Degrees(double degrees) {
+		while(degree > 360) degree -= 360; 
+		while(degree < 0)   degree += 360;
+		return degree; 
 	}
     public OI () { }
 }
