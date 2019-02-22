@@ -107,7 +107,7 @@ public class DriveTrain extends Subsystem {
 
 	public void setRawElevator(double speed){ Elevator.setRawElev(speed); }
 	public void setElevatorPosition(double position){ Elevator.setPosition(position); }
-	public void setElevatorOn(boolean On) { Elevator.setOn(On); }
+	public void ElevOn(boolean On) { Elevator.setOn(On); }
 	public void ResetElevator() { Elevator.ElevatorReset(); }
 	public void ConfigElevator() { Elevator.configFeedbackSensor(); }
 	public void SetElevatorStatus() { Elevator.setTalonStatus(); }
