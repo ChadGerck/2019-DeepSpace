@@ -56,7 +56,7 @@ public class OI {
     }
 
 	public int RoundDegrees(double degrees){
-		degrees = Degrees(degrees)}
+		degrees = Degrees(degrees);
 		if     (degrees >= 22.5  && degrees < 67.5 ){ return 45; }
 		else if(degrees >= 67.5  && degrees < 112.5){ return 90; }
 		else if(degrees >= 112.5 && degrees < 157.5){ return 135;}
@@ -67,10 +67,10 @@ public class OI {
 		else { return 0; }
 	}
 
-	public static double Degrees(double degrees) {
-		while(degree > 360) degree -= 360; 
-		while(degree < 0)   degree += 360;
-		return degree; 
+	public static double Degrees(double degrees){
+		while(degrees > 360) degrees -= 360; 
+		while(degrees < 0)   degrees += 360;
+		return degrees; 
 	}
     public OI () { }
 }
