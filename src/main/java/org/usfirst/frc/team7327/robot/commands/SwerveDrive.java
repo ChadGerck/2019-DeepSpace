@@ -2,7 +2,7 @@ package org.usfirst.frc.team7327.robot.commands;
 
 import org.usfirst.frc.team7327.robot.Robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+//import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,7 +19,7 @@ public class SwerveDrive extends Command {
 	public static XboxController P1 = Robot.oi.Controller0, P2 = Robot.oi.Controller1; 
 	int DriveSetting, ElevSetting = 0; 
 	protected void initialize() { DriveSetting = 0; ElevSetting = 0; 
-		DoubleSolenoid.clearAllPCMStickyFaults(0); 
+		//DoubleSolenoid.clearAllPCMStickyFaults(0); 
 	}
 
 	double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
@@ -30,7 +30,7 @@ public class SwerveDrive extends Command {
 
 	int supportMode = 0; 
 
-	DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
+	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
 	protected void execute(){
 		
@@ -54,10 +54,10 @@ public class SwerveDrive extends Command {
 		if(Robot.oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(Robot.oi.StartButton(P2)) { Robot.drivetrain.ResetElevator(); }
 
-		if(Robot.oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
-		else if(Robot.oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
-		else { Flex = DoubleSolenoid.Value.kOff; }
-		Robot.drivetrain.setRawBicep(Flex); 
+		//if(Robot.oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
+		//else if(Robot.oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
+		//else { Flex = DoubleSolenoid.Value.kOff; }
+		//Robot.drivetrain.setRawBicep(Flex); 
 		
 		if(Robot.oi.RightBumperDown(P2)) { throottle = .6; }
 		else if(Robot.oi.RightBumperDown(P1)) {throottle = .6; }
@@ -104,8 +104,7 @@ public class SwerveDrive extends Command {
 		degreesL2 = Math.toDegrees(Math.atan2(Robot.oi.LeftStickY(P2),  Robot.oi.LeftStickX(P2))) + 90;
         magnitudeL2 = Math.sqrt(Math.pow(Robot.oi.LeftStickX(P2), 2) + Math.pow(Robot.oi.LeftStickY(P2), 2));
         if(magnitudeL2 > .5){ supportMode = Robot.oi.RoundDegrees(degreesL2); }
-		else{ supportMode = -1; }
-		System.out.println(degreesL2); 
+		else{ supportMode = -1; } 
 
 		switch(DriveSetting) {
 		case 0: //Precision Mode 
@@ -117,8 +116,8 @@ public class SwerveDrive extends Command {
 			break; 
 		case 1: 
 			Robot.drivetrain.setEachDegree(225, 315, 135, 45);
-			if(Robot.oi.RoundDegrees(degreesR) == supportMode) { degreesR = supportMode; }
 			Robot.drivetrain.turning.setYaw(degreesR);
+
 			if(magnitudeR <= .5) { DriveSetting = 0; Robot.drivetrain.turning.setOn(false); }
 			if(Robot.oi.LSClick(P1)){ DriveSetting = 2; Robot.drivetrain.turning.setOn(false); }
 			if(Robot.oi.RSClick(P1)){ DriveSetting = 3; Robot.drivetrain.turning.setOn(false); }

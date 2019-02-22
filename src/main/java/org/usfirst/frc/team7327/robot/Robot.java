@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
 
 	public static AHRS nav;  
 
-	Compressor c = new Compressor(0);
+	//Compressor c = new Compressor(0);
 	
 	public static double NWdegree, NEdegree, SWdegree, SEdegree = 0;
 	
@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		drivetrain = new DriveTrain();
 
-		c.setClosedLoopControl(true);
+		//c.setClosedLoopControl(true);
 
 	}
 

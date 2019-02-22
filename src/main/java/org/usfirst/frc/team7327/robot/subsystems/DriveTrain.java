@@ -19,7 +19,7 @@ public class DriveTrain extends Subsystem {
 	
 	private SwerveModule moduleNE, moduleNW, moduleSE, moduleSW;
 
-	private DoubleSolenoid Bicep; 
+	//private DoubleSolenoid Bicep; 
 
 	public static ElevatorModule Elevator;
 	
@@ -72,12 +72,12 @@ public class DriveTrain extends Subsystem {
 		Intake = new TalonSRX(9); 
 		BallVictor = new VictorSPX(10); 
 
-		Bicep = new DoubleSolenoid(1,2);
+		//Bicep = new DoubleSolenoid(1,2);
 
 	}
 
 	public void setRawBicep(DoubleSolenoid.Value Flex){
-		Bicep.set(Flex); 
+		//Bicep.set(Flex); 
 	}
 
 	public double getAbeNW(){ return abeNW.get(); }
