@@ -69,10 +69,11 @@ public class OI {
 		if     (degrees >= 22.5  && degrees < 67.5 ){ return 45; }
 		else if(degrees >= 67.5  && degrees < 112.5){ return 90; }
 		else if(degrees >= 112.5 && degrees < 157.5){ return 135;}
-		else if(degrees >= 157.5 && degrees < -157.5){ return 180;}
-		else if(degrees >= -112.5 && degrees < -157.5){ return -135;}
-		else if(degrees >= -67.5 && degrees < -112.5){ return -90;}
-		else if(degrees >= -22.5 && degrees < -67.5){ return -45;}
+		else if(degrees >= 157.5 && degrees < 180){ return 180;}
+		else if(degrees <= -157.5 && degrees > -180){ return 180;}
+		else if(degrees <= -112.5 && degrees > -157.5){ return -135;}
+		else if(degrees <= -67.5 && degrees > -112.5){ return -90;}
+		else if(degrees <= -22.5 && degrees > -67.5){ return -45;}
 		else { return 0; }
 	}
     public OI () { }
