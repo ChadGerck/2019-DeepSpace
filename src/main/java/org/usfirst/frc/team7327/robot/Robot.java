@@ -7,132 +7,110 @@
 
 package org.usfirst.frc.team7327.robot;
 
-import com.kauailabs.navx.frc.AHRS;
-
-import org.usfirst.frc.team7327.robot.commands.SwerveDrive;
-import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+//import javax.swing.text.Position;
+//import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team7327.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to each mode, as described in the TimedRobot
+ * documentation. If you change the name of this class or the package after
+ * creating this project, you must also update the build.gradle file in the
+ * project.
+ */
+public class Robot extends TimedRobot {
+  private static final String kDefaultAuto = "Default";
+  private static final String kCustomAuto = "My Auto";
+  private String m_autoSelected;
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  public static final Drivetrain kDrivetrain = new Drivetrain();
 
-public class Robot extends TimedRobot { 
-	public static OI oi;
-	public static DriveTrain drivetrain;
-	public static SwerveDrive swervedrive; 
+  public static final OI oi = new OI();
+  /**
+   * This function is run when the robot is first started up and should be
+   * used for any initialization code.
+   */
+  @Override
+  public void robotInit() {
+    m_chooser.addDefault("Default Auto", kDefaultAuto);
+    m_chooser.addObject("My Auto", kCustomAuto);
+    SmartDashboard.putData("Auto choices", m_chooser);
 
-	public static AHRS nav;  
+  }
 
-	Compressor c = new Compressor(0);
-	
-	public static double NWdegree, NEdegree, SWdegree, SEdegree = 0;
-	
-	public static Timer myTimer = new Timer();
-	public static boolean done = true; 
-	
-	PlotThread _plotThread;
-	
-	@Override
-	public void robotInit() {
-		myTimer.reset();
-		myTimer.start();
+  /**
+   * This function is called every robot packet, no matter the mode. Use
+   * this for items like diagnostics that you want ran during disabled,
+   * autonomous, teleoperated and test.
+   *
+   * <p>This runs after the mode specific periodic functions, but before
+   * LiveWindow and SmartDashboard integrated updating.
+   */
+  @Override
+  public void robotPeriodic() {
+    kDrivetrain.updateDashboard();
+  }
 
-		nav = new AHRS(I2C.Port.kMXP);
-				
-		oi = new OI();
-		drivetrain = new DriveTrain();
+  /**
+   * This autonomous (along with the chooser code above) shows how to select
+   * between different autonomous modes using the dashboard. The sendable
+   * chooser code works with the Java SmartDashboard. If you prefer the
+   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
+   * getString line to get the auto name from the text box below the Gyro
+   *
+   * <p>You can add additional auto modes by adding additional comparisons to
+   * the switch structure below with additional strings. If using the
+   * SendableChooser make sure to add them to the chooser code above as well.
+   */
+  @Override
+  public void autonomousInit() {
+    m_autoSelected = m_chooser.getSelected();
+    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
+    System.out.println("Auto selected: " + m_autoSelected);
+  }
 
-		c.setClosedLoopControl(false);
+  /**
+   * This function is called periodically during autonomous.
+   */
+  @Override
+  public void autonomousPeriodic() {
+    switch (m_autoSelected) {
+      case kCustomAuto:
+        // Put custom auto code here
+        break;
+      case kDefaultAuto:
+      default:
+        // Put default auto code here
+        break;
+    }
+  }
 
-	}
+  /**
+   * This function is called periodically during operator control.
+   */
+  @Override
+  public void teleopPeriodic() {
+    /*
+    kDrivetrain.setAllPower(oi.getLeftMagnitude());
+    kDrivetrain.setAllAngle(oi.getLeftJoystickAngle());
+    */
+    SmartDashboard.putNumber("Left Joystick X", oi.getLeftXAxis());
+    SmartDashboard.putNumber("Left Joystick Y", oi.getLeftYAxis());
+    SmartDashboard.putNumber("Right Joystick X", oi.getRightXAxis());
+    Scheduler.getInstance().run();
+  }
 
-	@Override
-	public void disabledInit() {
+  /**
+   * This function is called periodically during test mode.][\
+   *
+   */
+  @Override
+  public void testPeriodic() {
+  }
 
-	}
-
-	@Override
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-	}
-
-	@Override
-	public void autonomousInit() {
-		myTimer.reset();
-		myTimer.start();
-	}
-	
-	@Override
-	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
-	}
-
-	@Override
-	public void teleopInit() {
-		nav.reset();
-
-		drivetrain.SetElevatorStatus();
-		drivetrain.ConfigElevator();
-		
-		/* Fire the plotter */
-		_plotThread = new PlotThread(this);
-		new Thread(_plotThread).start();
-		
-	}
-	
-
-	@Override
-	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
-	}
-
-	@Override
-	public void testPeriodic() {
-	}
-
-	public static double NavAngle() {
-		double angle = Robot.nav.getAngle(); 
-		while(angle > 360) angle -= 360; 
-		while(angle < 0)   angle += 360;
-		return angle; 
-	}
-	public static double NavAngle(double add) {
-		double angle = Robot.nav.getAngle(); 
-		while(angle > 360) angle -= 360; 
-		while(angle < 0)   angle += 360;
-		return angle; 
-	}
-
-	class PlotThread implements Runnable {
-		Robot robot;
-
-		public PlotThread(Robot robot) {
-			this.robot = robot;
-		}
-
-		public void run() {
-			/**
-			 * Speed up network tables, this is a test project so eat up all of
-			 * the network possible for the purpose of this test.
-			 */
-
-			while (true) {
-				/* Yield for a Ms or so - this is not meant to be accurate */
-				try {
-					Thread.sleep(100);
-				} catch (Exception e) {
-					/* Do Nothing */
-				}
-
-				/* Grab the latest signal update from our 1ms frame update */
-				SmartDashboard.putNumber("vel", drivetrain.getLiftVelocity());
-				SmartDashboard.putNumber("Position: ", drivetrain.getLiftPosition()); 
-			}
-		}
-	}
-	
 }

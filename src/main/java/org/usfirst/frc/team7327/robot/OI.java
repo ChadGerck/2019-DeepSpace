@@ -1,127 +1,43 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package org.usfirst.frc.team7327.robot;
+import edu.wpi.first.wpilibj.Joystick;
+import org.usfirst.frc.team7327.robot.Constants;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController;
-public class OI {
-	
-	public static final double DEADZONE_LIMIT = 0.2;
-	
-	public final XboxController Controller0 = new XboxController(RobotMap.XBOX_CONTROLLER0.value);
-	public final XboxController Controller1 = new XboxController(RobotMap.XBOX_CONTROLLER1.value);
-	
-	public double getLeftStickX(XboxController Controller) {
-		double raw = Controller.getRawAxis(0);
-		return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw;
-	}
-	
-	public double getLeftStickY(XboxController Controller) {
-		double raw = Controller.getRawAxis(1);
-		return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw;
-	}
-	
-	public double getRightStickX(XboxController Controller) {
-		double raw = Controller.getRawAxis(4);
-		return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw;
-	}
-	
-	public double getRightStickY(XboxController Controller) {
-		double raw = Controller.getRawAxis(5);
-		return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw;
-	}
-	
-	public double getLeftTrigger(XboxController Controller) {
-		double raw = Controller.getRawAxis(2);
-		return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw;
-	}
-	
-	public double getRightTrigger(XboxController Controller) {
-		double raw = Controller.getRawAxis(3);
-		return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw;
-	}
-	
-	public boolean getLeftBumper(XboxController Controller) {
-		boolean raw = Controller.getBumperPressed(Hand.kLeft);
-		return raw;
-	}
+public class OI{
 
-	public boolean getLeftBumperDown(XboxController Controller) {
-		boolean raw = Controller.getBumper(Hand.kLeft);
-		return raw;
-	}
+    public Joystick stick = new Joystick(Constants.kJoyStick);
+    public OI(){
+    }
+    public double getLeftAngle(){
+        return stick.getDirectionDegrees();
+    }
 
-	public boolean getRightBumper(XboxController Controller) {
-		boolean raw = Controller.getBumperPressed(Hand.kRight);
-		return raw;
-	}
+    public double getLeftJoystickAngle(){
+        return Math.toDegrees(Math.atan2(stick.getRawAxis(0), -stick.getRawAxis(1)));
+    }
 
-	public boolean getRightBumperDown(XboxController Controller) {
-		boolean raw = Controller.getBumper(Hand.kRight);
-		return raw;
-	}
+    public double getLeftXAxis(){
+        return Math.abs(stick.getRawAxis(0)) > 0.1 ? stick.getRawAxis(0) : 0;
+    }
 
-	public boolean getAButton(XboxController Controller) {
-		boolean raw = Controller.getAButtonPressed();
-		return raw;
-	}
+    public double getLeftYAxis(){
+        /*
+        double val = ((-stick.getRawAxis(1)) + Constants.kLeftYOffset) * (1.0/(1.0-Constants.kLeftYOffset));
+        val = val > 1.0 ? 1.0 : val;
+        val = val < -1.0 ? -1.0 : val;
+        val = Math.abs(val) < .05 ? 0 : val;
+        return val;*/
+        return Math.abs(stick.getRawAxis(1)) > 0.1 ? stick.getRawAxis(1) : 0;
+    }
 
-	public boolean getAButtonDown(XboxController Controller) {
-		boolean raw = Controller.getAButton(); 
-		return raw;
-	}
+    public double getRightXAxis(){
 
-	public boolean getBButton(XboxController Controller) {
-		boolean raw = Controller.getBButtonPressed();
-		return raw;
-	}
-	
-	public boolean getBButtonDown(XboxController Controller) {
-		boolean raw = Controller.getBButton(); 
-		return raw;
-	}
+        if(stick.getRawButton(1))
+            return (Math.abs(stick.getRawAxis(2)) > 0.1 ? stick.getRawAxis(2) : 0) * 0.25;
+        else
+            return 0;
+    }
 
-	public boolean getXButton(XboxController Controller) {
-		boolean raw = Controller.getXButtonPressed();
-		return raw;
-	}
-
-	public boolean getXButtonDown(XboxController Controller) {
-		boolean raw = Controller.getXButton(); 
-		return raw;
-	}
-	
-	public boolean getYButton(XboxController Controller) {
-		boolean raw = Controller.getYButtonPressed();
-		return raw;
-	}
-
-	public boolean getYButtonDown(XboxController Controller) {
-		boolean raw = Controller.getYButton();
-		return raw;
-	}
-	
-	public double Dpad(XboxController Controller) {
-		double raw = Controller.getPOV();
-		return raw;
-	}
-	
-	public boolean getStartButton(XboxController Controller) {
-		boolean raw = Controller.getStartButtonPressed();
-		return raw; 
-	}
-	
-	public boolean getBackButton(XboxController Controller) {
-		boolean raw = Controller.getRawButtonPressed(7);
-		return raw; 
-	}
-	
-	public OI () {
-		
-	}
-}                                                                  
+    public double getLeftMagnitude(){
+        return Math.hypot(stick.getRawAxis(1), stick.getRawAxis(0));
+    }
+}
