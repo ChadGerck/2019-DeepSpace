@@ -29,6 +29,8 @@ public class SwerveDrive extends Command {
 	double throttle = .3, throottle = 0, ballThrottle = 0; 
 
 	int supportMode = 0; 
+	float Kp = -0.03f;
+
 
 	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
@@ -44,6 +46,7 @@ public class SwerveDrive extends Command {
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
 		
+
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
 		SmartDashboard.putNumber("LimelightX", x);
 		SmartDashboard.putNumber("LimelightY", y);
