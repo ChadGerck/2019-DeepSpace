@@ -97,9 +97,9 @@ public class SwerveDrive extends Command {
 		case 7: Robot.drivetrain.setElevatorPosition(heightH3); break; 
 		}
 //we put it in
-		if (Robot.oi.getYButton(Player1)) { setting = 2; }
+		if (Robot.oi.getYButton(P1)) { setting = 2; }
 
-		if (Robot.oi.getXButton(Player1)) { setting = 0; }
+		if (Robot.oi.getXButton(P1)) { setting = 0; }
 
 
 		degreesL = Math.toDegrees(Math.atan2(Robot.oi.LeftStickY(P1),  Robot.oi.LeftStickX(P1))) + 90;
