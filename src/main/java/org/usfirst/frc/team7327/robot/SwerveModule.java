@@ -39,7 +39,7 @@ public class SwerveModule{
      * @param kI            the steering kI gain
      * @param kD            the steering kD gain
      */
-    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer SteeringEncoder, boolean isReversed, double offset, double kP, double kI, double kD){
+    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, boolean isReversed, double offset, double kP, double kI, double kD){
         mDrive = new WrappedTalonSRX(kDriveID);
         mSteering = new WrappedTalonSRX(kSteeringID);
         //this.offset = offset;
@@ -229,7 +229,7 @@ public class SwerveModule{
     }
 
     public double getSteeringEncoder(){
-        double angle = steeringEncoder.get();
+        double angle = steeringEncoder.get(); 
 		while(angle > 360) angle -= 360; 
 		while(angle < 0)   angle += 360; 
 		return angle; 
