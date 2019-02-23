@@ -22,9 +22,6 @@ public class Drivetrain extends Subsystem {
   private SwerveModule moduleBackLeft = new SwerveModule(Constants.kBackLeftSteerID, Constants.kBackLeftDriveID, abeSW,  true, Constants.kBackLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID, abeSE, true, Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   public Drivetrain(){
-    moduleFrontLeft.configEncValues(47, 855, 156, 978);
-    moduleFrontRight.configEncValues(44, 853, 156, 978);
-    moduleBackLeft.configEncValues(45, 868, 156, 978);
   }
   @Override
   public void initDefaultCommand() {

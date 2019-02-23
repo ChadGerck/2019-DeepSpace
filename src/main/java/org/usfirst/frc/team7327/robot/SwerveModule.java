@@ -15,7 +15,7 @@ public class SwerveModule{
     private volatile double sumError, errorChange, lastError, currentError, pidOutput;
     private boolean isReversed;
     private double setpoint;
-    private double offset;
+    //private double offset;
 
     private double lastAngle;
 
@@ -42,7 +42,7 @@ public class SwerveModule{
     public SwerveModule(int kSteeringID, int kDriveID, Potentiometer SteeringEncoder, boolean isReversed, double offset, double kP, double kI, double kD){
         mDrive = new WrappedTalonSRX(kDriveID);
         mSteering = new WrappedTalonSRX(kSteeringID);
-        this.offset = offset;
+        //this.offset = offset;
 
         lastAngle = 0;
         
@@ -99,12 +99,6 @@ public class SwerveModule{
      *  the angle of the wheel, where angle is an element of [-pi, pi]
      */
 
-    public double getSteeringEncoder(){
-        double angle = steeringEncoder.get();
-		while(angle > 360) angle -= 360; 
-		while(angle < 0)   angle += 360; 
-		return angle; 
-    }
 
 /*
     public double getSteeringDegrees(){
@@ -120,9 +114,11 @@ public class SwerveModule{
 
     }
 */
+/*
     public double getSteeringDegreesCompensated(){
         return getSteeringEncoder() - offset;
     }
+    */
     /**
      * 
      * @return  the closed-loop PID output, calculated by PID loop
@@ -164,7 +160,7 @@ public class SwerveModule{
      * @param deg   the angle to set the wheel to, in degrees
      */
     public void setSteeringDegrees(double deg){
-        setpoint = boundHalfDegrees(deg + offset);
+        setpoint = boundHalfDegrees(deg);
     }
 
     /**
@@ -231,5 +227,13 @@ public class SwerveModule{
         while (angle_degrees < -180.0) angle_degrees += 360.0;
         return angle_degrees;
     }
+
+    public double getSteeringEncoder(){
+        double angle = steeringEncoder.get();
+		while(angle > 360) angle -= 360; 
+		while(angle < 0)   angle += 360; 
+		return angle; 
+    }
+
     
 }
