@@ -141,6 +141,25 @@ public class SwerveDrive extends Command {
 			if(magnitudeR > .5) { DriveSetting = 1; Robot.drivetrain.turning.setOn(true); }
 			if(Robot.oi.LSClick(P1)){ DriveSetting = 2; }
 			break;
+//we did it the second time
+			case 4: 
+			if(v == 1) {
+				Robot.drivetrain.turning.setOn(false);
+				double heading_error = -x;
+				double steering_adjust = 0.0;
+				System.out.println("Your heading error is: " + heading_error);
+				if (x > 1.0) { steering_adjust = Kp*heading_error - min_command; }
+				else if (x < 1.0) { steering_adjust = Kp*heading_error + min_command; }
+
+				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
+				Robot.drivetrain.setAllSpeed(steering_adjust);
+				break; 
+			}
+			else if( v == 0 ) {
+				Robot.drivetrain.turning.setOn(true);
+				Robot.drivetrain.setEachDegree(225, 315, 135, 45);
+				Robot.drivetrain.turning.setYaw(degreesR);
+			}
 		}
 	}
 	
