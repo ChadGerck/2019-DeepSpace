@@ -37,6 +37,7 @@ public class SwerveDrive extends Command {
 	protected void execute(){
 		
 		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+		NetworkTableEntry tv = table.getEntry("tv");
 		NetworkTableEntry tx = table.getEntry("tx");
 		NetworkTableEntry ty = table.getEntry("ty");
 		NetworkTableEntry ta = table.getEntry("ta");
@@ -45,7 +46,7 @@ public class SwerveDrive extends Command {
 		double x = tx.getDouble(0.0);
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
-		
+
 		float Kp = -0.03f;
 		float min_command = 0.03f;
 
