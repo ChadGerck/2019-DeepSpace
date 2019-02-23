@@ -34,6 +34,7 @@ public class SwerveDrive extends Command {
 		NetworkTableEntry ta = table.getEntry("ta");
 
 		//read values periodically
+		//this v
 		double v = tv.getDouble(0.0); 
 		double x = tx.getDouble(0.0);	
 		double y = ty.getDouble(0.0);
@@ -66,7 +67,8 @@ public class SwerveDrive extends Command {
 		float Kp = -0.03f;
 		float min_command = 0.03f;
 
-
+		//this
+		
 		if (Robot.oi.getYButton(Player1)) { setting = 2; }
 
 		if(Robot.oi.getXButton(Player1)) { setting = 0; }
@@ -97,6 +99,8 @@ public class SwerveDrive extends Command {
 			Robot.drivetrain.turning.setYaw(degreesR);
 			if(magnitudeR <= .5) { setting = 0; Robot.drivetrain.turning.setOn(false); }
 			break; 
+
+		//this case 2
 		case 2: 
 			if(v == 1) {
 				Robot.drivetrain.turning.setOn(false);
