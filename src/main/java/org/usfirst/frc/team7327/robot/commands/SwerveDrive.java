@@ -38,6 +38,8 @@ public class SwerveDrive extends Command {
 		NetworkTableEntry tx = table.getEntry("tx");
 		NetworkTableEntry ty = table.getEntry("ty");
 		NetworkTableEntry ta = table.getEntry("ta");
+
+		double v = tv.getDouble(0.0); 
 		double x = tx.getDouble(0.0);
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
@@ -97,7 +99,7 @@ public class SwerveDrive extends Command {
 //we put it in
 		if (Robot.oi.getYButton(Player1)) { setting = 2; }
 
-		if(Robot.oi.getXButton(Player1)) { setting = 0; }
+		if (Robot.oi.getXButton(Player1)) { setting = 0; }
 
 
 		degreesL = Math.toDegrees(Math.atan2(Robot.oi.LeftStickY(P1),  Robot.oi.LeftStickX(P1))) + 90;
