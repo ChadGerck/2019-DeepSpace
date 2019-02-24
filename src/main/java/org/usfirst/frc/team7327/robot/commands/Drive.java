@@ -57,10 +57,10 @@ public class Drive extends Command {
 
 
 
-    double A = (leftX - navLX - rightX + navRX) * (Constants.kWheelbase/Constants.kTrackwidth);
-    double B = (leftX - navLX + rightX - navRX) * (Constants.kWheelbase/Constants.kTrackwidth);
-    double C = (leftY - navLY - rightY + navRY) * (Constants.kTrackwidth/Constants.kWheelbase);
-    double D = (leftY - navLY + rightY - navRY) * (Constants.kTrackwidth/Constants.kWheelbase);
+    double A = (leftX - rightX) * (Constants.kWheelbase/Constants.kTrackwidth);
+    double B = (leftX + rightX) * (Constants.kWheelbase/Constants.kTrackwidth);
+    double C = (leftY - rightY) * (Constants.kTrackwidth/Constants.kWheelbase);
+    double D = (leftY + rightY) * (Constants.kTrackwidth/Constants.kWheelbase);
 
     double frontLeftSpeed = Math.hypot(B, C);
     double frontRightSpeed = Math.hypot(B, D);
