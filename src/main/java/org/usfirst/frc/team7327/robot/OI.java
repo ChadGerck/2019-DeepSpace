@@ -39,7 +39,7 @@ public class OI{
     }
 
     public double getRightXAxis(){
-        return (Math.abs(Controller0.getRawAxis(4)) > 0.1 ? Controller0.getRawAxis(4) : 0);
+        return (Math.abs(Controller0.getRawAxis(4)) > 0.3 ? Controller0.getRawAxis(4) : 0);
     }
 
     public double getRightYAxis(){
