@@ -13,8 +13,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.kauailabs.navx.frc.AHRS;
+
 import org.usfirst.frc.team7327.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.I2C;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,6 +35,9 @@ public class Robot extends TimedRobot {
   public static final Drivetrain kDrivetrain = new Drivetrain();
 
   public static final OI oi = new OI();
+
+  public static AHRS nav; 
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -40,6 +47,8 @@ public class Robot extends TimedRobot {
     m_chooser.addDefault("Default Auto", kDefaultAuto);
     m_chooser.addObject("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    nav = new AHRS(I2C.Port.kMXP); 
 
   }
 
@@ -54,6 +63,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     kDrivetrain.updateDashboard();
+  }
+
+  @Override
+  public void teleopInit() {
+    nav.reset(); 
   }
 
   /**
@@ -112,5 +126,18 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
+  public static double NavAngle() {
+		double angle = Robot.nav.getAngle(); 
+		while(angle > 360) angle -= 360; 
+		while(angle < 0)   angle += 360;
+		return angle; 
+	}
+	public static double NavAngle(double add) {
+		double angle = Robot.nav.getAngle(); 
+		while(angle > 360) angle -= 360; 
+		while(angle < 0)   angle += 360;
+		return angle; 
+	}
 
 }

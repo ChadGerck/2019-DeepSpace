@@ -7,7 +7,10 @@
 
 package org.usfirst.frc.team7327.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team7327.robot.Constants;
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
@@ -29,12 +32,21 @@ public class Drive extends Command {
   protected void initialize() {
   }
 
+  public static XboxController P1 = Robot.oi.Controller0, P2 = Robot.oi.Controller1; 
+  double Rotation = 0; 
+  double testRotation; 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     double leftX = oi.getLeftXAxis();
     double leftY = oi.getLeftYAxis();
     double rightX = oi.getRightXAxis();
+    double rightY = oi.getRightYAxis(); 
+    double navLX = oi.getLeftMagnitude()*Math.cos(Robot.NavAngle());
+    double navLY = oi.getLeftMagnitude()*Math.sin(Robot.NavAngle());
+    double navRX = oi.getRightMagnitude()*Math.cos(Robot.NavAngle());
+    double navRY = oi.getRightMagnitude()*Math.sin(Robot.NavAngle());
+
     double heading = Math.toRadians(Robot.kDrivetrain.getGyro());
 
     /*
@@ -43,10 +55,12 @@ public class Drive extends Command {
     leftY = temp;
     */
 
-    double A = leftX - rightX * (Constants.kWheelbase/Constants.kTrackwidth);
-    double B = leftX + rightX * (Constants.kWheelbase/Constants.kTrackwidth);
-    double C = leftY - rightX * (Constants.kTrackwidth/Constants.kWheelbase);
-    double D = leftY + rightX * (Constants.kTrackwidth/Constants.kWheelbase);
+
+
+    double A = (leftX - navLX - rightX + navRX) * (Constants.kWheelbase/Constants.kTrackwidth);
+    double B = (leftX - navLX + rightX - navRX) * (Constants.kWheelbase/Constants.kTrackwidth);
+    double C = (leftY - navLY - rightY + navRY) * (Constants.kTrackwidth/Constants.kWheelbase);
+    double D = (leftY - navLY + rightY - navRY) * (Constants.kTrackwidth/Constants.kWheelbase);
 
     double frontLeftSpeed = Math.hypot(B, C);
     double frontRightSpeed = Math.hypot(B, D);
@@ -68,15 +82,38 @@ public class Drive extends Command {
       backRightSpeed /= max;
     }
 
-    DriveCommand frontLeftCommand = new DriveCommand((Math.atan2(B, C) * (180.0/Math.PI)), frontLeftSpeed);
-    DriveCommand frontRightCommand = new DriveCommand((Math.atan2(B, D) * (180.0/Math.PI)), frontRightSpeed);
-    DriveCommand backLeftCommand = new DriveCommand((Math.atan2(A, C) * (180.0/Math.PI) ), backLeftSpeed);
-    DriveCommand backRightCommand = new DriveCommand((Math.atan2(A, D) * (180.0/Math.PI)), backRightSpeed);
+    DriveCommand frontLeftCommand = new DriveCommand((Math.atan2(B, C) * (180.0/Math.PI))+Robot.NavAngle(), frontLeftSpeed);
+    DriveCommand frontRightCommand = new DriveCommand((Math.atan2(B, D) * (180.0/Math.PI))+Robot.NavAngle(), frontRightSpeed);
+    DriveCommand backLeftCommand = new DriveCommand((Math.atan2(A, C) * (180.0/Math.PI) )+Robot.NavAngle(), backLeftSpeed);
+    DriveCommand backRightCommand = new DriveCommand((Math.atan2(A, D) * (180.0/Math.PI))+Robot.NavAngle(), backRightSpeed);
 
     kDrivetrain.setModule(ModuleLocation.FRONT_LEFT, frontLeftCommand);
     kDrivetrain.setModule(ModuleLocation.FRONT_RIGHT, frontRightCommand);
     kDrivetrain.setModule(ModuleLocation.BACK_LEFT, backLeftCommand);
     kDrivetrain.setModule(ModuleLocation.BACK_RIGHT, backRightCommand);
+
+
+    //7327 CODE BELOW
+    SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
+    if(Robot.oi.StartButton(P1)) { Robot.nav.reset(); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
