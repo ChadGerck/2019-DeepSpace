@@ -4,7 +4,13 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import org.usfirst.frc.team7327.robot.Constants;
+import org.usfirst.frc.team7327.robot.ElevatorModule;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
 import org.usfirst.frc.team7327.robot.Util.ModuleLocation;
 import org.usfirst.frc.team7327.robot.commands.Drive;
@@ -21,7 +27,30 @@ public class Drivetrain extends Subsystem {
   private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  false, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleBackLeft = new SwerveModule(Constants.kBackLeftSteerID, Constants.kBackLeftDriveID, abeSW,  true, Constants.kBackLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID, abeSE, false, Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  
+  
+	//private DoubleSolenoid Bicep; 
+
+  public static ElevatorModule Elevator;
+  
+  public static VictorSPX BallVictor;
+	//public static VictorSPX Intake;
+  public static TalonSRX Intake; 
+  
+  static final double ekP = .0004;
+	static final double ekI = 0; 
+	static final double ekD = 0; 
+  
   public Drivetrain(){
+    Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
+		//Discovery
+		//Intake = new VictorSPX(9); 
+		//Harbi
+		Intake = new TalonSRX(9); 
+		BallVictor = new VictorSPX(10); 
+
+		//Bicep = new DoubleSolenoid(1,2);
+
   }
   @Override
   public void initDefaultCommand() {
@@ -83,6 +112,17 @@ public class Drivetrain extends Subsystem {
     moduleBackLeft.setDrivePower(power);
     moduleBackRight.setDrivePower(power);
   }
+
+  public void setRawElevator(double speed){ Elevator.setRawElev(speed); }
+	public void setElevatorPosition(double position){ Elevator.setPosition(position); }
+	public void ElevOn(boolean On) { Elevator.setOn(On); }
+	public void ResetElevator() { Elevator.ElevatorReset(); }
+	public void ConfigElevator() { Elevator.configFeedbackSensor(); }
+	public void SetElevatorStatus() { Elevator.setTalonStatus(); }
+	public double getLiftVelocity() { return Elevator.getLiftVelocity(); }
+	public double getLiftPosition() { return Elevator.getLiftPosition(); }
+	public void setRawBallIn(double speed){ BallVictor.set(ControlMode.PercentOutput, speed); }
+	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
 
   public void updateDashboard(){
     SmartDashboard.putNumber("Front Left Error", moduleFrontLeft.getError());

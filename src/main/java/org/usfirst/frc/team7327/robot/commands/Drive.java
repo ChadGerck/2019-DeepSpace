@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team7327.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,8 +30,10 @@ public class Drive extends Command {
   }
 
   // Called just before this Command runs the first time
+  int DriveSetting, ElevSetting = 0; 
   @Override
-  protected void initialize() {
+  protected void initialize() { DriveSetting = 0; ElevSetting = 0;
+    //DoubleSolenoid.clearAllPCMStickyFaults(0);  
   }
 
   public static XboxController P1 = Robot.oi.Controller0, P2 = Robot.oi.Controller1; 
@@ -39,6 +44,16 @@ public class Drive extends Command {
   int rotAngBL = 45;   
   int rotAngFR = -135;   
   int rotAngFL = -45;    
+
+  double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
+	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 17033, heightH3 = 30973; 
+	//int heightB1 = 19893; 
+
+  double throttle = .3, throottle = 0, ballThrottle = 0; 
+
+  
+	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
@@ -111,21 +126,67 @@ public class Drive extends Command {
     SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
     if(Robot.oi.StartButton(P1)) { Robot.nav.reset(); }
 
+    
+		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+		NetworkTableEntry tx = table.getEntry("tx");
+		NetworkTableEntry ty = table.getEntry("ty");
+		NetworkTableEntry ta = table.getEntry("ta");
+		double x = tx.getDouble(0.0);
+		double y = ty.getDouble(0.0);
+		double area = ta.getDouble(0.0);
+		
+		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
+		SmartDashboard.putNumber("LimelightX", x);
+		SmartDashboard.putNumber("LimelightY", y);
+		SmartDashboard.putNumber("LimelightArea", area);
+		SmartDashboard.putNumber("NWab", Robot.kDrivetrain.getAbeNW()); 
+		SmartDashboard.putNumber("NEab", Robot.kDrivetrain.getAbeNE()); 
+		SmartDashboard.putNumber("SWab", Robot.kDrivetrain.getAbeSW()); 
+		SmartDashboard.putNumber("SEab", Robot.kDrivetrain.getAbeSE()); 
 
+		if(Robot.oi.StartButton(P1)) { Robot.nav.reset(); }
+		if(Robot.oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 
+		//if(Robot.oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
+		//else if(Robot.oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
+		//else { Flex = DoubleSolenoid.Value.kOff; }
+		//Robot.kDrivetrain.setRawBicep(Flex); 
+		
+		if(Robot.oi.RightBumperDown(P2)) { throottle = .6; }
+		else if(Robot.oi.RightBumperDown(P1)) {throottle = .6; }
+		else if(Robot.oi.LeftBumperDown(P2)) { throottle = -.6;}
+		else if(Robot.oi.LeftBumperDown(P1)) { throottle = -6;}
+		else { throottle = 0; }
+		Robot.kDrivetrain.setRawIntake(throottle);
 
+		magnitudeR2 = Math.sqrt(Math.pow(Robot.oi.RightStickX(P2), 2) + Math.pow(Robot.oi.RightStickY(P2), 2));
+		if(magnitudeR2 > .3) { ballThrottle = .75*-Robot.oi.RightStickY(P2); }
+		else if(Robot.oi.RightBumperDown(P2)) { ballThrottle = -.5; }
+		else if(Robot.oi.RightBumperDown(P1)) { ballThrottle = -.5; }
+		else if(Robot.oi.LeftBumperDown(P1))  { ballThrottle =  .5; }
+		else{ ballThrottle = 0; }
+		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
+		
+		if(Robot.oi.Dpad(P2) >= 0 || Robot.oi.Dpad(P1) >= 0 || Robot.oi.YButtonDown(P2) || Robot.oi.XButtonDown(P2)) { 
+            if     (Robot.oi.DpadDown(P1) || Robot.oi.DpadDown(P2) )  { ElevSetting = 1; Robot.kDrivetrain.ElevOn(true); }
+            else if(Robot.oi.DpadRight(P1)|| Robot.oi.DpadRight(P2))  { ElevSetting = 2; Robot.kDrivetrain.ElevOn(true); }
+            else if(Robot.oi.DpadUp(P1)   || Robot.oi.DpadUp(P2)   )  { ElevSetting = 3; Robot.kDrivetrain.ElevOn(true); }
+            else if(Robot.oi.DpadLeft(P1) || Robot.oi.DpadLeft(P2) )  { ElevSetting = 4; Robot.kDrivetrain.ElevOn(true); } 
+            else if(Robot.oi.YButtonDown(P2)){ ElevSetting = 5; Robot.kDrivetrain.ElevOn(true); }
+            else if(Robot.oi.XButtonDown(P2)){ ElevSetting = 6; Robot.kDrivetrain.ElevOn(true); }
+        }   else{ ElevSetting = 0; Robot.kDrivetrain.ElevOn(false); }
 
-
-
-
-
-
-
-
-
-
-
-
+		switch(ElevSetting) {
+		case 0: 
+			Robot.kDrivetrain.setRawElevator(throttle*(Robot.oi.LeftTrigger(P2) - Robot.oi.RightTrigger(P2)));
+			break; 
+		case 1: Robot.kDrivetrain.setElevatorPosition(heightB0); break; 
+		case 2: Robot.kDrivetrain.setElevatorPosition(heightB1); break; 
+		case 3: Robot.kDrivetrain.setElevatorPosition(heightB2); break;
+		case 4: Robot.kDrivetrain.setElevatorPosition(heightB3); break; 
+		case 6: Robot.kDrivetrain.setElevatorPosition(heightH2); break; 
+		case 7: Robot.kDrivetrain.setElevatorPosition(heightH3); break; 
+		}
 
 
   }

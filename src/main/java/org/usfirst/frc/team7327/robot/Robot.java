@@ -68,6 +68,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     nav.reset(); 
+
+    kDrivetrain.SetElevatorStatus();
+		kDrivetrain.ConfigElevator();
   }
 
   /**
