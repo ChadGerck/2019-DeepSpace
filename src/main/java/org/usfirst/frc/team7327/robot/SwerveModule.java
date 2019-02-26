@@ -2,6 +2,8 @@ package org.usfirst.frc.team7327.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
@@ -10,7 +12,8 @@ import org.usfirst.frc.team7327.robot.Util.WrappedTalonSRX;
 
 public class SwerveModule{
     //private AnalogInput SteeringAnalog = new AnalogInput(0);
-    private WrappedTalonSRX mDrive, mSteering;
+    private WrappedTalonSRX mDrive; 
+    private VictorSPX mSteering;
     private Notifier pidLoop;           //A notifier is a thread. Basically think of a thread as something running in the background.
     private volatile double sumError, errorChange, lastError, currentError, pidOutput;
     private boolean isReversed;
@@ -41,7 +44,7 @@ public class SwerveModule{
      */
     public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, boolean isReversed, double offset, double kP, double kI, double kD){
         mDrive = new WrappedTalonSRX(kDriveID);
-        mSteering = new WrappedTalonSRX(kSteeringID);
+        mSteering = new VictorSPX(kSteeringID);
         //this.offset = offset;
 
         lastAngle = 0;
@@ -50,7 +53,7 @@ public class SwerveModule{
 
         //reset the Talons before use
         mDrive.reset();
-        mSteering.reset();
+        //mSteering.reset();
 
         //Configure steering Talon SRX
         //mSteering.configSelectedFeedbackSensor(FeedbackDevice.Analog, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
@@ -214,13 +217,17 @@ public class SwerveModule{
         kNegativeRotationMax = negMax;
     }
 
+    /*
     public int getRawSteeringEncoder(){
         return mSteering.getSelectedSensorPosition(0);
     }
+    */
 
+    /*
     public int getSpeed(){
         return mDrive.getSelectedSensorVelocity(0);
     }
+    */
 
     public static double boundHalfDegrees(double angle_degrees) {
         while (angle_degrees >= 180.0) angle_degrees -= 360.0;

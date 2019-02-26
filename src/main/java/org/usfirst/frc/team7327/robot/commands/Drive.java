@@ -109,9 +109,9 @@ public class Drive extends Command {
     }
 
     if(Robot.oi.BackButton(P1) && flag) {
-        flag = false;
-        throoottle = 1;
-      }
+      flag = false;
+      throoottle = 1;
+    }
   
       
     double max = FLwheelMag;

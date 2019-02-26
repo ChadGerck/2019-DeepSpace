@@ -18,10 +18,18 @@ import org.usfirst.frc.team7327.robot.SwerveModule;
 
 public class Drivetrain extends Subsystem {
 
-	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
-	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -207.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -257.3); 
-	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -74.7);
+  //Harbi
+	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
+	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -207.85);
+	//public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -257.3); 
+  //public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -74.7);
+  
+  
+	//Discovery
+	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -94.2); 
+	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
+	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -240.3); 
+	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -233.7); 
 
   private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID, abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  false, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
@@ -34,8 +42,8 @@ public class Drivetrain extends Subsystem {
   public static ElevatorModule Elevator;
   
   public static VictorSPX BallVictor;
-	//public static VictorSPX Intake;
-  public static TalonSRX Intake; 
+	public static VictorSPX Intake;
+  //public static TalonSRX Intake; 
   
   static final double ekP = .0004;
 	static final double ekI = 0; 
@@ -44,9 +52,9 @@ public class Drivetrain extends Subsystem {
   public Drivetrain(){
     Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
 		//Discovery
-		//Intake = new VictorSPX(9); 
+		Intake = new VictorSPX(9); 
 		//Harbi
-		Intake = new TalonSRX(9); 
+		//Intake = new TalonSRX(9); 
 		BallVictor = new VictorSPX(10); 
 
 		//Bicep = new DoubleSolenoid(1,2);
@@ -135,20 +143,20 @@ public class Drivetrain extends Subsystem {
     SmartDashboard.putNumber("Back Left Setpoint", moduleBackLeft.getSetpointDegrees());
     SmartDashboard.putNumber("Back Right Setpoint", moduleBackRight.getSetpointDegrees());
 
-    SmartDashboard.putNumber("Front Left Position", moduleFrontLeft.getSteeringEncoder());
-    SmartDashboard.putNumber("Front Right Position", moduleFrontRight.getSteeringEncoder());
-    SmartDashboard.putNumber("Back Left Position", moduleBackLeft.getSteeringEncoder());
-    SmartDashboard.putNumber("Back Right Position", moduleBackRight.getSteeringEncoder());
+    //SmartDashboard.putNumber("Front Left Position", moduleFrontLeft.getSteeringEncoder());
+    //SmartDashboard.putNumber("Front Right Position", moduleFrontRight.getSteeringEncoder());
+    //SmartDashboard.putNumber("Back Left Position", moduleBackLeft.getSteeringEncoder());
+    //SmartDashboard.putNumber("Back Right Position", moduleBackRight.getSteeringEncoder());
 
-    SmartDashboard.putNumber("Front Left Raw Position", moduleFrontLeft.getRawSteeringEncoder());
-    SmartDashboard.putNumber("Front Right Raw Position", moduleFrontRight.getRawSteeringEncoder());
-    SmartDashboard.putNumber("Back Left Raw Position", moduleBackLeft.getRawSteeringEncoder());
-    SmartDashboard.putNumber("Back Right Raw Position", moduleBackRight.getRawSteeringEncoder());
+    //SmartDashboard.putNumber("Front Left Raw Position", moduleFrontLeft.getRawSteeringEncoder());
+    //SmartDashboard.putNumber("Front Right Raw Position", moduleFrontRight.getRawSteeringEncoder());
+    //SmartDashboard.putNumber("Back Left Raw Position", moduleBackLeft.getRawSteeringEncoder());
+    //SmartDashboard.putNumber("Back Right Raw Position", moduleBackRight.getRawSteeringEncoder());
 
-    SmartDashboard.putNumber("Front Left Speed", moduleFrontLeft.getSpeed());
-    SmartDashboard.putNumber("Front Right Speed", moduleFrontRight.getSpeed());
-    SmartDashboard.putNumber("Back Left Speed", moduleBackLeft.getSpeed());
-    SmartDashboard.putNumber("Back Right Speed", moduleBackRight.getSpeed());
+    //SmartDashboard.putNumber("Front Left Speed", moduleFrontLeft.getSpeed());
+    //SmartDashboard.putNumber("Front Right Speed", moduleFrontRight.getSpeed());
+    //SmartDashboard.putNumber("Back Left Speed", moduleBackLeft.getSpeed());
+    //SmartDashboard.putNumber("Back Right Speed", moduleBackRight.getSpeed());
   }
 
   public double getGyro(){
