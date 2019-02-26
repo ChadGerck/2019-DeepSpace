@@ -60,17 +60,19 @@ public class Drive extends Command {
     double leftX = oi.getLeftXAxis();
     double leftY = oi.getLeftYAxis();
     double rightX = oi.getRightXAxis();
-    double stickAngle = Math.toDegrees(Math.atan2(leftX, leftY));
+    double stickAngle = Math.toDegrees(Math.atan2(leftX, leftY))+90; 
+    stickAngle = 180 - stickAngle; 
+    if(finalAngle < 0){ finalAngle += 360; }
     double leftMag = oi.getLeftMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
-    if(leftMag > .3){ finalAngle = - stickAngle + Robot.NavAngle(); }
+    if(leftMag > .3){ finalAngle = 90 - stickAngle + Robot.NavAngle(); }
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
     double wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
 
     SmartDashboard.putNumber("NAVANGLEGYRO: ", Robot.NavAngle());
     SmartDashboard.putNumber("LX: ", leftX); 
     SmartDashboard.putNumber("LY: ", leftY); 
-    SmartDashboard.putNumber("stickAngle: ", stickAngle); 
+    SmartDashboard.putNumber("stickAngle: ", Math.toDegrees(Math.atan2(leftX, leftY))+90); 
     SmartDashboard.putNumber("RX: ", rightX); 
     SmartDashboard.putNumber("finalAngle: ", finalAngle); 
 
