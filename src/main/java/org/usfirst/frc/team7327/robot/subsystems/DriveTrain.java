@@ -24,8 +24,8 @@ public class DriveTrain extends Subsystem {
 	public static ElevatorModule Elevator;
 	
 	public static VictorSPX BallVictor;
-	//public static VictorSPX Intake;
-	public static TalonSRX Intake; 
+	public static VictorSPX Intake;
+	//public static TalonSRX Intake; 
 	
 	public TurnModule turning; 
 	
@@ -44,17 +44,17 @@ public class DriveTrain extends Subsystem {
 	//larger negative degree rotates counter-clockwise
 
 	//Harbi
-	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
-	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -207.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -235.3); 
-	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -9.7);
+	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
+	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -207.85);
+	//public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -235.3); 
+	//public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -9.7);
 	
 
 	//Discovery
-	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -94.2); 
-	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
-	//public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -240.3); 
-	//public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -233.7); 
+	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -94.2); 
+	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
+	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -240.3); 
+	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -233.7); 
 	
 	public DriveTrain() {
 		
@@ -67,9 +67,9 @@ public class DriveTrain extends Subsystem {
  
 		Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
 		//Discovery
-		//Intake = new VictorSPX(9); 
+		Intake = new VictorSPX(9); 
 		//Harbi
-		Intake = new TalonSRX(9); 
+		//Intake = new TalonSRX(9); 
 		BallVictor = new VictorSPX(10); 
 
 		Bicep = new DoubleSolenoid(1,2);

@@ -2,15 +2,15 @@ package org.usfirst.frc.team7327.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-//import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class SwerveModule{
 
-    private TalonSRX mDrive, mSteer; 
-    //private VictorSPX mSteer; 
+    private TalonSRX mDrive; //, mSteer; 
+    private VictorSPX mSteer; 
     private Notifier SteeringPID;
     private double error, sumError, diffError, lastError;
     private double setPoint;
@@ -20,8 +20,8 @@ public class SwerveModule{
     public SwerveModule(int kDriveID, int kSteerID, Potentiometer steeringEncoder, double kP, double kI, double kD,
             boolean isFlipped) {
         mDrive = new TalonSRX(kDriveID);
-        //mSteer = new VictorSPX(kSteerID);
-        mSteer = new TalonSRX(kSteerID);
+        mSteer = new VictorSPX(kSteerID);
+        //mSteer = new TalonSRX(kSteerID);
         this.steeringEncoder = steeringEncoder;
         sumError = 0;
         lastError = getError();
