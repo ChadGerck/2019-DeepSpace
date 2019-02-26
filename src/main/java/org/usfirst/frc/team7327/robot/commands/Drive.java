@@ -50,7 +50,8 @@ public class Drive extends Command {
 	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 17033, heightH3 = 30973; 
 	//int heightB1 = 19893; 
 
-  double throttle = .3, throottle = 0, ballThrottle = 0;
+  double throttle = .3, throottle = 0, ballThrottle = 0, throoottle = 1;
+  boolean flag = false;
   
   DigitalInput forwardLimitSwitch = new DigitalInput(0);
 	DigitalInput reverseLimitSwitch = new DigitalInput(1);
@@ -87,23 +88,34 @@ public class Drive extends Command {
     double FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rightX;
 		double FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rightX;
 		double FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;
-    double FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
+    double FLwheelMag = Math.hypot(FLwheelX, FLwheelY)*throoottle;
     
     double FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -rightX;
 		double FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rightX;
 		double FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;
-    double FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
+    double FRwheelMag = Math.hypot(FRwheelX, FRwheelY)*throoottle;
     
     double BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rightX;
 		double BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rightX;
 		double BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;
-    double BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
+    double BLwheelMag = Math.hypot(BLwheelX, BLwheelY)*throoottle;
     
     double BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rightX;
 		double BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rightX;
 		double BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;
-    double BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
-    
+    double BRwheelMag = Math.hypot(BRwheelX, BRwheelY)*throoottle;
+
+    if(Robot.oi.BackButton(P1) && !flag) { 
+      flag = true;
+      throoottle = 0.3;
+    }
+
+    if(Robot.oi.BackButton(P1) && flag) {
+        flag = false;
+        throoottle = 1;
+      }
+  
+      
     double max = FLwheelMag;
 
     if(FRwheelMag > max)
