@@ -2,18 +2,18 @@ package org.usfirst.frc.team7327.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
 import org.usfirst.frc.team7327.robot.Util.WrappedTalonSRX;
+import org.usfirst.frc.team7327.robot.Util.WrappedVictorSPX;
 
 
 public class SwerveModule{
     //private AnalogInput SteeringAnalog = new AnalogInput(0);
     private WrappedTalonSRX mDrive; 
-    private VictorSPX mSteering;
+    private WrappedVictorSPX mSteering;
     private Notifier pidLoop;           //A notifier is a thread. Basically think of a thread as something running in the background.
     private volatile double sumError, errorChange, lastError, currentError, pidOutput;
     private boolean isReversed;
@@ -44,7 +44,7 @@ public class SwerveModule{
      */
     public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, boolean isReversed, double offset, double kP, double kI, double kD){
         mDrive = new WrappedTalonSRX(kDriveID);
-        mSteering = new VictorSPX(kSteeringID);
+        mSteering = new WrappedVictorSPX(kSteeringID);
         //this.offset = offset;
 
         lastAngle = 0;
@@ -53,7 +53,7 @@ public class SwerveModule{
 
         //reset the Talons before use
         mDrive.reset();
-        //mSteering.reset();
+        mSteering.reset();
 
         //Configure steering Talon SRX
         //mSteering.configSelectedFeedbackSensor(FeedbackDevice.Analog, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
