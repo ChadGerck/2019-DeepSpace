@@ -21,7 +21,7 @@ public class Drivetrain extends Subsystem {
   //Harbi
 	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
 	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -207.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -257.3); 
+	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -270.3); 
   public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -74.7);
   
   

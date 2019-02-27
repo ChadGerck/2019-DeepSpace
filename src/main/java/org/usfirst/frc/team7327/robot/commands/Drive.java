@@ -40,6 +40,10 @@ public class Drive extends Command {
   double Rotation = 0; 
   double testRotation; 
   double finalAngle = 0; 
+  double FLwheelRot = 0;
+  double FRwheelRot = 0;
+  double BLwheelRot = 0;
+  double BRwheelRot = 0;
   int rotAngBR = 135;   
   int rotAngBL = 45;   
   int rotAngFR = -135;   
@@ -77,23 +81,23 @@ public class Drive extends Command {
     SmartDashboard.putNumber("finalAngle: ", finalAngle); 
 
     double FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rightX;
-		double FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rightX;
-		double FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;
+    double FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rightX;
+    if(leftMag > 0.3) {FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
     double FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
     
     double FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -rightX;
-		double FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rightX;
-		double FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;
+    double FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rightX;
+    if(leftMag > 0.3) {FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
     double FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
     
     double BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rightX;
-		double BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rightX;
-		double BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;
+    double BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rightX;
+    if(leftMag > 0.3) {BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
     double BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
     
     double BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rightX;
-		double BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rightX;
-		double BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;
+    double BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rightX;
+    if(leftMag > 0.3) {BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
     double BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
     
     double max = FLwheelMag;

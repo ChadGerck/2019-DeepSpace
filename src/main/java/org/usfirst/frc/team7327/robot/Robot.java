@@ -105,6 +105,7 @@ public class Robot extends TimedRobot {
         // Put default auto code here
         break;
     }
+    Scheduler.getInstance().run();
   }
 
   /**
@@ -114,7 +115,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     /*
     kDrivetrain.setAllPower(oi.getLeftMagnitude());
-    kDrivetrain.setAllAngle(oi.getLeftJoystickAngle());
+    kDrivetrain.setAllAngle(oi.getLeftJoystickAngle());0
     */
     SmartDashboard.putNumber("Left Joystick X", oi.getLeftXAxis());
     SmartDashboard.putNumber("Left Joystick Y", oi.getLeftYAxis());
