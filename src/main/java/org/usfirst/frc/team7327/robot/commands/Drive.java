@@ -152,10 +152,10 @@ public class Drive extends Command {
 		//else { Flex = DoubleSolenoid.Value.kOff; }
 		//Robot.kDrivetrain.setRawBicep(Flex); 
 		
-		if(Robot.oi.RightBumperDown(P2)) { throottle = .6; }
-		else if(Robot.oi.RightBumperDown(P1)) {throottle = .6; }
-		else if(Robot.oi.LeftBumperDown(P2)) { throottle = -.6;}
-		else if(Robot.oi.LeftBumperDown(P1)) { throottle = -6;}
+		if(Robot.oi.RightBumperDown(P2)) { throottle = -.6; }
+		else if(Robot.oi.RightBumperDown(P1)) {throottle = -.6; }
+		else if(Robot.oi.LeftBumperDown(P2)) { throottle = .6;}
+		else if(Robot.oi.LeftBumperDown(P1)) { throottle = 6;}
 		else { throottle = 0; }
 		Robot.kDrivetrain.setRawIntake(throottle);
 
