@@ -37,18 +37,9 @@ public class Drive extends Command {
     DoubleSolenoid.clearAllPCMStickyFaults(0);  
   }
 
-  public static XboxController P1 = Robot.oi.Controller0, P2 = Robot.oi.Controller1; 
-  double Rotation = 0; 
-  double testRotation; 
-  double finalAngle = 0; 
-  double FLwheelRot = 0;
-  double FRwheelRot = 0;
-  double BLwheelRot = 0;
-  double BRwheelRot = 0;
-  int rotAngBR = 135;   
-  int rotAngBL = 45;   
-  int rotAngFR = -135;   
-  int rotAngFL = -45;    
+  public static XboxController P1 = Robot.oi.Controller0, P2 = Robot.oi.Controller1;  
+  double finalAngle, FLwheelRot, FRwheelRot, BLwheelRot, BRwheelRot = 0;
+  int rotAngBR = 135, rotAngBL = 45, rotAngFR = -135, rotAngFL = -45;    
 
   double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
 	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 17033, heightH3 = 30973; 

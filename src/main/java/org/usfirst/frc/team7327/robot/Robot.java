@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.I2C;
 
 /**
@@ -44,8 +43,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.addDefault("Default Auto", kDefaultAuto);
-    m_chooser.addObject("My Auto", kCustomAuto);
+    //m_chooser.addDefault("Default Auto", kDefaultAuto);
+    //m_chooser.addObject("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
     nav = new AHRS(I2C.Port.kMXP); 
@@ -115,7 +114,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     /*
     kDrivetrain.setAllPower(oi.getLeftMagnitude());
-    kDrivetrain.setAllAngle(oi.getLeftJoystickAngle());0
+    kDrivetrain.setAllAngle(oi.getLeftJoystickAngle());
     */
     SmartDashboard.putNumber("Left Joystick X", oi.getLeftXAxis());
     SmartDashboard.putNumber("Left Joystick Y", oi.getLeftYAxis());
