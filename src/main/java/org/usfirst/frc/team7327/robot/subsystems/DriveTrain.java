@@ -20,17 +20,17 @@ import org.usfirst.frc.team7327.robot.SwerveModule;
 public class DriveTrain extends Subsystem {
 
   //Harbi
-	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
-	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -207.85);
-	//public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -270.3); 
-  //public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -74.7);
+	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
+	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -207.85);
+	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -270.3); 
+  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -74.7);
   
   
 	//Discovery
-	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -94.2); 
-	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -240.3); 
-	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -233.7); 
+	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -94.2); 
+	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
+	//public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -240.3); 
+	//public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -233.7); 
 
   private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID, abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  false, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
@@ -43,8 +43,8 @@ public class DriveTrain extends Subsystem {
   public static ElevatorModule Elevator;
   
   public static VictorSPX BallVictor;
-	public static VictorSPX Intake;
-  //public static TalonSRX Intake; 
+	//public static VictorSPX Intake;
+  public static TalonSRX Intake; 
   
   static final double ekP = .0004;
 	static final double ekI = 0; 
@@ -53,9 +53,9 @@ public class DriveTrain extends Subsystem {
   public DriveTrain(){
     Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
 		//Discovery
-		Intake = new VictorSPX(9); 
+		//Intake = new VictorSPX(9); 
 		//Harbi
-		//Intake = new TalonSRX(9); 
+		Intake = new TalonSRX(9); 
 		BallVictor = new VictorSPX(10); 
 
 		Bicep = new DoubleSolenoid(4,5);
