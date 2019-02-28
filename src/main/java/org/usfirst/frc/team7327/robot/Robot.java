@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import org.usfirst.frc.team7327.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.I2C;
 
@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  public static final Drivetrain kDrivetrain = new Drivetrain();
+  public static final DriveTrain kDrivetrain = new DriveTrain();
 
   public static final OI oi = new OI();
 

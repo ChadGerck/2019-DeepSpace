@@ -17,7 +17,7 @@ import org.usfirst.frc.team7327.robot.Util.ModuleLocation;
 import org.usfirst.frc.team7327.robot.commands.Drive;
 import org.usfirst.frc.team7327.robot.SwerveModule;
 
-public class Drivetrain extends Subsystem {
+public class DriveTrain extends Subsystem {
 
   //Harbi
 	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
@@ -50,7 +50,7 @@ public class Drivetrain extends Subsystem {
 	static final double ekI = 0; 
 	static final double ekD = 0; 
   
-  public Drivetrain(){
+  public DriveTrain(){
     Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
 		//Discovery
 		Intake = new VictorSPX(9); 
