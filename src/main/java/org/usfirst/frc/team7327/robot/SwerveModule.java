@@ -1,7 +1,7 @@
 package org.usfirst.frc.team7327.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrame;
+//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+//import com.ctre.phoenix.motorcontrol.StatusFrame;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
@@ -14,7 +14,8 @@ public class SwerveModule{
     //private AnalogInput SteeringAnalog = new AnalogInput(0);
     private WrappedTalonSRX mDrive, mSteering;
     private Notifier pidLoop;           //A notifier is a thread. Basically think of a thread as something running in the background.
-    private volatile double sumError, errorChange, lastError, currentError, pidOutput;
+    //private volatile double sumError, errorChange, lastError; 
+    private volatile double currentError, pidOutput;
     private boolean isReversed;
     private double setpoint;
     //private double offset;
@@ -22,11 +23,11 @@ public class SwerveModule{
     private double lastAngle;
 
     private static final double dt = 0.02;  //this is how fast we run our PID loop.
-    private int kPositiveRotationMin = 45;  //we measured this
-    private int kPositiveRotationMax = 870;  //and this
+    //private int kPositiveRotationMin = 45;  //we measured this
+    //private int kPositiveRotationMax = 870;  //and this
 
-    private int kNegativeRotationMin = 156;  //we measured this
-    private int kNegativeRotationMax = 978;  //and this
+    //private int kNegativeRotationMin = 156;  //we measured this
+    //private int kNegativeRotationMax = 978;  //and this
 
     
     private Potentiometer steeringEncoder;
@@ -209,6 +210,7 @@ public class SwerveModule{
         set(command.getDegrees(), command.getSpeed());
     }
 
+    /*
     public void configEncValues(int posMin, int posMax, int negMin, int negMax){
         kPositiveRotationMin = posMin;
         kPositiveRotationMax = posMax;
@@ -216,6 +218,7 @@ public class SwerveModule{
         kNegativeRotationMin = negMin;
         kNegativeRotationMax = negMax;
     }
+    */
 
     /*
     public int getRawSteeringEncoder(){

@@ -45,7 +45,6 @@ public class Drive extends Command {
 	//int heightB1 = 19893; 
 
   double throttle = .3, throottle = 0, ballThrottle = 0; 
-
   
 	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
@@ -59,6 +58,7 @@ public class Drive extends Command {
     stickAngle = 180 - stickAngle; 
     if(finalAngle < 0){ finalAngle += 360; }
     double leftMag = oi.getLeftMagnitude(); 
+    double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
     if(leftMag > .3){ finalAngle = 90 - stickAngle + Robot.NavAngle(); }
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
@@ -73,37 +73,32 @@ public class Drive extends Command {
 
     double FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rightX;
     double FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rightX;
-    if(leftMag > 0.3) {FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
+    if(leftMag > 0.3 || rightMag > 0.2) {FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
     double FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
     
     double FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -rightX;
     double FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rightX;
-    if(leftMag > 0.3) {FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
+    if(leftMag > 0.3 || rightMag > 0.2) {FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
     double FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
     
     double BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rightX;
     double BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rightX;
-    if(leftMag > 0.3) {BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
+    if(leftMag > 0.3 || rightMag > 0.2) {BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
     double BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
     
     double BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rightX;
     double BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rightX;
-    if(leftMag > 0.3) {BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
+    if(leftMag > 0.3 || rightMag > 0.2) {BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
     double BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
     
     double max = FLwheelMag;
 
-    if(FRwheelMag > max)
-      max = FRwheelMag;
-    else if(BLwheelMag > max)
-      max = BLwheelMag;
-    else if(BRwheelMag > max)
-      max = BRwheelMag;
+    if(FRwheelMag > max)      { max = FRwheelMag; }
+    else if(BLwheelMag > max) { max = BLwheelMag; }
+    else if(BRwheelMag > max) { max = BRwheelMag; }
     if(max > 1){
-      FLwheelMag /= max;
-      FRwheelMag /= max;
-      BLwheelMag /= max;
-      BRwheelMag /= max;
+      FLwheelMag /= max; FRwheelMag /= max;
+      BLwheelMag /= max; BRwheelMag /= max;
     }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag);
@@ -131,13 +126,10 @@ public class Drive extends Command {
 		double area = ta.getDouble(0.0);
 		
 		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
-		SmartDashboard.putNumber("LimelightX", x);
-		SmartDashboard.putNumber("LimelightY", y);
+		SmartDashboard.putNumber("LimelightX", x); SmartDashboard.putNumber("LimelightY", y);
 		SmartDashboard.putNumber("LimelightArea", area);
-		SmartDashboard.putNumber("NWab", Robot.kDrivetrain.getAbeNW()); 
-		SmartDashboard.putNumber("NEab", Robot.kDrivetrain.getAbeNE()); 
-		SmartDashboard.putNumber("SWab", Robot.kDrivetrain.getAbeSW()); 
-		SmartDashboard.putNumber("SEab", Robot.kDrivetrain.getAbeSE()); 
+		SmartDashboard.putNumber("NWab", Robot.kDrivetrain.getAbeNW()); SmartDashboard.putNumber("NEab", Robot.kDrivetrain.getAbeNE()); 
+		SmartDashboard.putNumber("SWab", Robot.kDrivetrain.getAbeSW()); SmartDashboard.putNumber("SEab", Robot.kDrivetrain.getAbeSE()); 
 
 		if(Robot.oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(Robot.oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
