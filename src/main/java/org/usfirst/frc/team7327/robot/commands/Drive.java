@@ -45,15 +45,34 @@ public class Drive extends Command {
 	//int heightB1 = 19893; 
 
   double throttle = .3, throottle = 0, ballThrottle = 0; 
+  double rotatethrottle = .5; 
+  double speedthrottle = 1;
   
 	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    if(Robot.oi.AButton(P1)){
+      if(rotatethrottle == .5){ rotatethrottle = 1;} 
+      else {rotatethrottle = .5;}
+    } 
+
+    if(Robot.oi.BButton(P1)){ 
+      if(speedthrottle ==1) { speedthrottle = .5;} //Comp speed switch
+      else if(speedthrottle ==.5){speedthrottle = .250;} //School time speed. Comment out for competition!
+      else{speedthrottle = 1;} 
+    }
+    //SaraSwitch: go ahead and be super fast or super slow. Your cup of tea.
+    
+
+  
+
+
     double leftX = oi.getLeftXAxis();
     double leftY = oi.getLeftYAxis();
-    double rightX = oi.getRightXAxis();
+    double rightX = oi.getRightXAxis() * rotatethrottle;
     double stickAngle = Math.toDegrees(Math.atan2(leftX, leftY))+90; 
     stickAngle = 180 - stickAngle; 
     if(finalAngle < 0){ finalAngle += 360; }
@@ -101,10 +120,10 @@ public class Drive extends Command {
       BLwheelMag /= max; BRwheelMag /= max;
     }
 
-    DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag);
-    DriveCommand frontRightCommand = new DriveCommand(FRwheelRot, FRwheelMag);
-    DriveCommand backLeftCommand = new DriveCommand(BLwheelRot, BLwheelMag);
-    DriveCommand backRightCommand = new DriveCommand(BRwheelRot, BRwheelMag);
+    DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
+    DriveCommand frontRightCommand = new DriveCommand(FRwheelRot, FRwheelMag * speedthrottle);
+    DriveCommand backLeftCommand = new DriveCommand(BLwheelRot, BLwheelMag * speedthrottle);
+    DriveCommand backRightCommand = new DriveCommand(BRwheelRot, BRwheelMag * speedthrottle);
 
     kDrivetrain.setModule(ModuleLocation.FRONT_LEFT, frontLeftCommand);
     kDrivetrain.setModule(ModuleLocation.FRONT_RIGHT, frontRightCommand);
@@ -165,7 +184,7 @@ public class Drive extends Command {
 
 		switch(ElevSetting) {
 		case 0: 
-			Robot.kDrivetrain.setRawElevator(throttle*(Robot.oi.LeftTrigger(P2) - Robot.oi.RightTrigger(P2)));
+			Robot.kDrivetrain.setRawElevator(throttle*(-Robot.oi.LeftTrigger(P2) + Robot.oi.RightTrigger(P2)));
 			break; 
 		case 1: Robot.kDrivetrain.setElevatorPosition(heightB0); break; 
 		case 2: Robot.kDrivetrain.setElevatorPosition(heightB1); break; 
