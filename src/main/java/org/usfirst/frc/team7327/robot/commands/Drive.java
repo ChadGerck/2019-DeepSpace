@@ -48,6 +48,7 @@ public class Drive extends Command {
   double throttle = .3, throottle = 0, ballThrottle = 0; 
   double rotatethrottle = .5; 
   double speedthrottle = 1;
+  double kP = 0.1; 
   
 	DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
@@ -74,7 +75,8 @@ public class Drive extends Command {
     double angleStick = Math.toDegrees(Math.atan2(rightX, rightY));
     double navFinal = angleStick - Robot.NavAngle(); 
     if(navFinal <= 0 ) navFinal += 360; 
-    if(Robot.NavAngle() > 0  ) {}
+    navFinal = Math.sin(Math.toRadians(navFinal));
+    double PIDOutput = kP * navFinal; 
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
