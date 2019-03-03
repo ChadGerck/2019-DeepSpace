@@ -65,10 +65,6 @@ public class Drive extends Command {
       else{speedthrottle = 1;} 
     }
     //SaraSwitch: go ahead and be super fast or super slow. Your cup of tea.
-    
-
-  
-
 
     double leftX = oi.getLeftXAxis();
     double leftY = oi.getLeftYAxis();
@@ -183,8 +179,11 @@ public class Drive extends Command {
         }   else{ ElevSetting = 0; Robot.kDrivetrain.ElevOn(false); }
 
 		switch(ElevSetting) {
-		case 0: 
-			Robot.kDrivetrain.setRawElevator(throttle*(-Robot.oi.LeftTrigger(P2) + Robot.oi.RightTrigger(P2)));
+    case 0: 
+      Robot.kDrivetrain.setRawElevator(throttle*(-Robot.oi.LeftTrigger(P1) + Robot.oi.RightTrigger(P1)));
+      if((oi.LeftTrigger(P1) < .1) && oi.RightTrigger(P1) < .1){ 
+			  Robot.kDrivetrain.setRawElevator(throttle*(-Robot.oi.LeftTrigger(P2) + Robot.oi.RightTrigger(P2)));
+      }
 			break; 
 		case 1: Robot.kDrivetrain.setElevatorPosition(heightB0); break; 
 		case 2: Robot.kDrivetrain.setElevatorPosition(heightB1); break; 
