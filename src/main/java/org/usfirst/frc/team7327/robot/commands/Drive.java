@@ -37,7 +37,7 @@ public class Drive extends Command {
     DoubleSolenoid.clearAllPCMStickyFaults(0);  
   }
 
-  public static XboxController P1 = Robot.oi.Controller0, P2 = Robot.oi.Controller1;  
+  public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
   double finalAngle, FLwheelRot, FRwheelRot, BLwheelRot, BRwheelRot = 0;
   int rotAngBR = 135, rotAngBL = 45, rotAngFR = -135, rotAngFL = -45;    
 
@@ -55,12 +55,12 @@ public class Drive extends Command {
   @Override
   protected void execute() {
 
-    if(Robot.oi.AButton(P1)){
+    if(oi.AButton(P1)){
       if(rotatethrottle == .5){ rotatethrottle = 1;} 
       else {rotatethrottle = .5;}
     } 
 
-    if(Robot.oi.BButton(P1)){ 
+    if(oi.BButton(P1)){ 
       if(speedthrottle ==1) { speedthrottle = .5;} //Comp speed switch
       else if(speedthrottle ==.5){speedthrottle = .250;} //School time speed. Comment out for competition!
       else{speedthrottle = 1;} 
@@ -70,6 +70,7 @@ public class Drive extends Command {
     double leftX = oi.getLeftXAxis();
     double leftY = oi.getLeftYAxis();
     double rightX = oi.getRightXAxis() * rotatethrottle; 
+    double rightY = oi.getRightYAxis(); 
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
@@ -127,7 +128,7 @@ public class Drive extends Command {
 
     //7327 CODE BELOW
     SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
-    if(Robot.oi.StartButton(P1)) { Robot.nav.reset(); }
+    if(oi.StartButton(P1)) { Robot.nav.reset(); }
 
     
 		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -144,43 +145,43 @@ public class Drive extends Command {
 		SmartDashboard.putNumber("NWab", Robot.kDrivetrain.getAbeNW()); SmartDashboard.putNumber("NEab", Robot.kDrivetrain.getAbeNE()); 
 		SmartDashboard.putNumber("SWab", Robot.kDrivetrain.getAbeSW()); SmartDashboard.putNumber("SEab", Robot.kDrivetrain.getAbeSE()); 
 
-		if(Robot.oi.StartButton(P1)) { Robot.nav.reset(); }
-		if(Robot.oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
+		if(oi.StartButton(P1)) { Robot.nav.reset(); }
+		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 
-		if(Robot.oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
-		else if(Robot.oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
+		if(oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
+		else if(oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
 		else { Flex = DoubleSolenoid.Value.kOff; }
 		Robot.kDrivetrain.setRawBicep(Flex); 
 		
-		if(Robot.oi.RightBumperDown(P2)) { throottle = -.6; }
-		else if(Robot.oi.RightBumperDown(P1)) {throottle = -.6; }
-		else if(Robot.oi.LeftBumperDown(P2)) { throottle = .6;}
-		else if(Robot.oi.LeftBumperDown(P1)) { throottle = 6;}
+		if(oi.RightBumperDown(P2)) { throottle = -.6; }
+		else if(oi.RightBumperDown(P1)) {throottle = -.6; }
+		else if(oi.LeftBumperDown(P2)) { throottle = .6;}
+		else if(oi.LeftBumperDown(P1)) { throottle = 6;}
 		else { throottle = 0; }
 		Robot.kDrivetrain.setRawIntake(throottle);
 
-		magnitudeR2 = Math.sqrt(Math.pow(Robot.oi.RightStickX(P2), 2) + Math.pow(Robot.oi.RightStickY(P2), 2));
-		if(magnitudeR2 > .3) { ballThrottle = .75*-Robot.oi.RightStickY(P2); }
-		else if(Robot.oi.RightBumperDown(P2)) { ballThrottle = -.5; }
-		else if(Robot.oi.RightBumperDown(P1)) { ballThrottle = -.5; }
-		else if(Robot.oi.LeftBumperDown(P1))  { ballThrottle =  .5; }
+		magnitudeR2 = Math.sqrt(Math.pow(oi.RightStickX(P2), 2) + Math.pow(oi.RightStickY(P2), 2));
+		if(magnitudeR2 > .3) { ballThrottle = .75*-oi.RightStickY(P2); }
+		else if(oi.RightBumperDown(P2)) { ballThrottle = -.5; }
+		else if(oi.RightBumperDown(P1)) { ballThrottle = -.5; }
+		else if(oi.LeftBumperDown(P1))  { ballThrottle =  .5; }
 		else{ ballThrottle = 0; }
 		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
 		
-		if(Robot.oi.Dpad(P2) >= 0 || Robot.oi.Dpad(P1) >= 0 || Robot.oi.YButtonDown(P2) || Robot.oi.XButtonDown(P2)) { 
-            if     (Robot.oi.DpadDown(P1) || Robot.oi.DpadDown(P2) )  { ElevSetting = 1; Robot.kDrivetrain.ElevOn(true); }
-            else if(Robot.oi.DpadRight(P1)|| Robot.oi.DpadRight(P2))  { ElevSetting = 2; Robot.kDrivetrain.ElevOn(true); }
-            else if(Robot.oi.DpadUp(P1)   || Robot.oi.DpadUp(P2)   )  { ElevSetting = 3; Robot.kDrivetrain.ElevOn(true); }
-            else if(Robot.oi.DpadLeft(P1) || Robot.oi.DpadLeft(P2) )  { ElevSetting = 4; Robot.kDrivetrain.ElevOn(true); } 
-            else if(Robot.oi.YButtonDown(P2)){ ElevSetting = 5; Robot.kDrivetrain.ElevOn(true); }
-            else if(Robot.oi.XButtonDown(P2)){ ElevSetting = 6; Robot.kDrivetrain.ElevOn(true); }
+		if(oi.Dpad(P2) >= 0 || oi.Dpad(P1) >= 0 || oi.YButtonDown(P2) || oi.XButtonDown(P2)) { 
+            if     (oi.DpadDown(P1) || oi.DpadDown(P2) )  { ElevSetting = 1; Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.DpadRight(P1)|| oi.DpadRight(P2))  { ElevSetting = 2; Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.DpadUp(P1)   || oi.DpadUp(P2)   )  { ElevSetting = 3; Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.DpadLeft(P1) || oi.DpadLeft(P2) )  { ElevSetting = 4; Robot.kDrivetrain.ElevOn(true); } 
+            else if(oi.YButtonDown(P2)){ ElevSetting = 5; Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.XButtonDown(P2)){ ElevSetting = 6; Robot.kDrivetrain.ElevOn(true); }
         }   else{ ElevSetting = 0; Robot.kDrivetrain.ElevOn(false); }
 
 		switch(ElevSetting) {
     case 0: 
-      Robot.kDrivetrain.setRawElevator(throttle*(-Robot.oi.LeftTrigger(P1) + Robot.oi.RightTrigger(P1)));
+      Robot.kDrivetrain.setRawElevator(throttle*(-oi.LeftTrigger(P1) + oi.RightTrigger(P1)));
       if((oi.LeftTrigger(P1) < .1) && oi.RightTrigger(P1) < .1){ 
-			  Robot.kDrivetrain.setRawElevator(throttle*(-Robot.oi.LeftTrigger(P2) + Robot.oi.RightTrigger(P2)));
+			  Robot.kDrivetrain.setRawElevator(throttle*(-oi.LeftTrigger(P2) + oi.RightTrigger(P2)));
       }
 			break; 
 		case 1: Robot.kDrivetrain.setElevatorPosition(heightB0); break; 
