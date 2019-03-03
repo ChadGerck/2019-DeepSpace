@@ -69,14 +69,11 @@ public class Drive extends Command {
 
     double leftX = oi.getLeftXAxis();
     double leftY = oi.getLeftYAxis();
-    double rightX = oi.getRightXAxis() * rotatethrottle;
-    double stickAngle = Math.toDegrees(Math.atan2(leftX, leftY))+90; 
-    stickAngle = 180 - stickAngle; 
-    if(finalAngle < 0){ finalAngle += 360; }
+    double rightX = oi.getRightXAxis() * rotatethrottle; 
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
-    if(leftMag > .3){ finalAngle = 90 - stickAngle + Robot.NavAngle(); }
+    if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); }
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
     double wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
 
