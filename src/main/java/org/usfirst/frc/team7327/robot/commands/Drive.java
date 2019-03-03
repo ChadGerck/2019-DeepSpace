@@ -48,7 +48,7 @@ public class Drive extends Command {
   double throttle = .3, throottle = 0, ballThrottle = 0; 
   double rotatethrottle = .5; 
   double speedthrottle = 1;
-  double kP = 0.1; 
+  double kP = 0.4; 
   
 	DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
