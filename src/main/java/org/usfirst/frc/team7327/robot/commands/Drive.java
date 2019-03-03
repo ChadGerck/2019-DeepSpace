@@ -71,6 +71,8 @@ public class Drive extends Command {
     double leftY = oi.getLeftYAxis();
     double rightX = oi.getRightXAxis() * rotatethrottle; 
     double rightY = oi.getRightYAxis(); 
+    double angleStick = Math.toDegrees(Math.atan2(rightX, rightY));
+    if(Robot.NavAngle() > 0  ) {}
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
