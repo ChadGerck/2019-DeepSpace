@@ -48,7 +48,9 @@ public class Drive extends Command {
   double throttle = .3, throottle = 0, ballThrottle = 0; 
   double rotatethrottle = .5; 
   double speedthrottle = 1;
-  double kP = 0.4; 
+  double kP = 0.002; 
+  double navFinal = 0; 
+  double PIDOutput = 0; 
   
 	DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
@@ -73,10 +75,15 @@ public class Drive extends Command {
     double rightX = oi.getRightXAxis() * rotatethrottle; 
     double rightY = oi.getRightYAxis(); 
     double angleStick = Math.toDegrees(Math.atan2(rightX, rightY));
-    double navFinal = angleStick - Robot.NavAngle(); 
-    if(navFinal <= 0 ) navFinal += 360; 
-    navFinal = Math.sin(Math.toRadians(navFinal));
-    double PIDOutput = kP * navFinal; 
+    if(oi.getRightMagnitude() > 0.2 ) {
+      navFinal = angleStick - Robot.NavAngle(); 
+      if(navFinal <= 0 ) navFinal += 360; 
+      navFinal = navFinal -180; 
+      PIDOutput = kP * navFinal; 
+    }
+    else{
+      PIDOutput = 0; 7
+    }
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
@@ -91,23 +98,23 @@ public class Drive extends Command {
     SmartDashboard.putNumber("RX: ", rightX); 
     SmartDashboard.putNumber("finalAngle: ", finalAngle); 
 
-    double FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rightX;
-    double FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rightX;
+    double FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -PIDOutput;
+    double FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -PIDOutput;
     if(leftMag > 0.3 || rightMag > 0.2) {FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
     double FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
     
-    double FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -rightX;
-    double FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rightX;
+    double FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -PIDOutput;
+    double FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -PIDOutput;
     if(leftMag > 0.3 || rightMag > 0.2) {FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
     double FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
     
-    double BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rightX;
-    double BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rightX;
+    double BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -PIDOutput;
+    double BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -PIDOutput;
     if(leftMag > 0.3 || rightMag > 0.2) {BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
     double BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
     
-    double BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rightX;
-    double BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rightX;
+    double BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -PIDOutput;
+    double BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -PIDOutput;
     if(leftMag > 0.3 || rightMag > 0.2) {BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
     double BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
     
