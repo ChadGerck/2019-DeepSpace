@@ -162,17 +162,10 @@ public class Drive extends Command {
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 
-<<<<<<< HEAD
-		if(oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
-		else if(oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
-		else { Flex = DoubleSolenoid.Value.kOff; }
-		Robot.kDrivetrain.setRawBicep(Flex); 
-=======
 		//if(Robot.oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
 		//else if(Robot.oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
 		//else { Flex = DoubleSolenoid.Value.kOff; }
 		//Robot.kDrivetrain.setRawBicep(Flex); 
->>>>>>> parent of d7f1582... Revert "Revert "Revert "Revert "yolo""""
 		
 		if(oi.RightBumperDown(P2)) { throottle = -.6; }
 		else if(oi.RightBumperDown(P1)) {throottle = -.6; }
