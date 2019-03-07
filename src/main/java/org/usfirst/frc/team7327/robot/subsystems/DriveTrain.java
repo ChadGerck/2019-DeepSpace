@@ -1,6 +1,7 @@
 package org.usfirst.frc.team7327.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,7 +38,7 @@ public class DriveTrain extends Subsystem {
   private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID, abeSE, false, Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   
   
-	//private DoubleSolenoid Bicep; 
+	private DoubleSolenoid Bicep; 
 
   public static ElevatorModule Elevator;
   
@@ -57,7 +58,7 @@ public class DriveTrain extends Subsystem {
 		Intake = new TalonSRX(9); 
 		BallVictor = new VictorSPX(10); 
 
-		//Bicep = new DoubleSolenoid(1,2);
+		Bicep = new DoubleSolenoid(4,5);
 
   }
   @Override
@@ -130,7 +131,8 @@ public class DriveTrain extends Subsystem {
 	public double getLiftVelocity() { return Elevator.getLiftVelocity(); }
 	public double getLiftPosition() { return Elevator.getLiftPosition(); }
 	public void setRawBallIn(double speed){ BallVictor.set(ControlMode.PercentOutput, speed); }
-	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
+  public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	}
+  public void setRawBicep(DoubleSolenoid.Value Flex){ Bicep.set(Flex); }
 
   public void updateDashboard(){
     SmartDashboard.putNumber("Front Left Error", moduleFrontLeft.getError());

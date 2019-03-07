@@ -10,6 +10,7 @@ package org.usfirst.frc.team7327.robot.commands;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +34,7 @@ public class Drive extends Command {
   int DriveSetting, ElevSetting = 0; 
   @Override
   protected void initialize() { DriveSetting = 0; ElevSetting = 0;
-    //DoubleSolenoid.clearAllPCMStickyFaults(0);  
+    DoubleSolenoid.clearAllPCMStickyFaults(0);  
   }
 
   public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
@@ -51,7 +52,7 @@ public class Drive extends Command {
   double navFinal = 0; 
   double PIDOutput = 0; 
   
-	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
+	DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
   // Called repeatedly when this Command is scheduled to run
   @Override
@@ -162,10 +163,10 @@ public class Drive extends Command {
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 
-		//if(Robot.oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
-		//else if(Robot.oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
-		//else { Flex = DoubleSolenoid.Value.kOff; }
-		//Robot.kDrivetrain.setRawBicep(Flex); 
+		if(Robot.oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
+		else if(Robot.oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
+		else { Flex = DoubleSolenoid.Value.kOff; }
+		Robot.kDrivetrain.setRawBicep(Flex); 
 		
 		if(oi.RightBumperDown(P2)) { throottle = -.6; }
 		else if(oi.RightBumperDown(P1)) {throottle = -.6; }
