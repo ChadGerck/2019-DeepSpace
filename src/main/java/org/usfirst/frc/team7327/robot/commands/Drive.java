@@ -44,7 +44,7 @@ public class Drive extends Command {
 	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 17033, heightH3 = 30973; 
 	//int heightB1 = 19893; 
 
-  double throttle = .3, throottle = 0, ballThrottle = 0; 
+  double throttle = .3, Redthrottle = 0, ballThrottle = 0; 
   double rotatethrottle = .5; 
   double speedthrottle = 1;
   double kP = 0.002; 
@@ -130,7 +130,7 @@ public class Drive extends Command {
     }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
-    DriveCommand frontRightCommand = new DriveCommand(FRwheelRot, FRwheelMag * speedthrottle);
+    DriveCommand frontRightCommand = new DriveCommand(FRwheelRot, FRwheelMag * -speedthrottle);
     DriveCommand backLeftCommand = new DriveCommand(BLwheelRot, BLwheelMag * speedthrottle);
     DriveCommand backRightCommand = new DriveCommand(BRwheelRot, BRwheelMag * speedthrottle);
 
@@ -167,18 +167,18 @@ public class Drive extends Command {
 		//else { Flex = DoubleSolenoid.Value.kOff; }
 		//Robot.kDrivetrain.setRawBicep(Flex); 
 		
-		if(oi.RightBumperDown(P2)) { throottle = -.6; }
-		else if(oi.RightBumperDown(P1)) {throottle = -.6; }
-		else if(oi.LeftBumperDown(P2)) { throottle = .6;}
-		else if(oi.LeftBumperDown(P1)) { throottle = 6;}
-		else { throottle = 0; }
-		Robot.kDrivetrain.setRawIntake(throottle);
+		if(oi.RightBumperDown(P2)) { Redthrottle = -.6; }
+		else if(oi.RightBumperDown(P1)) {Redthrottle = -.6; }
+		else if(oi.LeftBumperDown(P2)) { Redthrottle = .6;}
+		else if(oi.LeftBumperDown(P1)) { Redthrottle = .6;}
+		else { Redthrottle = 0; }
+		Robot.kDrivetrain.setRawIntake(Redthrottle);
 
 		magnitudeR2 = Math.sqrt(Math.pow(oi.RightStickX(P2), 2) + Math.pow(oi.RightStickY(P2), 2));
-		if(magnitudeR2 > .3) { ballThrottle = .75*-oi.RightStickY(P2); }
-		else if(oi.RightBumperDown(P2)) { ballThrottle = -.5; }
-		else if(oi.RightBumperDown(P1)) { ballThrottle = -.5; }
-		else if(oi.LeftBumperDown(P1))  { ballThrottle =  .5; }
+		if(magnitudeR2 > .3) { ballThrottle = .75*oi.RightStickY(P2); }
+		else if(oi.RightBumperDown(P2)) { ballThrottle = .5; }
+		else if(oi.RightBumperDown(P1)) { ballThrottle = .5; }
+		else if(oi.LeftBumperDown(P1))  { ballThrottle =  -.5; }
 		else{ ballThrottle = 0; }
 		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
 		

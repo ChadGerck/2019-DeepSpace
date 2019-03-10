@@ -46,7 +46,6 @@ public class Robot extends TimedRobot {
     //m_chooser.addDefault("Default Auto", kDefaultAuto);
     //m_chooser.addObject("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-
     nav = new AHRS(I2C.Port.kMXP); 
 
   }
@@ -66,7 +65,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    nav.reset(); 
 
     kDrivetrain.SetElevatorStatus();
 		kDrivetrain.ConfigElevator();
@@ -95,6 +93,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    /*
     switch (m_autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
@@ -104,6 +103,7 @@ public class Robot extends TimedRobot {
         // Put default auto code here
         break;
     }
+    */
     Scheduler.getInstance().run();
   }
 
