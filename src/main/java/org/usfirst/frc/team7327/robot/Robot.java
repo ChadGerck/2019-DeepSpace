@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.I2C;
 
 /**
@@ -47,6 +49,8 @@ public class Robot extends TimedRobot {
     //m_chooser.addObject("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     nav = new AHRS(I2C.Port.kMXP); 
+
+    CameraServer.getInstance().startAutomaticCapture();
 
   }
 

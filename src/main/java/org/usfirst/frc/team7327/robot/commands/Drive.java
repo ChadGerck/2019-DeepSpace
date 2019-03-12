@@ -92,13 +92,6 @@ public class Drive extends Command {
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
     double wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
 
-    SmartDashboard.putNumber("NAVANGLEGYRO: ", Robot.NavAngle());
-    SmartDashboard.putNumber("LX: ", leftX); 
-    SmartDashboard.putNumber("LY: ", leftY); 
-    SmartDashboard.putNumber("stickAngle: ", Math.toDegrees(Math.atan2(leftX, leftY))+90); 
-    SmartDashboard.putNumber("RX: ", rightX); 
-    SmartDashboard.putNumber("finalAngle: ", finalAngle); 
-
     double FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rightX;
     double FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rightX;
     if(leftMag > 0.3 || rightMag > 0.2) {FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
@@ -152,12 +145,6 @@ public class Drive extends Command {
 		double x = tx.getDouble(0.0);
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
-		
-		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
-		SmartDashboard.putNumber("LimelightX", x); SmartDashboard.putNumber("LimelightY", y);
-		SmartDashboard.putNumber("LimelightArea", area);
-		SmartDashboard.putNumber("NWab", Robot.kDrivetrain.getAbeNW()); SmartDashboard.putNumber("NEab", Robot.kDrivetrain.getAbeNE()); 
-		SmartDashboard.putNumber("SWab", Robot.kDrivetrain.getAbeSW()); SmartDashboard.putNumber("SEab", Robot.kDrivetrain.getAbeSE()); 
 
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
