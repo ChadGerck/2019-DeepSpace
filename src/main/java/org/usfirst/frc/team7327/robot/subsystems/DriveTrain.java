@@ -133,30 +133,15 @@ public class DriveTrain extends Subsystem {
 	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
 
   public void updateDashboard(){
-    SmartDashboard.putNumber("Front Left Error", moduleFrontLeft.getError());
-    SmartDashboard.putNumber("Front Right Error", moduleFrontRight.getError());
-    SmartDashboard.putNumber("Back Left Error", moduleBackLeft.getError());
-    SmartDashboard.putNumber("Back Right Error", moduleBackRight.getError());
+    //SmartDashboard.putNumber("Front Left Error", moduleFrontLeft.getError());
+    // SmartDashboard.putNumber("Front Right Error", moduleFrontRight.getError());
+    // SmartDashboard.putNumber("Back Left Error", moduleBackLeft.getError());
+    // SmartDashboard.putNumber("Back Right Error", moduleBackRight.getError());
 
-    SmartDashboard.putNumber("Front Left Setpoint", moduleFrontLeft.getSetpointDegrees());
-    SmartDashboard.putNumber("Front Right Setpoint", moduleFrontRight.getSetpointDegrees());
-    SmartDashboard.putNumber("Back Left Setpoint", moduleBackLeft.getSetpointDegrees());
-    SmartDashboard.putNumber("Back Right Setpoint", moduleBackRight.getSetpointDegrees());
-
-    //SmartDashboard.putNumber("Front Left Position", moduleFrontLeft.getSteeringEncoder());
-    //SmartDashboard.putNumber("Front Right Position", moduleFrontRight.getSteeringEncoder());
-    //SmartDashboard.putNumber("Back Left Position", moduleBackLeft.getSteeringEncoder());
-    //SmartDashboard.putNumber("Back Right Position", moduleBackRight.getSteeringEncoder());
-
-    //SmartDashboard.putNumber("Front Left Raw Position", moduleFrontLeft.getRawSteeringEncoder());
-    //SmartDashboard.putNumber("Front Right Raw Position", moduleFrontRight.getRawSteeringEncoder());
-    //SmartDashboard.putNumber("Back Left Raw Position", moduleBackLeft.getRawSteeringEncoder());
-    //SmartDashboard.putNumber("Back Right Raw Position", moduleBackRight.getRawSteeringEncoder());
-
-    //SmartDashboard.putNumber("Front Left Speed", moduleFrontLeft.getSpeed());
-    //SmartDashboard.putNumber("Front Right Speed", moduleFrontRight.getSpeed());
-    //SmartDashboard.putNumber("Back Left Speed", moduleBackLeft.getSpeed());
-    //SmartDashboard.putNumber("Back Right Speed", moduleBackRight.getSpeed());
+    // SmartDashboard.putNumber("Front Left Setpoint", moduleFrontLeft.getSetpointDegrees());
+    // SmartDashboard.putNumber("Front Right Setpoint", moduleFrontRight.getSetpointDegrees());
+    // SmartDashboard.putNumber("Back Left Setpoint", moduleBackLeft.getSetpointDegrees());
+    // SmartDashboard.putNumber("Back Right Setpoint", moduleBackRight.getSetpointDegrees());
   }
 
   public double getGyro(){

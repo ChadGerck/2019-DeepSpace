@@ -134,7 +134,6 @@ public class Drive extends Command {
 
 
     //7327 CODE BELOW
-    SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
     if(oi.StartButton(P1)) { Robot.nav.reset(); }
 
     

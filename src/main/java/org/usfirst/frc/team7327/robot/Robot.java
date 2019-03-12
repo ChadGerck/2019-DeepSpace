@@ -18,6 +18,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.I2C;
 
@@ -45,17 +46,21 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
     //m_chooser.addDefault("Default Auto", kDefaultAuto);
     //m_chooser.addObject("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    //SmartDashboard.putData("Auto choices", m_chooser);
     nav = new AHRS(I2C.Port.kMXP); 
 
     CameraServer.getInstance().startAutomaticCapture();
 
+    //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    //camera.setResolution(320, 240);
+
   }
 
   /**
-   * This function is called every robot packet, no matter the mode. Use
+   * This function is called every ro-ot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
    * autonomous, teleoperated and test.
    *
@@ -120,9 +125,6 @@ public class Robot extends TimedRobot {
     kDrivetrain.setAllPower(oi.getLeftMagnitude());
     kDrivetrain.setAllAngle(oi.getLeftJoystickAngle());
     */
-    SmartDashboard.putNumber("Left Joystick X", oi.getLeftXAxis());
-    SmartDashboard.putNumber("Left Joystick Y", oi.getLeftYAxis());
-    SmartDashboard.putNumber("Right Joystick X", oi.getRightXAxis());
     Scheduler.getInstance().run();
   }
 
