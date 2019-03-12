@@ -18,7 +18,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 
-import edu.wpi.cscore.UsbCamera;
+//import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.I2C;
 
