@@ -12,7 +12,8 @@ import org.usfirst.frc.team7327.robot.Util.WrappedVictorSPX;
 
 public class SwerveModule{
     //private AnalogInput SteeringAnalog = new AnalogInput(0);
-    private WrappedTalonSRX mDrive, mSteering;
+    private WrappedTalonSRX mDrive; 
+    private WrappedVictorSPX mSteering;
     private Notifier pidLoop;           //A notifier is a thread. Basically think of a thread as something running in the background.
     //private volatile double sumError, errorChange, lastError; 
     private volatile double currentError, pidOutput;
@@ -44,8 +45,7 @@ public class SwerveModule{
      */
     public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, boolean isReversed, double offset, double kP, double kI, double kD){
         mDrive = new WrappedTalonSRX(kDriveID);
-        mSteering = new WrappedTalonSRX(kSteeringID);
-        //mSteering = new WrappedVictorSPX(kSteeringID);
+        mSteering = new WrappedVictorSPX(kSteeringID);
         //this.offset = offset;
 
         lastAngle = 0;
