@@ -26,10 +26,10 @@ public class DriveTrain extends Subsystem {
   
   
 	//Discovery
-	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -94.2); 
+	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -93.2); 
 	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -240.3); 
-	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -233.7); 
+	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -240.8); 
+	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -238.7); 
 
   private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID, abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  false, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);

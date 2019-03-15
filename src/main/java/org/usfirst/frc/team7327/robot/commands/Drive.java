@@ -158,18 +158,18 @@ public class Drive extends Command {
 		//else { Flex = DoubleSolenoid.Value.kOff; }
 		//Robot.kDrivetrain.setRawBicep(Flex); 
 		
-		if(oi.RightBumperDown(P2)) { Redthrottle = -.6; }
-		else if(oi.RightBumperDown(P1)) {Redthrottle = -.6; }
-		else if(oi.LeftBumperDown(P2)) { Redthrottle = .6;}
-		else if(oi.LeftBumperDown(P1)) { Redthrottle = .6;}
+		if(oi.RightBumperDown(P2)) { Redthrottle = .6; }
+		else if(oi.RightBumperDown(P1)) {Redthrottle = .6; }
+		else if(oi.LeftBumperDown(P2)) { Redthrottle = -.6;}
+		else if(oi.LeftBumperDown(P1)) { Redthrottle = -.6;}
 		else { Redthrottle = 0; }
 		Robot.kDrivetrain.setRawIntake(Redthrottle);
 
 		magnitudeR2 = Math.sqrt(Math.pow(oi.RightStickX(P2), 2) + Math.pow(oi.RightStickY(P2), 2));
-		if(magnitudeR2 > .3) { ballThrottle = .75*oi.RightStickY(P2); }
-		else if(oi.RightBumperDown(P2)) { ballThrottle = .5; }
-		else if(oi.RightBumperDown(P1)) { ballThrottle = .5; }
-		else if(oi.LeftBumperDown(P1))  { ballThrottle =  -.5; }
+		if(magnitudeR2 > .3) { ballThrottle = -.75*oi.RightStickY(P2); }
+		else if(oi.RightBumperDown(P2)) { ballThrottle = -.5; }
+		else if(oi.RightBumperDown(P1)) { ballThrottle = -.5; }
+		else if(oi.LeftBumperDown(P1))  { ballThrottle =  .5; }
 		else{ ballThrottle = 0; }
 		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
 		
@@ -184,9 +184,9 @@ public class Drive extends Command {
 
 		switch(ElevSetting) {
     case 0: 
-      Robot.kDrivetrain.setRawElevator(throttle*(-oi.LeftTrigger(P1) + oi.RightTrigger(P1)));
+      Robot.kDrivetrain.setRawElevator(throttle*(oi.LeftTrigger(P1) - oi.RightTrigger(P1)));
       if((oi.LeftTrigger(P1) < .1) && oi.RightTrigger(P1) < .1){ 
-			  Robot.kDrivetrain.setRawElevator(throttle*(-oi.LeftTrigger(P2) + oi.RightTrigger(P2)));
+			  Robot.kDrivetrain.setRawElevator(throttle*(oi.LeftTrigger(P2) - oi.RightTrigger(P2)));
       }
 			break; 
 		case 1: Robot.kDrivetrain.setElevatorPosition(heightB0); break; 
