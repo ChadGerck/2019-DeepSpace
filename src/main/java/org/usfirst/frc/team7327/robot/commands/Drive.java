@@ -88,7 +88,7 @@ public class Drive extends Command {
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
-    if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); }
+    if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle() + 90; }
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
     double wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
 
