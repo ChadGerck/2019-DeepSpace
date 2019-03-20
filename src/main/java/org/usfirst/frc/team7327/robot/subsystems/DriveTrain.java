@@ -15,8 +15,11 @@ import org.usfirst.frc.team7327.robot.Util.DriveCommand;
 import org.usfirst.frc.team7327.robot.Util.ModuleLocation;
 import org.usfirst.frc.team7327.robot.commands.Drive;
 import org.usfirst.frc.team7327.robot.SwerveModule;
+import org.usfirst.frc.team7327.robot.TurnModule;
 
 public class DriveTrain extends Subsystem {
+
+  public TurnModule turning; 
 
   //Harbi
 	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 

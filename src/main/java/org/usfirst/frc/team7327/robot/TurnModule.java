@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurnModule{
     private Notifier TurningPID; 
     private double error, sumError, diffError, lastError;
-    public double PIDOutput;
+    private double PIDOutput;
+    private double testPIDOutput; 
     private double navTo; 
     private boolean on; 
     
@@ -20,7 +21,10 @@ public class TurnModule{
     		error = getError(); 
     		diffError = lastError - getError(); 
     		sumError += getError(); 
-            PIDOutput = kP * getError() + kI * sumError + kD * diffError; 
+            testPIDOutput = kP * getError() + kI * sumError + kD * diffError; 
+            testPIDOutput = Math.min(1, testPIDOutput); 
+            testPIDOutput = Math.max(-1, testPIDOutput); 
+            PIDOutput = testPIDOutput; 
             lastError = error;
     	}); 
     	TurningPID.startPeriodic(0.01);
@@ -39,5 +43,7 @@ public class TurnModule{
     	on = flipOn; 
     	return on; 
     }
+
+    public double getPIDOutput(){ return PIDOutput; }
 
 }

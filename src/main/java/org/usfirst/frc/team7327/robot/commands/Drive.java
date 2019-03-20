@@ -90,7 +90,8 @@ public class Drive extends Command {
     double rightX = oi.getRightXAxis(); 
     double rightY = oi.getRightYAxis();
     double rightArc = Math.toDegrees(Math.atan2(rightX, rightY)); 
-    rotMag = TurnModule.PIDoutput; 
+    Robot.kDrivetrain.turning.setYaw(rightArc);
+    rotMag = Robot.kDrivetrain.turning.getPIDOutput(); 
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
