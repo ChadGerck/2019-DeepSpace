@@ -90,7 +90,7 @@ public class Drive extends Command {
     double rightX = oi.getRightXAxis(); 
     double rightY = oi.getRightYAxis();
     double rightArc = Math.toDegrees(Math.atan2(rightX, rightY)); 
-    if(rightArc < 
+    rotMag = TurnModule.PIDoutput; 
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
