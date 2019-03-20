@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurnModule{
     private Notifier TurningPID; 
     private double error, sumError, diffError, lastError;
-    private double PIDOutput;
+    public static double PIDOutput;
     private double testPIDOutput; 
     private double navTo; 
     private boolean on; 
