@@ -32,7 +32,8 @@ public class TurnModule{
     }
 
     public double getError(){
-    	double navFinal = navTo;  // - Robot.NavAngle(); 
+        //Why does subtracting the Robot.NavAngle() crash the driver station. 
+    	double navFinal = navTo;  //- Robot.NavAngle(); 
     	if(navFinal <= 0 ) navFinal += 360; 
         return Math.sin(Math.toRadians(navFinal));
     }
