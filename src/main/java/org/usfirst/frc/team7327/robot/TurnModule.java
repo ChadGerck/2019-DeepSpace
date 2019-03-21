@@ -16,8 +16,8 @@ public class TurnModule{
     	lastError = getError(); 
     	error = lastError; 
     	TurningPID = new Notifier(() ->  {
-    		SmartDashboard.putNumber("navTo: ", navTo);
-    		SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle());
+    		//SmartDashboard.putNumber("navTo: ", navTo);
+    		//SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle());
     		error = getError(); 
     		diffError = lastError - getError(); 
     		sumError += getError(); 
@@ -32,7 +32,7 @@ public class TurnModule{
     }
 
     public double getError(){
-    	double navFinal = navTo - Robot.NavAngle(); 
+    	double navFinal = navTo;  // - Robot.NavAngle(); 
     	if(navFinal <= 0 ) navFinal += 360; 
         return Math.sin(Math.toRadians(navFinal));
     }
