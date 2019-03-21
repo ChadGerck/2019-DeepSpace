@@ -21,6 +21,11 @@ public class DriveTrain extends Subsystem {
 
   public TurnModule turning; 
 
+  
+  static final double tkP = .4;  //.4 cement , .6 carpet
+  static final double tkI = .000001;
+  static final double tkD = .04; //.04 cement , .05 carpet
+
   //Harbi
 	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
 	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -234.85);
@@ -53,12 +58,15 @@ public class DriveTrain extends Subsystem {
 	static final double ekD = 0; 
   
   public DriveTrain(){
+
     Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
 		//Discovery
 		//Intake = new VictorSPX(9); 
 		//Harbi
 		Intake = new TalonSRX(9); 
-		BallVictor = new VictorSPX(10); 
+    BallVictor = new VictorSPX(10); 
+    
+    turning = new TurnModule(tkP, tkI, tkD);
 
 		//Bicep = new DoubleSolenoid(1,2);
 

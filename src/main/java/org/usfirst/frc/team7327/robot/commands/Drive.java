@@ -97,7 +97,7 @@ public class Drive extends Command {
       System.out.println("WHoops"); 
     }
     
-    //rotMag = Robot.kDrivetrain.turning.PIDOutput; 
+    rotMag = Robot.kDrivetrain.turning.PIDOutput; 
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
     if(leftMag < .3) { leftMag = 0; }
