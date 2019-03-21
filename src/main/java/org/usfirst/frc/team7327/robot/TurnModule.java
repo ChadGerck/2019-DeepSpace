@@ -7,7 +7,6 @@ public class TurnModule{
     private Notifier TurningPID; 
     private double error, sumError, diffError, lastError;
     public static double PIDOutput = 0;
-    private double testPIDOutput; 
     private double navTo; 
     private boolean on; 
     
@@ -21,10 +20,7 @@ public class TurnModule{
     		error = getError(); 
     		diffError = lastError - getError(); 
     		sumError += getError(); 
-            testPIDOutput = kP * getError() + kI * sumError + kD * diffError; 
-            testPIDOutput = Math.min(1, testPIDOutput); 
-            testPIDOutput = Math.max(-1, testPIDOutput); 
-            PIDOutput = testPIDOutput; 
+            PIDOutput = kP * getError() + kI * sumError + kD * diffError; 
             lastError = error;
     	}); 
     	TurningPID.startPeriodic(0.01);
@@ -32,12 +28,18 @@ public class TurnModule{
     }
 
     public double getError(){
-        //Why does subtracting the Robot.NavAngle() crash the driver station. 
-    	double navFinal = navTo;  //- Robot.NavAngle(); 
-    	if(navFinal <= 0 ) navFinal += 360; 
-        return Math.sin(Math.toRadians(navFinal));
+		//Why does subtracting the Robot.NavAngle() crash the driver station. 
+		//Who cares we can just subtract Robot.NavAngle() while setting Yaw in Drive. 
+    	double navFinal = boundHalfDegrees(navTo)/180; // - Robot.NavAngle(); 
+        return navFinal;
     }
-    
+	
+	public static double boundHalfDegrees(double angle_degrees) {
+        while (angle_degrees >= 180.0) angle_degrees -= 360.0;
+        while (angle_degrees < -180.0) angle_degrees += 360.0;
+        return angle_degrees;
+    }
+
     public void setYaw(double degree){ navTo = degree; }
     
     public boolean setOn(boolean flipOn) { 

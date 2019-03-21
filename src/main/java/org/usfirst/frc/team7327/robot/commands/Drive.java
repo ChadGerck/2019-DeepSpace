@@ -51,6 +51,7 @@ public class Drive extends Command {
   double navFinal = 0; 
   double PIDOutput = 0; 
   double rotMag = 0; 
+  double rightArc = 0; 
   
 	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
@@ -89,17 +90,15 @@ public class Drive extends Command {
     double leftY = oi.getLeftYAxis();
     double rightX = oi.getRightXAxis(); 
     double rightY = oi.getRightYAxis();
-    double rightArc = Math.toDegrees(Math.atan2(rightX, rightY)); 
-    try {
-      Robot.kDrivetrain.turning.setYaw(rightArc);
-    } catch (Exception e) {
-      //TODO: handle exception
-      System.out.println("WHoops"); 
-    }
-    
-    rotMag = Robot.kDrivetrain.turning.PIDOutput; 
     double leftMag = oi.getLeftMagnitude(); 
     double rightMag = oi.getRightMagnitude(); 
+    if(rightMag > .2) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
+    try {
+      Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());
+    } catch (Exception e) {
+      //TODO: handle exception
+    }
+    rotMag = Robot.kDrivetrain.turning.PIDOutput; 
     if(leftMag < .3) { leftMag = 0; }
     if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); }
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;

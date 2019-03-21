@@ -22,7 +22,7 @@ public class DriveTrain extends Subsystem {
   public TurnModule turning; 
 
   
-  static final double tkP = .4;  //.4 cement , .6 carpet
+  static final double tkP = 1.2 ;  //.4 cement , .6 carpet
   static final double tkI = .000001;
   static final double tkD = .04; //.04 cement , .05 carpet
 
@@ -30,7 +30,7 @@ public class DriveTrain extends Subsystem {
 	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -55.2); 
 	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -237.85);
 	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -313.3); 
-  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -187.7);
+  	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -187.7);
   
   
 	//Discovery
