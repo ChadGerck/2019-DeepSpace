@@ -150,7 +150,7 @@ public class Drive extends Command {
     FLwheelMag = leftMag; FLwheelRot = rightArc + Robot.NavAngle();
     FRwheelMag = leftMag; FRwheelRot = rightArc + Robot.NavAngle();
     BLwheelMag = leftMag; BLwheelRot = rightArc + Robot.NavAngle();
-    BRwheelMag = leftMag; BRwheelMag = rightArc + Robot.NavAngle();
+    BRwheelMag = leftMag; BRwheelRot = rightArc + Robot.NavAngle();
   }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
