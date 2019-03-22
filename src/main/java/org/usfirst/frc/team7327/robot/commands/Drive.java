@@ -42,7 +42,6 @@ public class Drive extends Command {
 
   double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
 	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 17033, heightH3 = 30973; 
-	//int heightB1 = 19893; 
 
   double throttle = .3, Redthrottle = 0, ballThrottle = 0; 
   double rotatethrottle = .5; 
@@ -52,6 +51,10 @@ public class Drive extends Command {
   double PIDOutput = 0; 
   double rotMag = 0; 
   double rightArc = 0; 
+
+  double FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag = 0; 
+
+  boolean simple = false; 
   
 	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
@@ -81,7 +84,7 @@ public class Drive extends Command {
 
     if(oi.BButton(P1)){ 
       if(speedthrottle ==1) { speedthrottle = .5;} //Comp speed switch
-      else if(speedthrottle ==.5){speedthrottle = .250;} //School time speed. Comment out for competition!
+      //else if(speedthrottle ==.5){speedthrottle = .250;} //School time speed. Comment out for competition!
       else{speedthrottle = 1;} 
     }
     //SaraSwitch: go ahead and be super fast or super slow. Your cup of tea.
@@ -90,39 +93,42 @@ public class Drive extends Command {
     double leftY = oi.getLeftYAxis();
     double rightX = oi.getRightXAxis(); 
     double rightY = oi.getRightYAxis();
-    double leftMag = oi.getLeftMagnitude(); 
+    double leftMag = oi.getLeftMagnitude();  
     double rightMag = oi.getRightMagnitude(); 
-    if(rightMag > .2) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
-    try {
-      Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());
-    } catch (Exception e) {
-      //TODO: handle exception
-    }
+    if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
+    try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());}
+    catch (Exception e) {}
     rotMag = Robot.kDrivetrain.turning.PIDOutput; 
-    if(leftMag < .3) { leftMag = 0; }
-    if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); }
+    if(leftMag < .3 ) { 
+      if(oi.RightTrigger(P1) > .1) { leftMag = oi.RightTrigger(P1); simple = true; }
+      else if(oi.LeftTrigger(P1) > .1) { leftMag = -oi.LeftTrigger(P1); simple = true;  }
+      else{ leftMag = 0; simple = false; }
+     }
+    if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); simple = false; }
+
+  if(!simple){
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
     double wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
 
     double FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rotMag;
     double FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rotMag;
     if(leftMag > 0.3 || rightMag > 0.2) {FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
-    double FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
+    FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
     
     double FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -rotMag;
     double FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rotMag;
     if(leftMag > 0.3 || rightMag > 0.2) {FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
-    double FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
+    FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
     
     double BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rotMag;
     double BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rotMag;
     if(leftMag > 0.3 || rightMag > 0.2) {BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
-    double BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
+    BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
     
     double BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rotMag;
     double BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rotMag;
     if(leftMag > 0.3 || rightMag > 0.2) {BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
-    double BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
+    BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
     
     double max = FLwheelMag;
 
@@ -133,6 +139,13 @@ public class Drive extends Command {
       FLwheelMag /= max; FRwheelMag /= max;
       BLwheelMag /= max; BRwheelMag /= max;
     }
+
+  } else{
+    FLwheelMag = leftMag; FLwheelRot = rightArc;
+    FRwheelMag = leftMag; FRwheelRot = rightArc;
+    BLwheelMag = leftMag; BLwheelRot = rightArc;
+    BRwheelMag = leftMag; BRwheelMag = rightArc;
+  }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
     DriveCommand frontRightCommand = new DriveCommand(FRwheelRot, FRwheelMag * -speedthrottle);
@@ -149,11 +162,6 @@ public class Drive extends Command {
     if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
-
-		//if(Robot.oi.BButton(P2)){ Flex = DoubleSolenoid.Value.kForward; } //Flex
-		//else if(Robot.oi.AButton(P2)){ Flex = DoubleSolenoid.Value.kReverse; } //Release
-		//else { Flex = DoubleSolenoid.Value.kOff; }
-		//Robot.kDrivetrain.setRawBicep(Flex); 
 		
 		if(oi.RightBumperDown(P2)) { Redthrottle = .6; }
 		else if(oi.RightBumperDown(P1)) {Redthrottle = .6; }

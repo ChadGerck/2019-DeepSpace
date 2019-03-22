@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurnModule{
     private Notifier TurningPID; 
     private double error, sumError, diffError, lastError;
+    private double testPIDOutput; 
     public static double PIDOutput = 0;
     private double navTo; 
     private boolean on; 
@@ -20,7 +21,8 @@ public class TurnModule{
     		error = getError(); 
     		diffError = lastError - getError(); 
     		sumError += getError(); 
-            PIDOutput = kP * getError() + kI * sumError + kD * diffError; 
+            testPIDOutput = kP * getError() + kI * sumError + kD * diffError;
+            PIDOutput = Math.min(testPIDOutput, .5); 
             lastError = error;
     	}); 
     	TurningPID.startPeriodic(0.01);
@@ -30,7 +32,7 @@ public class TurnModule{
     public double getError(){
 		//Why does subtracting the Robot.NavAngle() crash the driver station. 
 		//Who cares we can just subtract Robot.NavAngle() while setting Yaw in Drive. 
-    	double navFinal = boundHalfDegrees(navTo)/180; // - Robot.NavAngle(); 
+    	double navFinal = (boundHalfDegrees(navTo)/180); // - Robot.NavAngle(); 
         return navFinal;
     }
 	

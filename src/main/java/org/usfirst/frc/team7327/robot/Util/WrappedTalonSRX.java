@@ -39,7 +39,7 @@ public class WrappedTalonSRX extends TalonSRX {
         //super.configPeakOutputReverse(-1, 10);
         //super.configNominalOutputForward(0, 10);
         //super.configNominalOutputReverse(0, 10);
-        ////super.configNeutralDeadband(0.04,10);
+        //super.configNeutralDeadband(0.04,10);
         //super.configVoltageCompSaturation(0, 10);
         //super.configVoltageMeasurementFilter(32, 10);
         //super.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);

@@ -2,6 +2,7 @@ package org.usfirst.frc.team7327.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 //import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 //import com.ctre.phoenix.motorcontrol.StatusFrame;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
@@ -58,12 +59,17 @@ public class SwerveModule{
 
         //Configure steering Talon SRX
         //mSteering.configSelectedFeedbackSensor(FeedbackDevice.Analog, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+        
+        
+
         //mSteering.configOpenloopRamp(0, Constants.kTimeoutMs);      //this is what we were missing!
         //mSteering.configPeakCurrentDuration(Constants.kPeakCurrentDuration, Constants.kTimeoutMs);
         //mSteering.configPeakCurrentLimit(Constants.kPeakCurrentLimit, Constants.kTimeoutMs);
         //mSteering.configContinuousCurrentLimit(Constants.kSustainedCurrentLimit, Constants.kTimeoutMs);
         //mSteering.enableCurrentLimit(true);
         //mSteering.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 10, 0);
+        
+        
         //mSteering.setInverted(true);
         //mSteering.setSensorPhase(true);
 
