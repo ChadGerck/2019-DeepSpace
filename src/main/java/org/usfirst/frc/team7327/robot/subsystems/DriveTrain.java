@@ -50,8 +50,8 @@ public class DriveTrain extends Subsystem {
   public static ElevatorModule Elevator;
   
   public static VictorSPX BallVictor;
-	//public static VictorSPX Intake;
-  public static TalonSRX Intake; 
+	public static VictorSPX Intake;
+  //public static TalonSRX Intake; 
   
   static final double ekP = .0004;
 	static final double ekI = 0; 
@@ -63,7 +63,7 @@ public class DriveTrain extends Subsystem {
 		//Discovery
 		//Intake = new VictorSPX(9); 
 		//Harbi
-		Intake = new TalonSRX(9); 
+		Intake = new VictorSPX(9); 
     BallVictor = new VictorSPX(10); 
     
     turning = new TurnModule(tkP, tkI, tkD);
