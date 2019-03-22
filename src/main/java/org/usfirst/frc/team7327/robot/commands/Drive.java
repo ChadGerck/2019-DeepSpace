@@ -55,6 +55,7 @@ public class Drive extends Command {
   double FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag = 0; 
 
   boolean simple = false; 
+  boolean turnMode = true; 
   
 	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
@@ -89,6 +90,8 @@ public class Drive extends Command {
     }
     //SaraSwitch: go ahead and be super fast or super slow. Your cup of tea.
 
+    if(oi.XButton(P1)){ if(turnMode){ turnMode = false; } else { turnMode = true; } }
+
     double leftX = oi.getLeftXAxis();
     double leftY = oi.getLeftYAxis();
     double rightX = oi.getRightXAxis(); 
@@ -96,9 +99,12 @@ public class Drive extends Command {
     double leftMag = oi.getLeftMagnitude();  
     double rightMag = oi.getRightMagnitude(); 
     if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
-    try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());}
-    catch (Exception e) {}
-    rotMag = Robot.kDrivetrain.turning.PIDOutput; 
+    if(turnMode) {
+      try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());}
+      catch (Exception e) {}
+      rotMag = Robot.kDrivetrain.turning.PIDOutput;
+    }
+    else{ rotMag = rightX; }
     if(leftMag < .3 ) { 
       if(oi.RightTrigger(P1) > .1) { leftMag = oi.RightTrigger(P1); simple = true; }
       else if(oi.LeftTrigger(P1) > .1) { leftMag = -oi.LeftTrigger(P1); simple = true;  }
