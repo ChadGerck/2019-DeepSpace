@@ -122,6 +122,9 @@ public class Drive extends Command {
       }
       else{ leftMag = 0; simple = false; }
      }
+     SmartDashboard.putnumber("leftMag= ", leftMag);
+     SmartDashboard.putnumber("Robot.NavAngle= ", Robot.NavAngle());
+     
 
   if(!simple){
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
