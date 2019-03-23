@@ -111,16 +111,15 @@ public class Drive extends Command {
       if(oi.RightTrigger(P1) > .1) { leftMag = -oi.RightTrigger(P1); simple = true; }
       else if(oi.LeftTrigger(P1) > .1) { leftMag = oi.LeftTrigger(P1); simple = true;  }
       else if(oi.RightBumperDown(P1)) { 
-        if(Robot.NavAngle() > 90 && Robot.NavAngle() < 270) { leftMag = .5; }
-        else{ leftMag = -.5; }
-        simple = true; 
-      }
-      else if(oi.LeftBumperDown(P1)) { 
         if(Robot.NavAngle() > 90 && Robot.NavAngle() < 270) { leftMag = -.5; }
         else{ leftMag = .5; }
         simple = true; 
       }
-
+      else if(oi.LeftBumperDown(P1)) { 
+        if(Robot.NavAngle() > 90 && Robot.NavAngle() < 270) { leftMag = .5; }
+        else{ leftMag = -.5; }
+        simple = true; 
+      }
       else{ leftMag = 0; simple = false; }
      }
 
