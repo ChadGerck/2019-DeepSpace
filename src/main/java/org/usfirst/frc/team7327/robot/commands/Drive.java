@@ -195,10 +195,8 @@ public class Drive extends Command {
 
 		switch(ElevSetting) {
     case 0: 
-      Robot.kDrivetrain.setRawElevator(throttle*(oi.LeftTrigger(P1) - oi.RightTrigger(P1)));
-      if((oi.LeftTrigger(P1) < .1) && oi.RightTrigger(P1) < .1){ 
-			  Robot.kDrivetrain.setRawElevator(throttle*(oi.LeftTrigger(P2) - oi.RightTrigger(P2)));
-      }
+		  Robot.kDrivetrain.setRawElevator(throttle*(oi.LeftTrigger(P2) - oi.RightTrigger(P2)));
+      
 			break; 
 		case 1: Robot.kDrivetrain.setElevatorPosition(heightB0); break; 
 		case 2: Robot.kDrivetrain.setElevatorPosition(heightB1); break; 
