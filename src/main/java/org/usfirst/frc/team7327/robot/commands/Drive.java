@@ -122,8 +122,8 @@ public class Drive extends Command {
       }
       else{ leftMag = 0; simple = false; }
      }
-     SmartDashboard.putnumber("leftMag= ", leftMag);
-     SmartDashboard.putnumber("Robot.NavAngle= ", Robot.NavAngle());
+     SmartDashboard.putNumber("leftMag= ", leftMag);
+     SmartDashboard.putNumber("Robot.NavAngle= ", Robot.NavAngle());
      
 
   if(!simple){
