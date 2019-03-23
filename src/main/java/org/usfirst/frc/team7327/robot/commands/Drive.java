@@ -146,12 +146,14 @@ public class Drive extends Command {
       FLwheelMag /= max; FRwheelMag /= max;
       BLwheelMag /= max; BRwheelMag /= max;
     }
-
   } else{
     FLwheelMag = leftMag; FLwheelRot = rightArc + Robot.NavAngle() + 90;
     FRwheelMag = leftMag; FRwheelRot = rightArc + Robot.NavAngle() + 90;
     BLwheelMag = leftMag; BLwheelRot = rightArc + Robot.NavAngle() + 90;
     BRwheelMag = leftMag; BRwheelRot = rightArc + Robot.NavAngle() + 90;
+    System.out.println("rightArc = " + rightArc); 
+    System.out.println("Robot.NavAngle = " + Robot.NavAngle());
+    System.out.println("wheelRot = " + FLwheelRot); 
   }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
@@ -192,7 +194,7 @@ public class Drive extends Command {
             else if(oi.DpadLeft(P1) || oi.DpadLeft(P2) )  { ElevSetting = 4; Robot.kDrivetrain.ElevOn(true); } 
             else if(oi.YButtonDown(P2)){ ElevSetting = 5; Robot.kDrivetrain.ElevOn(true); }
             else if(oi.XButtonDown(P2)){ ElevSetting = 6; Robot.kDrivetrain.ElevOn(true); }
-        }   else{ ElevSetting = 0; Robot.kDrivetrain.ElevOn(false); }
+    } else{ ElevSetting = 0; Robot.kDrivetrain.ElevOn(false); }
 
 		switch(ElevSetting) {
     case 0: 
