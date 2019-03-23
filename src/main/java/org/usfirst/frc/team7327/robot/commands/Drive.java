@@ -147,10 +147,10 @@ public class Drive extends Command {
       BLwheelMag /= max; BRwheelMag /= max;
     }
   } else{
-    FLwheelMag = leftMag; FLwheelRot = rightArc + Robot.NavAngle() + 90;
-    FRwheelMag = leftMag; FRwheelRot = rightArc + Robot.NavAngle() + 90;
-    BLwheelMag = leftMag; BLwheelRot = rightArc + Robot.NavAngle() + 90;
-    BRwheelMag = leftMag; BRwheelRot = rightArc + Robot.NavAngle() + 90;
+    FLwheelMag = leftMag; FLwheelRot = 0;
+    FRwheelMag = leftMag; FRwheelRot = 0;
+    BLwheelMag = leftMag; BLwheelRot = 0;
+    BRwheelMag = leftMag; BRwheelRot = 0;
   }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
