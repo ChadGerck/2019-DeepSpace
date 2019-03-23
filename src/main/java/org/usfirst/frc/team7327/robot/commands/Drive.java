@@ -110,6 +110,9 @@ public class Drive extends Command {
     if(leftMag < .3 ) { 
       if(oi.RightTrigger(P1) > .1) { leftMag = -oi.RightTrigger(P1); simple = true; }
       else if(oi.LeftTrigger(P1) > .1) { leftMag = oi.LeftTrigger(P1); simple = true;  }
+      else if(oi.RightBumperDown(P1)) { leftMag = -.5; simple = true; }
+      else if(oi.LeftBumperDown(P1)) { leftMag = .5; simple = true; }
+
       else{ leftMag = 0; simple = false; }
      }
 
@@ -147,10 +150,10 @@ public class Drive extends Command {
       BLwheelMag /= max; BRwheelMag /= max;
     }
   } else{
-    FLwheelMag = leftMag; FLwheelRot = 0;
-    FRwheelMag = leftMag; FRwheelRot = 0;
-    BLwheelMag = leftMag; BLwheelRot = 0;
-    BRwheelMag = leftMag; BRwheelRot = 0;
+    FLwheelMag = leftMag; FRwheelMag = leftMag; 
+    BLwheelMag = leftMag; BRwheelMag = leftMag;
+    if(oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1){ FLwheelRot = 0; FRwheelRot = 0; BLwheelRot = 0; BRwheelRot = 0; }
+    else{ FLwheelRot = 90; FRwheelRot = 90; BLwheelRot = 90; BRwheelRot = 90; }
   }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
@@ -170,9 +173,9 @@ public class Drive extends Command {
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 		
 		if(oi.RightBumperDown(P2)) { Redthrottle = -.6; }
-		else if(oi.RightBumperDown(P1)) {Redthrottle = -.6; }
+		//else if(oi.RightBumperDown(P1)) {Redthrottle = -.6; }
 		else if(oi.LeftBumperDown(P2)) { Redthrottle = .6;}
-		else if(oi.LeftBumperDown(P1)) { Redthrottle = .6;}
+		//else if(oi.LeftBumperDown(P1)) { Redthrottle = .6;}
 		else { Redthrottle = 0; }
 		Robot.kDrivetrain.setRawIntake(Redthrottle);
 
