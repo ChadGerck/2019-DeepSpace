@@ -108,8 +108,8 @@ public class Drive extends Command {
     
     if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); simple = false; }
     if(leftMag < .3 ) { 
-      if(oi.RightTrigger(P1) > .1) { leftMag = oi.RightTrigger(P1); simple = true; }
-      else if(oi.LeftTrigger(P1) > .1) { leftMag = -oi.LeftTrigger(P1); simple = true;  }
+      if(oi.RightTrigger(P1) > .1) { leftMag = -oi.RightTrigger(P1); simple = true; }
+      else if(oi.LeftTrigger(P1) > .1) { leftMag = oi.LeftTrigger(P1); simple = true;  }
       else{ leftMag = 0; simple = false; }
      }
 

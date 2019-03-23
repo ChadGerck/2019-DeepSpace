@@ -32,7 +32,7 @@ public class TurnModule{
     public double getError(){
 		//Why does subtracting the Robot.NavAngle() crash the driver station. 
 		//Who cares we can just subtract Robot.NavAngle() while setting Yaw in Drive. 
-    	double navFinal = (boundHalfDegrees(navTo)/180); // - Robot.NavAngle(); 
+    	double navFinal = Math.pow(boundHalfDegrees(navTo)/180, 1/3); // - Robot.NavAngle(); 
         return navFinal;
     }
 	
