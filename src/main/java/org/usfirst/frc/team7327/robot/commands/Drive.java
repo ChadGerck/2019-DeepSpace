@@ -182,8 +182,8 @@ public class Drive extends Command {
 		magnitudeR2 = Math.sqrt(Math.pow(oi.RightStickX(P2), 2) + Math.pow(oi.RightStickY(P2), 2));
 		if(magnitudeR2 > .3) { ballThrottle = -.75*oi.RightStickY(P2); }
 		else if(oi.RightBumperDown(P2)) { ballThrottle = -.5; }
-		else if(oi.RightBumperDown(P1)) { ballThrottle = -.5; }
-		else if(oi.LeftBumperDown(P1))  { ballThrottle =  .5; }
+		//else if(oi.RightBumperDown(P1)) { ballThrottle = -.5; }
+		//else if(oi.LeftBumperDown(P1))  { ballThrottle =  .5; }
 		else{ ballThrottle = 0; }
 		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
 		
