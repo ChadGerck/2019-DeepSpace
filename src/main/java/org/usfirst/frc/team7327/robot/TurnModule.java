@@ -22,7 +22,8 @@ public class TurnModule{
     		diffError = lastError - getError(); 
     		sumError += getError(); 
             testPIDOutput = kP * getError() + kI * sumError + kD * diffError;
-            PIDOutput = Math.min(testPIDOutput, .5); 
+            testPIDOutput = Math.min(testPIDOutput, .5);
+            PIDOutput = Math.max(1, testPIDOutput);  
             lastError = error;
     	}); 
     	TurningPID.startPeriodic(0.01);

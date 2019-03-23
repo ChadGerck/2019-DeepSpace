@@ -22,7 +22,7 @@ public class DriveTrain extends Subsystem {
   public TurnModule turning; 
 
   
-  static final double tkP = 1.2 ;  //.4 cement , .6 carpet
+  static final double tkP = 2.5;  //.4 cement , .6 carpet
   static final double tkI = .000001;
   static final double tkD = .04; //.04 cement , .05 carpet
 
