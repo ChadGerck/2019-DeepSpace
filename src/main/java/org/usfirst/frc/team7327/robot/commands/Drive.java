@@ -109,21 +109,12 @@ public class Drive extends Command {
     if(leftMag < .3 ) { 
       if(oi.RightTrigger(P1) > .1) { leftMag = -oi.RightTrigger(P1); simple = true; }
       else if(oi.LeftTrigger(P1) > .1) { leftMag = oi.LeftTrigger(P1); simple = true;  }
-      else if(oi.RightBumperDown(P1)) { 
-        if(Robot.NavAngle() > 90 && Robot.NavAngle() < 270) { leftMag = -.5; }
-        else{ leftMag = .5; }
-        simple = true; 
-      }
-      else if(oi.LeftBumperDown(P1)) { 
-        if(Robot.NavAngle() > 90 && Robot.NavAngle() < 270) { leftMag = .5; }
-        else{ leftMag = -.5; }
-        simple = true; 
-      }
+      else if(oi.RightBumperDown(P1)) { leftMag = .5;  simple = true; }
+      else if(oi.LeftBumperDown(P1)) { leftMag = -.5;  simple = true; }
       else{ leftMag = 0; simple = false; }
      }
      SmartDashboard.putNumber("leftMag= ", leftMag);
      SmartDashboard.putNumber("Robot.NavAngle= ", Robot.NavAngle());
-     
 
   if(!simple){
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
@@ -177,7 +168,6 @@ public class Drive extends Command {
 
 
     //7327 CODE BELOW
-    if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 		
