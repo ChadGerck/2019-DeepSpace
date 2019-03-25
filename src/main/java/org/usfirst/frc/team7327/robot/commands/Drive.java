@@ -57,6 +57,7 @@ public class Drive extends Command {
   boolean simple = false; 
   boolean turnMode = true; 
   
+	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
   // Called repeatedly when this Command is scheduled to run
   @Override
@@ -171,9 +172,9 @@ public class Drive extends Command {
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 		
-		if(oi.RightBumperDown(P2)) { Redthrottle = .6; }
+		if(oi.RightBumperDown(P2)) { Redthrottle = -.6; }
 		//else if(oi.RightBumperDown(P1)) {Redthrottle = -.6; }
-		else if(oi.LeftBumperDown(P2)) { Redthrottle = -.6;}
+		else if(oi.LeftBumperDown(P2)) { Redthrottle = .6;}
 		//else if(oi.LeftBumperDown(P1)) { Redthrottle = .6;}
 		else { Redthrottle = 0; }
 		Robot.kDrivetrain.setRawIntake(Redthrottle);
