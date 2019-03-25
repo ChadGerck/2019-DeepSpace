@@ -12,7 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
@@ -73,9 +73,9 @@ public class Drive extends Command {
     double area = ta.getDouble(0.0);
 
     //post to smart dashboard periodically
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area);
+    //SmartDashboard.putNumber("LimelightX", x);
+    //SmartDashboard.putNumber("LimelightY", y);
+    //SmartDashboard.putNumber("LimelightArea", area);
 
     if(oi.AButton(P1)){
       if(rotatethrottle == .5){ rotatethrottle = 1;} 
@@ -113,8 +113,8 @@ public class Drive extends Command {
       else if(oi.LeftBumperDown(P1)) { leftMag = -.5;  simple = true; }
       else{ leftMag = 0; simple = false; }
      }
-     SmartDashboard.putNumber("leftMag= ", leftMag);
-     SmartDashboard.putNumber("Robot.NavAngle= ", Robot.NavAngle());
+     //SmartDashboard.putNumber("leftMag= ", leftMag);
+     //SmartDashboard.putNumber("Robot.NavAngle= ", Robot.NavAngle());
 
   if(!simple){
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;

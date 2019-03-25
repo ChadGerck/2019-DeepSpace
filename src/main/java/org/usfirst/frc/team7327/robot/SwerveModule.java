@@ -25,7 +25,7 @@ public class SwerveModule{
 
     private double lastAngle;
 
-    private static final double dt = 0.02;  //this is how fast we run our PID loop.
+    private static final double dt = 0.05;  //this is how fast we run our PID loop.
     //private int kPositiveRotationMin = 45;  //we measured this
     //private int kPositiveRotationMax = 870;  //and this
 

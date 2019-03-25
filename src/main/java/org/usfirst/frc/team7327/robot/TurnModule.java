@@ -1,7 +1,7 @@
 package org.usfirst.frc.team7327.robot;
 
 import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnModule{
     private Notifier TurningPID; 
@@ -25,7 +25,7 @@ public class TurnModule{
             PIDOutput = Math.min(testPIDOutput, .5);
             lastError = error;
     	}); 
-    	TurningPID.startPeriodic(0.01);
+    	TurningPID.startPeriodic(0.05);
     	
     }
 
