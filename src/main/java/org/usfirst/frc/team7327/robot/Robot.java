@@ -18,6 +18,8 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSink;
 //import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.I2C;
@@ -33,12 +35,19 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  //private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static final DriveTrain kDrivetrain = new DriveTrain();
 
   public static final OI oi = new OI();
 
   public static AHRS nav; 
+
+  
+  public static VideoSink server;
+  public static UsbCamera camera1;
+  public static UsbCamera camera2;
+
+
 
   /**
    * This function is run when the robot is first started up and should be
@@ -52,7 +61,28 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putData("Auto choices", m_chooser);
     nav = new AHRS(I2C.Port.kMXP); 
 
-    CameraServer.getInstance().startAutomaticCapture();
+    //CameraServer.getInstance().startAutomaticCapture();
+
+    
+    camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+    camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+    server = CameraServer.getInstance().getServer();
+
+    server.setSource(camera1);
+    
+    
+    /*
+    camServer = CameraServer.getInstance();
+    camServer.setQuality(100);
+    cameraFront = new UsbCamera("cam0", 0);
+    cameraMoveable = new UsbCamera("cam1", 1);
+    cameraFront.openCamera();
+    cameraMoveable.openCamera();
+    cameraFront.startCapture();
+    camera1.SetConnectionStrategy(cs::VideoSource::ConnectionStrategy::kConnectionKeepOpen);
+    camera2.SetConnectionStrategy(cs::VideoSource::ConnectionStrategy::kConnectionKeepOpen);
+    */
+
 
     //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
     //camera.setResolution(320, 240);

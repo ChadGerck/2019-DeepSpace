@@ -62,6 +62,9 @@ public class Drive extends Command {
   @Override
   protected void execute() {
 
+    if(oi.LeftTrigger(P1) > .1) { Robot.server.setSource(Robot.camera2); }
+    else{ Robot.server.setSource(Robot.camera1);}
+
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
@@ -107,7 +110,7 @@ public class Drive extends Command {
     
     if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); simple = false; }
     if(leftMag < .3 ) { 
-      if(oi.RightTrigger(P1) > .1) { leftMag = -oi.RightTrigger(P1); simple = true; }
+      if(oi.RightTrigger(P1) > .1) { leftMag = .5*-oi.RightTrigger(P1); simple = true; }
       else if(oi.LeftTrigger(P1) > .1) { leftMag = oi.LeftTrigger(P1); simple = true;  }
       else if(oi.RightBumperDown(P1)) { leftMag = .5;  simple = true; }
       else if(oi.LeftBumperDown(P1)) { leftMag = -.5;  simple = true; }
