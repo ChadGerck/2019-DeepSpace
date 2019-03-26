@@ -27,21 +27,21 @@ public class DriveTrain extends Subsystem {
   static final double tkD = .1; //.04 cement , .05 carpet
 
   //Harbi
-	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -55.2); 
-	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -237.85);
-	//public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -313.3); 
-  //public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -187.7);
+	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -55.2); 
+	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -237.85);
+	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -310.3); 
+  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -187.7);
   
 	//Discovery
-	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -93.2); 
-	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -27.8); 
-	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -238.7); 
+	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -93.2); 
+	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
+	//public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -27.8); 
+	//public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -238.7); 
 
-  private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID, abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  true, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleBackLeft = new SwerveModule(Constants.kBackLeftSteerID, Constants.kBackLeftDriveID, abeSW,  true, Constants.kBackLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID, abeSE, false, Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID, abeNW, false, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  false, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  private SwerveModule moduleBackLeft = new SwerveModule(Constants.kBackLeftSteerID, Constants.kBackLeftDriveID, abeSW,  false, Constants.kBackLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID, abeSE, true, Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   
   
 	//private DoubleSolenoid Bicep; 

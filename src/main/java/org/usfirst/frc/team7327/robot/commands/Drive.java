@@ -13,6 +13,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
@@ -33,7 +34,6 @@ public class Drive extends Command {
   int DriveSetting, ElevSetting = 0; 
   @Override
   protected void initialize() { DriveSetting = 0; ElevSetting = 0;
-    //DoubleSolenoid.clearAllPCMStickyFaults(0);  
   }
 
   public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
@@ -56,7 +56,6 @@ public class Drive extends Command {
 
   boolean simple = false; 
   boolean turnMode = true; 
-  
 
   // Called repeatedly when this Command is scheduled to run
   @Override
@@ -75,11 +74,6 @@ public class Drive extends Command {
     double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
 
-    //post to smart dashboard periodically
-    //SmartDashboard.putNumber("LimelightX", x);
-    //SmartDashboard.putNumber("LimelightY", y);
-    //SmartDashboard.putNumber("LimelightArea", area);
-
     if(oi.AButton(P1)){
       if(rotatethrottle == .5){ rotatethrottle = 1;} 
       else {rotatethrottle = .5;}
@@ -90,7 +84,6 @@ public class Drive extends Command {
       //else if(speedthrottle ==.5){speedthrottle = .250;} //School time speed. Comment out for competition!
       else{speedthrottle = 1;} 
     }
-    //SaraSwitch: go ahead and be super fast or super slow. Your cup of tea.
 
     if(oi.XButton(P1)){ if(turnMode){ turnMode = false; } else { turnMode = true; } }
 
@@ -102,8 +95,7 @@ public class Drive extends Command {
     double rightMag = oi.getRightMagnitude(); 
     if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
     if(turnMode) {
-      try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());}
-      catch (Exception e) {}
+      try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.PIDOutput;
     }
     else{ rotMag = rightX; }
@@ -116,8 +108,6 @@ public class Drive extends Command {
       else if(oi.LeftBumperDown(P1)) { leftMag = -.5;  simple = true; }
       else{ leftMag = 0; simple = false; }
      }
-     //SmartDashboard.putNumber("leftMag= ", leftMag);
-     //SmartDashboard.putNumber("Robot.NavAngle= ", Robot.NavAngle());
 
   if(!simple){
     double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
@@ -174,18 +164,14 @@ public class Drive extends Command {
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 		
-		if(oi.RightBumperDown(P2)) { Redthrottle = .6; }
-		//else if(oi.RightBumperDown(P1)) {Redthrottle = -.6; }
-		else if(oi.LeftBumperDown(P2)) { Redthrottle = -.6;}
-		//else if(oi.LeftBumperDown(P1)) { Redthrottle = .6;}
+		if(oi.RightBumperDown(P2)) { Redthrottle = -.6; }
+		else if(oi.LeftBumperDown(P2)) { Redthrottle = .6;}
 		else { Redthrottle = 0; }
 		Robot.kDrivetrain.setRawIntake(Redthrottle);
 
 		magnitudeR2 = Math.sqrt(Math.pow(oi.RightStickX(P2), 2) + Math.pow(oi.RightStickY(P2), 2));
 		if(magnitudeR2 > .3) { ballThrottle = -.75*oi.RightStickY(P2); }
 		else if(oi.RightBumperDown(P2)) { ballThrottle = -.5; }
-		//else if(oi.RightBumperDown(P1)) { ballThrottle = -.5; }
-		//else if(oi.LeftBumperDown(P1))  { ballThrottle =  .5; }
 		else{ ballThrottle = 0; }
 		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
 		
