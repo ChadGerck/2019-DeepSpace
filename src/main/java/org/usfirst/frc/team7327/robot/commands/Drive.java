@@ -43,7 +43,6 @@ public class Drive extends Command {
 	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 18033, heightH3 = 30973; 
 
   double throttle = .3, Redthrottle = 0, ballThrottle = 0; 
-  double rotatethrottle = .5; 
   double speedthrottle = 1;
   double kP = 0.002; 
   double navFinal = 0; 
@@ -69,18 +68,15 @@ public class Drive extends Command {
     if(oi.LeftTrigger(P1) > .1) { Robot.server.setSource(Robot.camera2); }
     else{ Robot.server.setSource(Robot.camera1);}
 
-    if(oi.AButton(P1)){
-      if(rotatethrottle == .5){ rotatethrottle = 1;} 
-      else {rotatethrottle = .5;}
-    } 
-
+    /*
     if(oi.BButton(P1)){ 
       if(speedthrottle ==1) { speedthrottle = .5;} //Comp speed switch
       //else if(speedthrottle ==.5){speedthrottle = .250;} //School time speed. Comment out for competition!
       else{speedthrottle = 1;} 
     }
+    */
 
-    if(oi.XButton(P1)){ if(turnMode){ turnMode = false; } else { turnMode = true; } }
+    //if(oi.XButton(P1)){ if(turnMode){ turnMode = false; } else { turnMode = true; } }
 
     double leftX = oi.getLeftXAxis();
     double leftY = oi.getLeftYAxis();
@@ -89,11 +85,12 @@ public class Drive extends Command {
     double leftMag = oi.getLeftMagnitude();  
     double rightMag = oi.getRightMagnitude(); 
     if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
-    if(turnMode) {
-      try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
-      rotMag = Robot.kDrivetrain.turning.PIDOutput;
-    }
-    else{ rotMag = rightX; }
+    else if(oi.AButtonDown(P1)) { rightArc = 225; }
+    else if(oi.XButtonDown(P1)) { rightArc = 315; }
+    else if(oi.YButtonDown(P1)) { rightArc = 135; }
+    else if(oi.BButtonDown(P1)) { rightArc = 45; }
+    try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
+    rotMag = Robot.kDrivetrain.turning.PIDOutput;
 
     if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); simple = false; }
     if(leftMag < .3 ) { 
