@@ -96,5 +96,10 @@ public class OI{
         if(POV >= 225 && POV < 315) { return true; }
         else { return false; }
     }
+    /*
+    public boolean LeftStickPressed(XboxController controller){
+        return Controller.getRawButtonPressed(9); 
+    }
+    */
 
 }

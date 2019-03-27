@@ -33,15 +33,14 @@ public class Drive extends Command {
   // Called just before this Command runs the first time
   int DriveSetting, ElevSetting = 0; 
   @Override
-  protected void initialize() { DriveSetting = 0; ElevSetting = 0;
-  }
+  protected void initialize() { DriveSetting = 0; ElevSetting = 0; }
 
   public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
   double finalAngle, FLwheelRot, FRwheelRot, BLwheelRot, BRwheelRot = 0;
   int rotAngBR = 135, rotAngBL = 45, rotAngFR = -135, rotAngFL = -45;    
 
   double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
-	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 17033, heightH3 = 30973; 
+	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 18033, heightH3 = 30973; 
 
   double throttle = .3, Redthrottle = 0, ballThrottle = 0; 
   double rotatethrottle = .5; 
@@ -61,18 +60,14 @@ public class Drive extends Command {
   @Override
   protected void execute() {
 
+    if(oi.AButtonDown(P2)){ Robot.kDrivetrain.setAllClimb(.2); }
+    else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.setAllClimb(-.2); }
+    else{ Robot.kDrivetrain.setAllClimb(0); }
+
+    Robot.kDrivetrain.setClimbWheels(oi.LeftStickY(P2));
+
     if(oi.LeftTrigger(P1) > .1) { Robot.server.setSource(Robot.camera2); }
     else{ Robot.server.setSource(Robot.camera1);}
-
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
-    NetworkTableEntry ta = table.getEntry("ta");
-
-    //read values periodically
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
 
     if(oi.AButton(P1)){
       if(rotatethrottle == .5){ rotatethrottle = 1;} 
@@ -99,7 +94,7 @@ public class Drive extends Command {
       rotMag = Robot.kDrivetrain.turning.PIDOutput;
     }
     else{ rotMag = rightX; }
-    
+
     if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); simple = false; }
     if(leftMag < .3 ) { 
       if(oi.RightTrigger(P1) > .1) { leftMag = .5*-oi.RightTrigger(P1); simple = true; }
@@ -159,8 +154,6 @@ public class Drive extends Command {
     kDrivetrain.setModule(ModuleLocation.BACK_LEFT, backLeftCommand);
     kDrivetrain.setModule(ModuleLocation.BACK_RIGHT, backRightCommand);
 
-
-    //7327 CODE BELOW
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 		
@@ -176,18 +169,17 @@ public class Drive extends Command {
 		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
 		
 		if(oi.Dpad(P2) >= 0 || oi.Dpad(P1) >= 0 || oi.YButtonDown(P2) || oi.XButtonDown(P2)) { 
-            if     (oi.DpadDown(P1) || oi.DpadDown(P2) )  { ElevSetting = 1; Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.DpadRight(P1)|| oi.DpadRight(P2))  { ElevSetting = 2; Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.DpadUp(P1)   || oi.DpadUp(P2)   )  { ElevSetting = 3; Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.DpadLeft(P1) || oi.DpadLeft(P2) )  { ElevSetting = 4; Robot.kDrivetrain.ElevOn(true); } 
-            else if(oi.YButtonDown(P2)){ ElevSetting = 5; Robot.kDrivetrain.ElevOn(true); }
+            if     (oi.DpadDown(P2) || oi.DpadDown(P2) )  { ElevSetting = 1; Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.DpadRight(P2) || oi.DpadRight(P2))  { ElevSetting = 2; Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.DpadUp(P2) || oi.DpadUp(P2)   )  { ElevSetting = 3; Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.DpadLeft(P2) || oi.DpadLeft(P2) )  { ElevSetting = 4; Robot.kDrivetrain.ElevOn(true); } 
+            else if(oi.YButtonDown(P2)){ ElevSetting = 7; Robot.kDrivetrain.ElevOn(true); }
             else if(oi.XButtonDown(P2)){ ElevSetting = 6; Robot.kDrivetrain.ElevOn(true); }
     } else{ ElevSetting = 0; Robot.kDrivetrain.ElevOn(false); }
 
 		switch(ElevSetting) {
     case 0: 
 		  Robot.kDrivetrain.setRawElevator(throttle*(oi.LeftTrigger(P2) - oi.RightTrigger(P2)));
-      
 			break; 
 		case 1: Robot.kDrivetrain.setElevatorPosition(heightB0); break; 
 		case 2: Robot.kDrivetrain.setElevatorPosition(heightB1); break; 

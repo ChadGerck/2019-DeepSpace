@@ -2,6 +2,7 @@ package org.usfirst.frc.team7327.robot;
 
 import edu.wpi.first.wpilibj.Notifier;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnModule{
     private Notifier TurningPID; 
@@ -22,7 +23,8 @@ public class TurnModule{
     		diffError = lastError - getError(); 
     		sumError += getError(); 
             testPIDOutput = kP * getError() + kI * sumError + kD * diffError;
-            PIDOutput = Math.min(testPIDOutput, .5);
+            testPIDOutput = Math.min(testPIDOutput, .5);
+            PIDOutput = Math.max(testPIDOutput, -.5); 
             lastError = error;
     	}); 
     	TurningPID.startPeriodic(0.05);
@@ -42,7 +44,7 @@ public class TurnModule{
         return angle_degrees;
     }
 
-    public void setYaw(double degree){ navTo = degree; }
+    public void setYaw(double degree){ navTo = degree; SmartDashboard.putNumber("navTo", navTo); }
     
     public boolean setOn(boolean flipOn) { 
     	on = flipOn; 

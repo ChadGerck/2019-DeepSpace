@@ -49,7 +49,10 @@ public class DriveTrain extends Subsystem {
   public static ElevatorModule Elevator;
   
   public static VictorSPX BallVictor;
-	public static VictorSPX Intake;
+  public static VictorSPX Intake;
+  
+  public static TalonSRX ClimbNW, ClimbNE, ClimbSW, ClimbSE; 
+  public static VictorSPX ClimbWheels; 
   
   static final double ekP = .0004;
 	static final double ekI = 0; 
@@ -60,6 +63,11 @@ public class DriveTrain extends Subsystem {
     Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
 		Intake = new VictorSPX(9); 
     BallVictor = new VictorSPX(10); 
+    ClimbNW = new TalonSRX(11); 
+    ClimbNE = new TalonSRX(12); 
+    ClimbSW = new TalonSRX(13); 
+    ClimbSE = new TalonSRX(14); 
+    ClimbWheels = new VictorSPX(15); 
     
     turning = new TurnModule(tkP, tkI, tkD); 
   }
@@ -99,7 +107,6 @@ public class DriveTrain extends Subsystem {
         break;
     }
   }
-  
 
 	public double getAbeNW(){ return abeNW.get(); }
 	public double getAbeNE(){ return abeNE.get(); }
@@ -123,6 +130,14 @@ public class DriveTrain extends Subsystem {
     moduleBackLeft.setDrivePower(power);
     moduleBackRight.setDrivePower(power);
   }
+
+  public void setAllClimb(double power) {
+    ClimbNW.set(ControlMode.PercentOutput, power);
+    ClimbNE.set(ControlMode.PercentOutput, power);
+    ClimbSW.set(ControlMode.PercentOutput, power);
+    ClimbSE.set(ControlMode.PercentOutput, power);
+  }
+  public void setClimbWheels(double power) { ClimbWheels.set(ControlMode.PercentOutput, power); }
 
   public void setRawElevator(double speed){ Elevator.setRawElev(speed); }
 	public void setElevatorPosition(double position){ Elevator.setPosition(position); }
