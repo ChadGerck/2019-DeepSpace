@@ -55,6 +55,10 @@ public class Drive extends Command {
   boolean simple = false; 
   boolean turnMode = true; 
 
+  double wheelXcos, wheelYsin, FLwheelX, FLwheelY, FRwheelX, FRwheelY, BLwheelX, BLwheelY, BRwheelX, BRwheelY, max = 0;
+
+  double leftX, leftY, rightX, rightY, leftMag, rightMag = 0; 
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
@@ -78,12 +82,12 @@ public class Drive extends Command {
 
     //if(oi.XButton(P1)){ if(turnMode){ turnMode = false; } else { turnMode = true; } }
 
-    double leftX = oi.getLeftXAxis();
-    double leftY = oi.getLeftYAxis();
-    double rightX = oi.getRightXAxis(); 
-    double rightY = oi.getRightYAxis();
-    double leftMag = oi.getLeftMagnitude();  
-    double rightMag = oi.getRightMagnitude(); 
+    leftX = oi.getLeftXAxis();
+    leftY = oi.getLeftYAxis();
+    rightX = oi.getRightXAxis(); 
+    rightY = oi.getRightYAxis();
+    leftMag = oi.getLeftMagnitude();  
+    rightMag = oi.getRightMagnitude(); 
     if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
     else if(oi.AButtonDown(P1)) { rightArc = 225; }
     else if(oi.XButtonDown(P1)) { rightArc = 315; }
@@ -101,31 +105,30 @@ public class Drive extends Command {
       else{ leftMag = 0; simple = false; }
      }
 
-  if(!simple){
-    double wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
-    double wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
+    wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
+    wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
 
-    double FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rotMag;
-    double FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rotMag;
+    FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rotMag;
+    FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rotMag;
     if(leftMag > 0.3 || rightMag > 0.2) {FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
     FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
     
-    double FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -rotMag;
-    double FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rotMag;
+    FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -rotMag;
+    FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rotMag;
     if(leftMag > 0.3 || rightMag > 0.2) {FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
     FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
     
-    double BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rotMag;
-    double BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rotMag;
+    BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rotMag;
+    BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rotMag;
     if(leftMag > 0.3 || rightMag > 0.2) {BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
     BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
     
-    double BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rotMag;
-    double BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rotMag;
+    BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rotMag;
+    BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rotMag;
     if(leftMag > 0.3 || rightMag > 0.2) {BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
     BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
     
-    double max = FLwheelMag;
+    max = FLwheelMag;
 
     if(FRwheelMag > max)      { max = FRwheelMag; }
     else if(BLwheelMag > max) { max = BLwheelMag; }
@@ -134,12 +137,6 @@ public class Drive extends Command {
       FLwheelMag /= max; FRwheelMag /= max;
       BLwheelMag /= max; BRwheelMag /= max;
     }
-  } else{
-    FLwheelMag = leftMag; FRwheelMag = leftMag; 
-    BLwheelMag = leftMag; BRwheelMag = leftMag;
-    if(oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1){ FLwheelRot = 0; FRwheelRot = 0; BLwheelRot = 0; BRwheelRot = 0; }
-    else{ FLwheelRot = 90; FRwheelRot = 90; BLwheelRot = 90; BRwheelRot = 90; }
-  }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
     DriveCommand frontRightCommand = new DriveCommand(FRwheelRot, FRwheelMag * -speedthrottle);
