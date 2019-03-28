@@ -57,7 +57,7 @@ public class Drive extends Command {
 
   double wheelXcos, wheelYsin, FLwheelX, FLwheelY, FRwheelX, FRwheelY, BLwheelX, BLwheelY, BRwheelX, BRwheelY, max = 0;
 
-  double leftX, leftY, rightX, rightY, leftMag, rightMag = 0; 
+  double leftX, leftY, rightX, rightY, leftMag, rightMag, directMag = 0; 
 
   // Called repeatedly when this Command is scheduled to run
   @Override
@@ -101,35 +101,40 @@ public class Drive extends Command {
       rotMag = 0; 
     }
     
-    if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); }
-    //else if((oi.RightTrigger(P1) > .1) || (oi.LeftTrigger(P1) > .1)) { finalAngle = 0; leftMag = (.5*oi.RightTrigger(P1))+ -oi.LeftTrigger(P1); }
-    else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; -leftMag = .5*oi.RightTrigger(P1); }
-    else if(oi.LeftTrigger(P1) > .1) {finalAngle = 0; leftMag = oi.LeftTrigger(P1); }
-    else if(oi.RightBumperDown(P1)) { finalAngle = 90; leftMag = .5; }
-    else if(oi.LeftBumperDown(P1)) { finalAngle = 90; leftMag = -.5; }
-    else { leftMag = 0; }
+    if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle();
+      directMag = leftMag; 
+    }
+    else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; directMag = -.5*oi.RightTrigger(P1); }
+    else if(oi.LeftTrigger(P1) > .1) {finalAngle = 180; directMag = -oi.LeftTrigger(P1); }
+    else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .5; }
+    else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .5; }
+    else { directMag = 0; }
 
-    wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
-    wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
+    wheelXcos = Math.cos(finalAngle/57.2957795) * directMag;
+    wheelYsin = Math.sin(finalAngle/57.2957795) * directMag;
 
     FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rotMag;
     FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rotMag;
-    if(leftMag > 0.3 || rightMag > 0.2) {FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
+    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2) {
+      FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
     FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
     
     FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -rotMag;
     FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rotMag;
-    if(leftMag > 0.3 || rightMag > 0.2) {FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
+    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2) {
+      FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
     FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
     
     BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rotMag;
     BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rotMag;
-    if(leftMag > 0.3 || rightMag > 0.2) {BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
+    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2) {
+      BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
     BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
     
     BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rotMag;
     BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rotMag;
-    if(leftMag > 0.3 || rightMag > 0.2) {BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
+    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2) {
+      BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
     BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
     
     max = FLwheelMag;
