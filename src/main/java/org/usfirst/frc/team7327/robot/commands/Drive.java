@@ -115,7 +115,7 @@ public class Drive extends Command {
 
     FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rotMag;
     FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rotMag;
-    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2) {
+    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.AButtonDown(P1) || oi.BButtonDown(P1) || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
       FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
     FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
     
