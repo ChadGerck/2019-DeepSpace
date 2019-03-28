@@ -71,6 +71,9 @@ public class Drive extends Command {
 
     Robot.kDrivetrain.setClimbWheels(oi.LeftStickY(P2));
 
+    if(oi.LSClick(P2)){ Robot.kDriveTrain.ClimbNW(.2), Robot.kDriveTrain.ClimbNE(.2); }
+    if(oi.RSClick(P2)){ Robot.kDriveTrain.ClimbSW(.2), Robot.kDriveTrain.ClimbSE(.2); }
+
     if(oi.LeftTrigger(P1) > .1) { Robot.server.setSource(Robot.camera2); }
     else{ Robot.server.setSource(Robot.camera1);}
 
