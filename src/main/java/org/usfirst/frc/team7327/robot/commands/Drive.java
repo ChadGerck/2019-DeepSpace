@@ -195,9 +195,9 @@ public class Drive extends Command {
 
     switch(Climb) {
     case 0: if(oi.AButtonDown(P2)){ Robot.kDrivetrain.ClimbN(.2); }
-        else if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.2); }
-        else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.ClimbN(-.2); }
-        else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.2); }
+                else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.ClimbN(-.2); }       
+            if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.2); }
+                else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.2); }
     break;  
     }
     }
