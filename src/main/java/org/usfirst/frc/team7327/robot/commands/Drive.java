@@ -161,8 +161,8 @@ public class Drive extends Command {
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 		
-		if(oi.RightBumperDown(P2)) { Redthrottle = -.6; }
-		else if(oi.LeftBumperDown(P2)) { Redthrottle = .6;}
+		if(oi.RightBumperDown(P2)) { Redthrottle = .6; }
+		else if(oi.LeftBumperDown(P2)) { Redthrottle = -.6;}
 		else { Redthrottle = 0; }
 		Robot.kDrivetrain.setRawIntake(Redthrottle);
 
