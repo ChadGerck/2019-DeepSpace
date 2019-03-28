@@ -191,11 +191,13 @@ public class Drive extends Command {
     if(oi.LSClick(P2)) { Climb = 0; }
     else if(oi.RSClick(P2)) { Climb = 1; }
 
+    Robot.kDrivetrain.setClimbWheels(oi.LeftStickY(P2));
+
     switch(Climb) {
-    case 0: if(oi.AButtonDown(P2)){ Robot.kDrivetrain.setClimbN(.2); }
-              else if(oi.XButtonDown(P2)){ Robot.kDrivetrain.setClimbS(.2); }
-              else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.setClimbN(-.2); }
-              else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.setClimbS(-.2); }
+    case 0: if(oi.AButtonDown(P2)){ Robot.kDrivetrain.ClimbN(.2); }
+        else if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.2); }
+        else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.ClimbN(-.2); }
+        else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.2); }
     break;  
     }
     }
