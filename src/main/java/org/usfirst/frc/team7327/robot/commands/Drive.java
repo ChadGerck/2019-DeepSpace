@@ -88,26 +88,24 @@ public class Drive extends Command {
     rightY = oi.getRightYAxis();
     leftMag = oi.getLeftMagnitude();  
     rightMag = oi.getRightMagnitude(); 
-    if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
-    else if(oi.AButtonDown(P1)) { rightArc = 225; }
-    else if(oi.XButtonDown(P1)) { rightArc = 315; }
-    else if(oi.YButtonDown(P1)) { rightArc = 135; }
-    else if(oi.BButtonDown(P1)) { rightArc = 45; }
-    try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
-
-    if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); rotMag = Robot.kDrivetrain.turning.PIDOutput; }
-    else if((oi.RightTrigger(P1) > .1) || (oi.LeftTrigger(P1) > .1)) { finalAngle = 0; leftMag = .5*-oi.RightTrigger(P1) + oi.LeftTrigger(P1);
-     //rotMag only if AXYB is pressed
-    }
-    else if(oi.RightBumperDown(P1)) { finalAngle = 90; leftMag = .5; 
-      //rotMag only if AXYB is pressed
-    }
-    else if(oi.LeftBumperDown(P1)) { finalAngle = 90; leftMag = -.5;
-      //rotMag only if AXYB is pressed
-    }
-    else { leftMag = 0; 
+    if(rightMag > .7 || oi.AButtonDown(P1) || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1) ){
+      if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
+      else if(oi.AButtonDown(P1)) { rightArc = 315; } //Left Close
+      else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
+      else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
+      else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
+      try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.PIDOutput;
     }
+    else{
+      rotMag = 0; 
+    }
+    
+    if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); }
+    else if((oi.RightTrigger(P1) > .1) || (oi.LeftTrigger(P1) > .1)) { finalAngle = 0; leftMag = (.5*oi.RightTrigger(P1))+ -oi.LeftTrigger(P1); }
+    else if(oi.RightBumperDown(P1)) { finalAngle = 90; leftMag = .5; }
+    else if(oi.LeftBumperDown(P1)) { finalAngle = 90; leftMag = -.5; }
+    else { leftMag = 0; }
 
     wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
     wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
