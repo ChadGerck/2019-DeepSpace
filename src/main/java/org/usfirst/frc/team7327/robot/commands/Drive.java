@@ -192,11 +192,11 @@ public class Drive extends Command {
     else if(oi.RSClick(P2)) { Climb = false; }
 
     if(Climb) {
-      if(oi.AButtonDown(P2)){ Robot.kDrivetrain.ClimbN(.2); }
-                else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.ClimbN(-.2); } 
+      if(oi.AButtonDown(P2)){ Robot.kDrivetrain.ClimbN(.4); }
+                else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.ClimbN(-.4); } 
                 else{Robot.kDrivetrain.ClimbN(0);}      
-            if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.2); }
-                else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.2); }
+            if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.4); }
+                else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.4); }
                 else {Robot.kDrivetrain.ClimbS(0);}
       
     }
