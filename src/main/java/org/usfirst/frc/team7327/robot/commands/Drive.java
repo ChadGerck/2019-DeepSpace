@@ -62,7 +62,6 @@ public class Drive extends Command {
 
   boolean fixRotation = false;
 
-  //int Climb = 1; 
 
   // Called repeatedly when this Command is scheduled to run
   @Override
