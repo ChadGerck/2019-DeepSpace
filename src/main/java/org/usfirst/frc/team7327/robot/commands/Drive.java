@@ -52,6 +52,7 @@ public class Drive extends Command {
 
   double FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag = 0; 
 
+  boolean Climb = false;
   boolean simple = false; 
   boolean turnMode = true; 
 
@@ -61,16 +62,10 @@ public class Drive extends Command {
 
   boolean fixRotation = false;
 
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    if(oi.AButtonDown(P2)){ Robot.kDrivetrain.setAllClimb(.2); }
-    else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.setAllClimb(-.2); }
-    else{ Robot.kDrivetrain.setAllClimb(0); }
-
-    Robot.kDrivetrain.setClimbWheels(oi.LeftStickY(P2));
-
     if(oi.LeftTrigger(P1) > .1) { Robot.server.setSource(Robot.camera2); }
     else{ Robot.server.setSource(Robot.camera1);}
 
@@ -189,11 +184,23 @@ public class Drive extends Command {
 		case 2: Robot.kDrivetrain.setElevatorPosition(heightB1); break; 
 		case 3: Robot.kDrivetrain.setElevatorPosition(heightB2); break;
 		case 4: Robot.kDrivetrain.setElevatorPosition(heightB3); break; 
-		case 6: Robot.kDrivetrain.setElevatorPosition(heightH2); break; 
-		case 7: Robot.kDrivetrain.setElevatorPosition(heightH3); break; 
-		}
+		case 6: if(!Climb) Robot.kDrivetrain.setElevatorPosition(heightH2); break; 
+		case 7: if(!Climb) Robot.kDrivetrain.setElevatorPosition(heightH3); break; 
+    }
 
+    if(oi.LSClick(P2)) { Climb = true; }
+    else if(oi.RSClick(P2)) { Climb = false; }
 
+    if(Climb) {
+      if(oi.AButtonDown(P2)){ Robot.kDrivetrain.ClimbN(.4); }
+                else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.ClimbN(-.4); } 
+                else{Robot.kDrivetrain.ClimbN(0);}      
+            if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.4); }
+                else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.4); }
+                else {Robot.kDrivetrain.ClimbS(0);}
+      
+    }
+ 
   }
 
   // Make this return true when this Command no longer needs to run execute()
