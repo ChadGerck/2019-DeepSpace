@@ -114,32 +114,28 @@ public class Drive extends Command {
 
     if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.AButtonDown(P1) || oi.BButtonDown(P1) || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
       fixRotation = true; }
-      else{fixRotation = false;}      
+    else{fixRotation = false;}
     wheelXcos = Math.cos(finalAngle/57.2957795) * directMag;
     wheelYsin = Math.sin(finalAngle/57.2957795) * directMag;
 
     FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rotMag;
     FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rotMag;
-    if (fixRotation){
-      FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
+    if (fixRotation){ FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
     FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
     
     FRwheelX = wheelXcos + Math.cos(rotAngFR/57.2957795) * -rotMag;
     FRwheelY = wheelYsin + Math.sin(rotAngFR/57.2957795) * -rotMag;
-    if(fixRotation) {
-      FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
+    if(fixRotation) { FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
     FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
     
     BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rotMag;
     BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rotMag;
-    if(fixRotation) {
-      BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
+    if(fixRotation) { BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
     BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
     
     BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rotMag;
     BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rotMag;
-    if(fixRotation) {
-      BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
+    if(fixRotation) { BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
     BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
     
     max = FLwheelMag;
