@@ -130,10 +130,11 @@ public class DriveTrain extends Subsystem {
     moduleBackLeft.setDrivePower(power);
     moduleBackRight.setDrivePower(power);
   }
-
-  public void setAllClimb(double power) {
+  public void setClimbN(double power) { 
     ClimbNW.set(ControlMode.PercentOutput, power);
     ClimbNE.set(ControlMode.PercentOutput, power);
+  }
+  public void setClimbS(double power) { 
     ClimbSW.set(ControlMode.PercentOutput, power);
     ClimbSE.set(ControlMode.PercentOutput, power);
   }
