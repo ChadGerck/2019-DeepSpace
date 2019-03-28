@@ -94,16 +94,20 @@ public class Drive extends Command {
     else if(oi.YButtonDown(P1)) { rightArc = 135; }
     else if(oi.BButtonDown(P1)) { rightArc = 45; }
     try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
-    rotMag = Robot.kDrivetrain.turning.PIDOutput;
 
-    if(leftMag > .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); simple = false; }
-    if(leftMag < .3 ) { 
-      if(oi.RightTrigger(P1) > .1) { leftMag = .5*-oi.RightTrigger(P1); simple = true; }
-      else if(oi.LeftTrigger(P1) > .1) { leftMag = oi.LeftTrigger(P1); simple = true;  }
-      else if(oi.RightBumperDown(P1)) { leftMag = .5;  simple = true; }
-      else if(oi.LeftBumperDown(P1)) { leftMag = -.5;  simple = true; }
-      else{ leftMag = 0; simple = false; }
-     }
+    if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); rotMag = Robot.kDrivetrain.turning.PIDOutput; }
+    else if((oi.RightTrigger(P1) > .1) || (oi.LeftTrigger(P1) > .1)) { finalAngle = 0; leftMag = .5*-oi.RightTrigger(P1) + oi.LeftTrigger(P1);
+     //rotMag only if AXYB is pressed
+    }
+    else if(oi.RightBumperDown(P1)) { finalAngle = 90; leftMag = .5; 
+      //rotMag only if AXYB is pressed
+    }
+    else if(oi.LeftBumperDown(P1)) { finalAngle = 90; leftMag = -.5;
+      //rotMag only if AXYB is pressed
+    }
+    else { leftMag = 0; 
+      rotMag = Robot.kDrivetrain.turning.PIDOutput;
+    }
 
     wheelXcos = Math.cos(finalAngle/57.2957795) * leftMag;
     wheelYsin = Math.sin(finalAngle/57.2957795) * leftMag;
