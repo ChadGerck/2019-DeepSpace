@@ -102,7 +102,9 @@ public class Drive extends Command {
     }
     
     if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); }
-    else if((oi.RightTrigger(P1) > .1) || (oi.LeftTrigger(P1) > .1)) { finalAngle = 0; leftMag = (.5*oi.RightTrigger(P1))+ -oi.LeftTrigger(P1); }
+    //else if((oi.RightTrigger(P1) > .1) || (oi.LeftTrigger(P1) > .1)) { finalAngle = 0; leftMag = (.5*oi.RightTrigger(P1))+ -oi.LeftTrigger(P1); }
+    else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; leftMag = -.5*oi.RightTrigger(P1); }
+    else if(oi.LeftTrigger(P1) > .1) {finalAngle = 0; leftMag = oi.LeftTrigger(P1); }
     else if(oi.RightBumperDown(P1)) { finalAngle = 90; leftMag = .5; }
     else if(oi.LeftBumperDown(P1)) { finalAngle = 90; leftMag = -.5; }
     else { leftMag = 0; }
