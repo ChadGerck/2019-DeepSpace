@@ -34,9 +34,9 @@ public class DriveTrain extends Subsystem {
   
   //Discovery
   public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -93.2); 
-  public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
+  public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -196.85);
   public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -27.8); 
-  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -238.7); 
+  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -63.7); 
 
   private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID, abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  true, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
@@ -61,7 +61,7 @@ public class DriveTrain extends Subsystem {
   public DriveTrain(){
 
     Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
-	Intake = new VictorSPX(9); 
+	  Intake = new VictorSPX(9); 
     BallVictor = new VictorSPX(10); 
     ClimbNW = new TalonSRX(11); 
     ClimbNE = new TalonSRX(12); 
