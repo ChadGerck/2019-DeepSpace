@@ -7,13 +7,13 @@
 
 package org.usfirst.frc.team7327.robot.commands;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTable;
+//import edu.wpi.first.networktables.NetworkTableEntry;
+//import edu.wpi.first.networktables.NetworkTableInstance;
+//import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
@@ -92,7 +92,7 @@ public class Drive extends Command {
       else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
       else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
       try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
-      rotMag = Robot.kDrivetrain.turning.PIDOutput;
+      rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     }
     else{
       rotMag = 0; 
@@ -156,14 +156,14 @@ public class Drive extends Command {
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
 		
-		if(oi.RightBumperDown(P2)) { Redthrottle = .6; }
-		else if(oi.LeftBumperDown(P2)) { Redthrottle = -.6;}
+		if(oi.RightBumperDown(P2)) { Redthrottle = -.6; }
+		else if(oi.LeftBumperDown(P2)) { Redthrottle = .6;}
 		else { Redthrottle = 0; }
 		Robot.kDrivetrain.setRawIntake(Redthrottle);
 
 		magnitudeR2 = Math.sqrt(Math.pow(oi.RightStickX(P2), 2) + Math.pow(oi.RightStickY(P2), 2));
-		if(magnitudeR2 > .3) { ballThrottle = -.75*oi.RightStickY(P2); }
-		else if(oi.RightBumperDown(P2)) { ballThrottle = -.5; }
+		if(magnitudeR2 > .3) { ballThrottle = .75*oi.RightStickY(P2); }
+		else if(oi.RightBumperDown(P2)) { ballThrottle = .5; }
 		else{ ballThrottle = 0; }
 		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
 		
@@ -178,7 +178,7 @@ public class Drive extends Command {
 
 		switch(ElevSetting) {
     case 0: 
-      Robot.kDrivetrain.setRawElevator(throttle*(oi.LeftTrigger(P2) - oi.RightTrigger(P2)));
+      Robot.kDrivetrain.setRawElevator(throttle*(-oi.LeftTrigger(P2) + oi.RightTrigger(P2)));
 			break; 
 		case 1: Robot.kDrivetrain.setElevatorPosition(heightB0); break; 
 		case 2: Robot.kDrivetrain.setElevatorPosition(heightB1); break; 

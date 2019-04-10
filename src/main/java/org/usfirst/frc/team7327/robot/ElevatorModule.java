@@ -28,7 +28,7 @@ public class ElevatorModule{
             PIDOutput = kP * getError() + kI * sumError + kD * diffError;
             PIDOutput = Math.min(.8, PIDOutput);
             PIDOutput = Math.max(-.6, PIDOutput); 
-            if(on) { mLift.set(ControlMode.PercentOutput, -PIDOutput); }
+            if(on) { mLift.set(ControlMode.PercentOutput, PIDOutput); }
             
             lastError = error;
         });
