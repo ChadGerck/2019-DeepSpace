@@ -14,6 +14,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
+
+
+
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
 import org.usfirst.frc.team7327.robot.Util.ModuleLocation;
@@ -50,7 +54,7 @@ public class Drive extends Command {
   double kP = 0.002; 
   double navFinal = 0; 
   double PIDOutput = 0; 
-  
+
 	//DoubleSolenoid.Value Flex = DoubleSolenoid.Value.kOff; 
 
   // Called repeatedly when this Command is scheduled to run
@@ -61,21 +65,64 @@ public class Drive extends Command {
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
     NetworkTableEntry ta = table.getEntry("ta");
+    NetworkTableEntry tv = table.getEntry("tv");
 
     //read values periodically
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
+    double ts = tv.getDouble(0.0);
 
     //post to smart dashboard periodically
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
 
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("<variablename>").getDouble(0);
+    
+    
+
+
+double Kp = -0.1;
+double min_command = 0.05;
+
+
+
+double steering_adjust = 0.0;
+if (ts == 0.0)
+{
+        // We don't see the target, seek for the target by spinning in place at a safe speed.
+        steering_adjust = 0.3f;
+}
+else
+{
+        // We do see the target, execute aiming code
+       double heading_error = x;
+        steering_adjust = Kp * x;
+}
+
+
     if(oi.AButton(P1)){
       if(rotatethrottle == .5){ rotatethrottle = 1;} 
       else {rotatethrottle = .5;}
     } 
+
+    float KpDistance = -0.1f;  // Proportional control constant for distance
+ double current_distance = Estimate_Distance();  // see the 'Case Study: Estimating Distance'
+
+if (oi.RightBumperDown(P2)
+{
+        double distance_error = desired_distance - current_distance;
+        driving_adjust = KpDistance * distance_error;
+
+        left_command += distance_adjust;
+        right_command += distance_adjust;
+}
+
+
+
+
+
 
     if(oi.BButton(P1)){ 
       if(speedthrottle ==1) { speedthrottle = .5;} //Comp speed switch
