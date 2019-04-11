@@ -47,7 +47,7 @@ public class Drive extends Command {
   double kP = 0.002; 
   double navFinal = 0; 
   double PIDOutput = 0; 
-  double rotMag = 0; 
+  double rotMag = 0;
   double rightArc = 0; 
 
   double FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag = 0; 
@@ -121,6 +121,9 @@ public class Drive extends Command {
       else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
       else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
       else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
+      else if (oi.AButtonDown(P1)) { rightArc= 90;}
+
+
       try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     }
