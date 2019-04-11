@@ -19,17 +19,17 @@ import org.usfirst.frc.team7327.robot.SwerveModule;
 public class DriveTrain extends Subsystem {
 
   //Harbi
-	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
-	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -234.85);
-	//public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -335.3); 
-  //public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -7.7);
+	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -235.2); 
+	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -234.85);
+	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -335.3); 
+  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -7.7);
   
   
 	//Discovery
-	public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -93.2); 
-	public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
-	public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -240.8); 
-	public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -238.7); 
+	//public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -93.2); 
+	//public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -201.85);
+	//public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -240.8); 
+	//public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -238.7); 
 
   private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID, abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  true, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);

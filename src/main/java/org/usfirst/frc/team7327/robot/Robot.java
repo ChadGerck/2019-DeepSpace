@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.cameraserver.CameraServer;
 import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
@@ -53,9 +53,9 @@ public class Robot extends TimedRobot {
     nav = new AHRS(I2C.Port.kMXP); 
 
     CameraServer.getInstance().startAutomaticCapture();
-
-    //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    //camera.setResolution(320, 240);
+    
+    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    camera.setResolution(320, 240);
 
   }
 

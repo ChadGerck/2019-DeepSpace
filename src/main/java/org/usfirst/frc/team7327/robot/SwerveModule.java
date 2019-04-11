@@ -63,7 +63,7 @@ public class SwerveModule{
         //mSteering.configPeakCurrentLimit(Constants.kPeakCurrentLimit, Constants.kTimeoutMs);
         //mSteering.configContinuousCurrentLimit(Constants.kSustainedCurrentLimit, Constants.kTimeoutMs);
         //mSteering.enableCurrentLimit(true);
-        //mSteering.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 10, 0);
+        mSteering.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 10, 0);
         //mSteering.setInverted(true);
         //mSteering.setSensorPhase(true);
 
