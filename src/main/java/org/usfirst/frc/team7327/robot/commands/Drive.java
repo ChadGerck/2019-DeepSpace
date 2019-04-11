@@ -66,8 +66,47 @@ public class Drive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+  
     if(oi.LeftTrigger(P1) > .1) { Robot.server.setSource(Robot.camera2); }
     else{ Robot.server.setSource(Robot.camera1);}
+
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+		NetworkTableEntry tv = table.getEntry("tv");
+		NetworkTableEntry tx = table.getEntry("tx");
+		NetworkTableEntry ty = table.getEntry("ty");
+		NetworkTableEntry ta = table.getEntry("ta");
+
+		double v = tv.getDouble(0.0); 
+		double x = tx.getDouble(0.0);
+		double y = ty.getDouble(0.0);
+		double area = ta.getDouble(0.0);
+
+
+
+		double Kp = -0.03;
+		double min_command = 0.03;
+
+    if(Robot.oi.AButtonDown(P1))
+		{
+				double heading_error = -x;
+				double steering_adjust = 0.0;
+				if (x > 1.0)
+				{
+						steering_adjust = Kp*heading_error - min_command;
+				}
+				else if (x < 1.0)
+				{
+						steering_adjust = Kp*heading_error + min_command;
+        }
+        else if (){
+
+        }
+			//	left_command += steering_adjust;
+       // right_command -= steering_adjust;
+        
+    }
+    
 
     /*
     if(oi.BButton(P1)){ 
