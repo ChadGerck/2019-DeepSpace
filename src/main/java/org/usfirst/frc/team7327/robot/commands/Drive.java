@@ -7,9 +7,9 @@
 
 package org.usfirst.frc.team7327.robot.commands;
 
-//import edu.wpi.first.networktables.NetworkTableEntry;
-//import edu.wpi.first.networktables.NetworkTableInstance;
-//import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -62,6 +62,11 @@ public class Drive extends Command {
 
   boolean fixRotation = false;
 
+  double Kp = -0.05;
+  double kD = 0.4; 
+  double diffError = 0; 
+  double lastError = 0; 
+  double steering_adjust = 0.0;
 
   // Called repeatedly when this Command is scheduled to run
   @Override
@@ -82,28 +87,14 @@ public class Drive extends Command {
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
 
-
-
-		double Kp = -0.03;
-		double min_command = 0.03;
-
     if(Robot.oi.AButtonDown(P1))
 		{
+        
 				double heading_error = -x;
-				double steering_adjust = 0.0;
-				if (x > 1.0)
-				{
-						steering_adjust = Kp*heading_error - min_command;
-				}
-				else if (x < 1.0)
-				{
-						steering_adjust = Kp*heading_error + min_command;
-        }
-        else if (){
-
-        }
-			//	left_command += steering_adjust;
-       // right_command -= steering_adjust;
+        diffError = lastError - heading_error; 
+				steering_adjust = Kp*heading_error + kD*diffError;
+        lastError = heading_error; 
+        System.out.println(steering_adjust); 
         
     }
     
@@ -134,7 +125,7 @@ public class Drive extends Command {
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     }
     else if(oi.AButtonDown(P1)){
-      
+      rotMag = steering_adjust;  
     }
     else{
       rotMag = 0; 
