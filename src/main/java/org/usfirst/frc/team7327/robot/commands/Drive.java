@@ -7,9 +7,9 @@
 
 package org.usfirst.frc.team7327.robot.commands;
 
-//import edu.wpi.first.networktables.NetworkTableEntry;
-//import edu.wpi.first.networktables.NetworkTableInstance;
-//import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,7 +47,7 @@ public class Drive extends Command {
   double kP = 0.002; 
   double navFinal = 0; 
   double PIDOutput = 0; 
-  double rotMag = 0; 
+  double rotMag = 0;
   double rightArc = 0; 
 
   double FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag = 0; 
@@ -84,13 +84,13 @@ public class Drive extends Command {
 
 
 
-		double Kp = -0.03;
+    double Kp = -0.03;
+    double steering_adjust = 0.0;
 		double min_command = 0.03;
 
     if(Robot.oi.AButtonDown(P1))
 		{
-				double heading_error = -x;
-				double steering_adjust = 0.0;
+				double heading_error = -x; //error relative to how far it to where it wants to be
 				if (x > 1.0)
 				{
 						steering_adjust = Kp*heading_error - min_command;
@@ -98,9 +98,6 @@ public class Drive extends Command {
 				else if (x < 1.0)
 				{
 						steering_adjust = Kp*heading_error + min_command;
-        }
-        else if (){
-
         }
 			//	left_command += steering_adjust;
        // right_command -= steering_adjust;
@@ -130,11 +127,14 @@ public class Drive extends Command {
       else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
       else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
       else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
+      else if (oi.AButtonDown(P1)) { rightArc= 90;}
+
+
       try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     }
     else if(oi.AButtonDown(P1)){
-      
+      rotMag = steering_adjust;
     }
     else{
       rotMag = 0; 
