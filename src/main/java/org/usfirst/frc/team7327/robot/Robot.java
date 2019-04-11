@@ -32,9 +32,9 @@ import edu.wpi.first.wpilibj.I2C;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
+  //private static final String kDefaultAuto = "Default";
+  //private static final String kCustomAuto = "My Auto";
+  //private String m_autoSelected;
   //private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static final DriveTrain kDrivetrain = new DriveTrain();
 
@@ -66,10 +66,12 @@ public class Robot extends TimedRobot {
     
     camera1 = CameraServer.getInstance().startAutomaticCapture(0);
     camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+    camera1.setFPS(30); 
+    camera1.setFPS(30);
     server = CameraServer.getInstance().getServer();
 
     server.setSource(camera1);
-    
+
     
     /*
     camServer = CameraServer.getInstance();
