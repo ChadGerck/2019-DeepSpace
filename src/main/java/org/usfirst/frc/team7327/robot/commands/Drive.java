@@ -99,6 +99,7 @@ public class Drive extends Command {
 				{
 						steering_adjust = Kp*heading_error + min_command;
         }
+        
 			//	left_command += steering_adjust;
        // right_command -= steering_adjust;
         
