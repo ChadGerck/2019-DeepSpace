@@ -62,16 +62,18 @@ public class Drive extends Command {
 
   boolean fixRotation = false;
 
-  double Kp = -0.05;
+  double Kp = -0.025;
   double kD = 0.4; 
   double diffError = 0; 
   double lastError = 0; 
   double steering_adjust = 0.0;
 
+  final double DRIVE_K = 0.26;                    // how hard to drive fwd toward the target
+  final double DESIRED_TARGET_AREA = 13.0;
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
   
     if(oi.LeftTrigger(P1) > .1) { Robot.server.setSource(Robot.camera2); }
     else{ Robot.server.setSource(Robot.camera1);}
@@ -87,16 +89,19 @@ public class Drive extends Command {
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
 
-    if(Robot.oi.AButtonDown(P1))
-		{
-        
-				double heading_error = -x;
-        diffError = lastError - heading_error; 
-				steering_adjust = Kp*heading_error + kD*diffError;
-        lastError = heading_error; 
-        System.out.println(steering_adjust); 
-        
+    if(Robot.oi.AButtonDown(P1) || Robot.oi.BButtonDown(P1)) {
+			double heading_error = -x;
+      diffError = lastError - heading_error; 
+			steering_adjust = Kp*heading_error + kD*diffError;
+      lastError = heading_error; 
+
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); 
     }
+    else if(Robot.oi.XButtonDown(P1)) {
+      steering_adjust = (DESIRED_TARGET_AREA - area) * DRIVE_K;
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); 
+    }
+    else{ NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); }
     
 
     /*
@@ -115,15 +120,12 @@ public class Drive extends Command {
     rightY = oi.getRightYAxis();
     leftMag = oi.getLeftMagnitude();  
     rightMag = oi.getRightMagnitude(); 
-    if(rightMag > .7 || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1) ){
+    if(rightMag > .7 || oi.XButtonDown(P1) || oi.YButtonDown(P1)){
       if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
       //oi.AButtonDown(P1)) { rightArc = 315; } //Left Close
-      else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
+      //else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
       else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
-      else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
-      else if (oi.AButtonDown(P1)) { rightArc= 90;}
-
-
+      //else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
       try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     }
@@ -141,6 +143,8 @@ public class Drive extends Command {
     else if(oi.LeftTrigger(P1) > .1) {finalAngle = 180; directMag = -oi.LeftTrigger(P1); }
     else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .5; }
     else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .5; }
+    else if(oi.BButtonDown(P1)) { finalAngle = 0; directMag = steering_adjust; }
+    else if(oi.XButtonDown(P1)) { finalAngle = 90; directMag = steering_adjust; }
     else { directMag = 0; }
 
     if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.AButtonDown(P1) || oi.BButtonDown(P1) || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
@@ -234,7 +238,6 @@ public class Drive extends Command {
             if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.4); }
                 else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.4); }
                 else {Robot.kDrivetrain.ClimbS(0);}
-      
     }
  
   }
