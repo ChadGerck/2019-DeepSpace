@@ -88,6 +88,7 @@ public class Drive extends Command {
 		NetworkTableEntry ty = table.getEntry("ty");
 		NetworkTableEntry ta = table.getEntry("ta");
 
+    double velocity = 0;
 		double target = tv.getDouble(0.0); 
 		double x = tx.getDouble(0.0);
 		double y = ty.getDouble(0.0);
@@ -106,8 +107,8 @@ public class Drive extends Command {
       lastError2 = heading_error; 
     }
     else if(Robot.oi.XButtonDown(P1)) {
-      if(target == 0){ steering_adjust = 0; }
-      else { steering_adjust = (DESIRED_TARGET_AREA - area) * DRIVE_K; }
+      if(target == 0){ velocity = 0; }
+      else { velocity = (DESIRED_TARGET_AREA - area) * DRIVE_K; }
     }
 
     /*
@@ -150,7 +151,7 @@ public class Drive extends Command {
     else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .5; }
     else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .5; }
     else if(oi.BButtonDown(P1)) { finalAngle = 0; directMag = steering_adjust; }
-    else if(oi.XButtonDown(P1)) { finalAngle = 90; directMag = steering_adjust; }
+    else if(oi.XButtonDown(P1)) { finalAngle = 90; directMag = velocity; }
     else { directMag = 0; }
 
     if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.AButtonDown(P1) || oi.BButtonDown(P1) || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
