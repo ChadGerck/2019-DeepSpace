@@ -62,10 +62,12 @@ public class Drive extends Command {
 
   boolean fixRotation = false;
 
-  double Kp = -0.025;
-  double kD = 0.4; 
+  double SteerP = -0.025;
+  double SteerD = 0.4; 
+  double SteerP2 = -0.025;
+  double SteerD2 = 0.4; 
   double diffError = 0; 
-  double lastError = 0; 
+  double lastError, lastError2 = 0; 
   double steering_adjust = 0.0;
 
   final double DRIVE_K = 0.26;                    // how hard to drive fwd toward the target
@@ -75,8 +77,10 @@ public class Drive extends Command {
   @Override
   protected void execute() {
   
+    /*
     if(oi.LeftTrigger(P1) > .1) { Robot.server.setSource(Robot.camera2); }
     else{ Robot.server.setSource(Robot.camera1);}
+    */
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 		NetworkTableEntry tv = table.getEntry("tv");
@@ -89,19 +93,30 @@ public class Drive extends Command {
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
 
-    if(Robot.oi.AButtonDown(P1) || Robot.oi.BButtonDown(P1)) {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0); 
+    if(Robot.oi.AButtonDown(P1)) {
 			double heading_error = -x;
       diffError = lastError - heading_error; 
-			steering_adjust = Kp*heading_error + kD*diffError;
+			steering_adjust = SteerP*heading_error + SteerD*diffError;
       lastError = heading_error; 
 
-      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); 
+      //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); 
+    }
+    else if(Robot.oi.BButtonDown(P1)) {
+			double heading_error = -x;
+      diffError = lastError2 - heading_error; 
+			steering_adjust = SteerP2*heading_error + SteerD2*diffError;
+      lastError2 = heading_error; 
+
+      //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); 
     }
     else if(Robot.oi.XButtonDown(P1)) {
-      steering_adjust = (DESIRED_TARGET_AREA - area) * DRIVE_K;
-      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); 
+      if(v == 0){ steering_adjust = 0; }
+      else { steering_adjust = (DESIRED_TARGET_AREA - area) * DRIVE_K; }
+      
+      //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); 
     }
-    else{ NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); }
+    //else{ NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); }
     
 
     /*
@@ -120,7 +135,7 @@ public class Drive extends Command {
     rightY = oi.getRightYAxis();
     leftMag = oi.getLeftMagnitude();  
     rightMag = oi.getRightMagnitude(); 
-    if(rightMag > .7 || oi.XButtonDown(P1) || oi.YButtonDown(P1)){
+    if(rightMag > .7 || oi.YButtonDown(P1)){
       if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
       //oi.AButtonDown(P1)) { rightArc = 315; } //Left Close
       //else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
