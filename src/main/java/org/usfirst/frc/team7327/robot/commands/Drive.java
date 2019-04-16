@@ -32,7 +32,7 @@ public class Drive extends Command {
 
   public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
   double finalAngle, FLwheelRot, BLwheelRot, BRwheelRot = 0;
-  int rotAngBR = 135, rotAngBL = 45, rotAngFR = -135, rotAngFL = -45;    
+  int rotAngBR = 135, rotAngBL = 45, rotAngFL = -45;    
 
   double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
 	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 18033, heightH3 = 30973; 
