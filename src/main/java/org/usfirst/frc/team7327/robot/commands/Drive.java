@@ -80,13 +80,13 @@ public class Drive extends Command {
     leftMag = oi.getLeftMagnitude();  
     rightMag = oi.getRightMagnitude(); 
     if(rightMag > .2 || oi.YButtonDown(P1)){
-      //if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
+      if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
       //oi.AButtonDown(P1)) { rightArc = 315; } //Left Close
       //else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
       //else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
       //else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
-      //try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
-      rotMag = -rightX/2; //Robot.kDrivetrain.turning.getPIDOutput();
+      try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
+      rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     }
     else{
       rotMag = 0; 

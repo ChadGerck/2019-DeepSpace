@@ -16,9 +16,9 @@ public class DriveTrain extends Subsystem {
   public TurnModule turning; 
 
   
-  static final double tkP = 2;  //.4 cement , .6 carpet
+  static final double tkP = .5;  //.4 cement , .6 carpet
   static final double tkI = .0;
-  static final double tkD = .1; //.04 cement , .05 carpet
+  static final double tkD = 1; //.04 cement , .05 carpet
 
   //Harbi
   public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -55.2); 
