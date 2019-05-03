@@ -1,6 +1,7 @@
 package org.usfirst.frc.team7327.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
@@ -35,16 +36,29 @@ public class DriveTrain extends Subsystem {
   private SwerveModule moduleBackLeft = new SwerveModule(Constants.kBackLeftSteerID, Constants.kBackLeftDriveID, abeSW,  true, Constants.kBackLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID, abeSE, false, Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   
-  
+  private DoubleSolenoid Pincher; 
+  private DoubleSolenoid Extendor;
+
   public DriveTrain(){
 
     turning = new TurnModule(tkP, tkI, tkD); 
+
+    Pincher = new DoubleSolenoid(0, 1); 
+    Extendor = new DoubleSolenoid(2, 3);
   }
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new Drive());
   }
+
+  public void setPincher(DoubleSolenoid.Value value){
+    Pincher.set(value);
+  }
   
+  public Void setExtendor(DoubleSolenoid.Value value){
+  Extendor.set(value);
+    return null;
+}
   public SwerveModule getModule(ModuleLocation location){
     switch(location){
       case FRONT_LEFT:

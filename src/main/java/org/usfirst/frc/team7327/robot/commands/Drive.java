@@ -8,7 +8,10 @@
 package org.usfirst.frc.team7327.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
@@ -25,6 +28,10 @@ public class Drive extends Command {
     requires(Robot.kDrivetrain);
   }
 
+
+	
+  DoubleSolenoid.Value Pincher = DoubleSolenoid.Value.kOff; 
+  DoubleSolenoid.Value Extendor = DoubleSolenoid.Value.kOff; 
   // Called just before this Command runs the first time
   int DriveSetting, ElevSetting = 0; 
   @Override
@@ -63,8 +70,16 @@ public class Drive extends Command {
   @Override
   protected void execute() {
 
+    if(oi.AButton(P1)){ Pincher = DoubleSolenoid.Value.kForward; }
+    else if(oi.BButton(P1)){ Pincher = DoubleSolenoid.Value.kReverse; }
+    else { Pincher = DoubleSolenoid.Value.kOff; }
+    Robot.kDrivetrain.setPincher(Pincher);
 
-
+    if(oi.XButton(P1)){Extendor = DoubleSolenoid.Value.kForward; }
+    else if(oi.YButton(P1)){Extendor = DoubleSolenoid.Value.kReverse; }
+    else { Extendor = DoubleSolenoid.Value.kOff; }
+    Robot.kDrivetrain.setExtendor(Extendor);
+  
     /*
     if(oi.BButton(P1)){ 
       if(speedthrottle ==1) { speedthrottle = .5;} //Comp speed switch

@@ -18,6 +18,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 
+import edu.wpi.first.wpilibj.Compressor;
 //import edu.wpi.cscore.UsbCamera;
 //import edu.wpi.cscore.VideoSink;
 //import edu.wpi.cscore.UsbCamera;
@@ -42,6 +43,8 @@ public class Robot extends TimedRobot {
 
   public static AHRS nav; 
 
+  
+  Compressor c0 = new Compressor(0);
   
   //public static VideoSink server;
   //public static UsbCamera camera1;
@@ -73,6 +76,8 @@ public class Robot extends TimedRobot {
     //server.setSource(camera1);
 
     
+		c0.setClosedLoopControl(true); 
+
     /*
     camServer = CameraServer.getInstance();
     camServer.setQuality(100);
