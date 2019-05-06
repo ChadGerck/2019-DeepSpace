@@ -18,10 +18,10 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSink;
 //import edu.wpi.cscore.UsbCamera;
-//import edu.wpi.cscore.VideoSink;
-//import edu.wpi.cscore.UsbCamera;
-//import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.I2C;
 
 /**
@@ -43,9 +43,9 @@ public class Robot extends TimedRobot {
   public static AHRS nav; 
 
   
-  //public static VideoSink server;
-  //public static UsbCamera camera1;
-  //public static UsbCamera camera2;
+  public static VideoSink server;
+  public static UsbCamera camera1;
+  public static UsbCamera camera2;
 
 
 
@@ -64,13 +64,13 @@ public class Robot extends TimedRobot {
     //CameraServer.getInstance().startAutomaticCapture();
 
     
-    //camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-    //camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-    //camera1.setFPS(30); 
-    //camera1.setFPS(30);
-    //server = CameraServer.getInstance().getServer();
+    camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+    camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+    camera1.setFPS(30); 
+    camera1.setFPS(30);
+    server = CameraServer.getInstance().getServer();
 
-    //server.setSource(camera1);
+    server.setSource(camera1);
 
     
     /*
