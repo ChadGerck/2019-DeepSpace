@@ -86,35 +86,19 @@ public class Drive extends Command {
 
     double Kp = -0.03;
     double steering_adjust = 0.0;
-    double min_command = 0.03;
-    double diffError = 0;
-    double lastError = 0;
-    sumError = 0; 
-    lastError = getError(); 
-    error = lastError; 
-    TurningPID = new Notifier(() ->  {
-      //SmartDashboard.putNumber("navTo: ", navTo);
-      //SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle());
-      error = getError(); 
-      diffError = lastError - getError(); 
-      sumError += getError(); 
-          testPIDOutput = kP * getError() + kI * sumError + kD * diffError;
-          testPIDOutput = Math.min(testPIDOutput, .5);
-          PIDOutput = Math.max(testPIDOutput, -.5); 
-          lastError = error;
-          var.heading=urethra;
+		double min_command = 0.03;
+
     if(Robot.oi.AButtonDown(P1))
 		{
-        double heading_error = -x; //error relative to how far it to where it wants to be
-        diffError = lastError - headingError;
-        lastError = error;
-        testPIDOutput = kP * getError() + kI * sumError + kD * diffError;
-			
-						smegering_adjust = Kp*heading_error + kD * diffError;
+				double heading_error = -x; //error relative to how far it to where it wants to be
+				if (x > 1.0)
+				{
+						steering_adjust = Kp*heading_error - min_command;
 				}
 				else if (x < 1.0)
 				{
-						steering_adjust = Kp*heading_error + kD * diffError;        }
+						steering_adjust = Kp*heading_error + min_command;
+        }
         
 			//	left_command += steering_adjust;
        // right_command -= steering_adjust;
@@ -152,7 +136,6 @@ public class Drive extends Command {
     }
     else if(oi.AButtonDown(P1)){
       rotMag = steering_adjust;
-    
     }
     else{
       rotMag = 0; 
