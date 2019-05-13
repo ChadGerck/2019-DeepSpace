@@ -18,7 +18,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class SwerveModule{
     //private AnalogInput SteeringAnalog = new AnalogInput(0);
-    private WrappedTalonSRX mDrive; 
+    //private WrappedTalonSRX mDrive; 
     private WrappedTalonSRX mSteering;
     private Notifier pidLoop;           //A notifier is a thread. Basically think of a thread as something running in the background.
     //private volatile double sumError, errorChange, lastError; 
@@ -52,11 +52,11 @@ public class SwerveModule{
      * @param kD            the steering kD gain
      */
     public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, boolean isReversed, double offset, double kP, double kI, double kD){
-        mDrive = new WrappedTalonSRX(kDriveID);
+        //mDrive = new WrappedTalonSRX(kDriveID);
         mSteering = new WrappedTalonSRX(kSteeringID);
-        mDrive.setNeutralMode(NeutralMode.Coast); 
+        //mDrive.setNeutralMode(NeutralMode.Coast); 
         
-        m_motor = new CANSparkMax(0, MotorType.kBrushless);
+        m_motor = new CANSparkMax(kDriveID, MotorType.kBrushless);
         //this.offset = offset;
 
         lastAngle = 0;
@@ -64,7 +64,7 @@ public class SwerveModule{
         this.steeringEncoder = steeringEncoder;
 
         //reset the Talons before use
-        mDrive.reset();
+        //mDrive.reset();
         mSteering.reset();
 
         //Configure steering Talon SRX
@@ -170,9 +170,9 @@ public class SwerveModule{
      */
     public void setDrivePower(double power){
         if(isReversed)
-            mDrive.set(ControlMode.PercentOutput, -power);
+            m_motor.set(-power);
         else
-            mDrive.set(ControlMode.PercentOutput, power);
+            m_motor.set(power); 
     }
 
     /**
