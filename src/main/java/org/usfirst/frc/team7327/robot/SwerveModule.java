@@ -10,10 +10,6 @@ import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
 import org.usfirst.frc.team7327.robot.Util.WrappedTalonSRX;
 import org.usfirst.frc.team7327.robot.Util.WrappedVictorSPX;
-import com.revrobotics.CANSparkMax;
-
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 public class SwerveModule{
@@ -28,8 +24,6 @@ public class SwerveModule{
     //private double offset;
 
     private double lastAngle;
-    
-    private CANSparkMax m_motor;
 
     private static final double dt = 0.05;  //this is how fast we run our PID loop.
     //private int kPositiveRotationMin = 45;  //we measured this
@@ -55,8 +49,6 @@ public class SwerveModule{
         mDrive = new WrappedTalonSRX(kDriveID);
         mSteering = new WrappedTalonSRX(kSteeringID);
         mDrive.setNeutralMode(NeutralMode.Coast); 
-        
-        m_motor = new CANSparkMax(0, MotorType.kBrushless);
         //this.offset = offset;
 
         lastAngle = 0;
