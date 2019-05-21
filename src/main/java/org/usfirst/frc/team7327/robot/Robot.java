@@ -10,9 +10,11 @@ package org.usfirst.frc.team7327.robot;
 //import javax.swing.text.Position;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 //import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -42,6 +44,7 @@ public class Robot extends TimedRobot {
 
   public static AHRS nav; 
 
+  public static Timer myTimer = new Timer(); 
   
   public static VideoSink server;
   public static UsbCamera camera1;
@@ -55,6 +58,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    myTimer.reset(); 
+    myTimer.start(); 
 
     //m_chooser.addDefault("Default Auto", kDefaultAuto);
     //m_chooser.addObject("My Auto", kCustomAuto);
@@ -127,6 +133,7 @@ public class Robot extends TimedRobot {
     //m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     nav.reset();
+    Autonomous.Auto(); 
   }
 
   /**
@@ -145,7 +152,9 @@ public class Robot extends TimedRobot {
         break;
     }
     */
-    Scheduler.getInstance().run();
+    //Scheduler.getInstance().run();
+
+
   }
 
   /**
@@ -167,6 +176,28 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
+  
+
+ 
+  public void MoveTime(double angle, double speed, double time) { 
+
+   
+        
+    time = myTimer.get() + time;
+    
+    
+    while(myTimer.get() < time ) {
+      kDrivetrain.setAllPower(speed);
+      kDrivetrain.setAllAngle(angle);
+        
+      
+        try{Thread.sleep(20);}catch(InterruptedException e){e.printStackTrace();}
+    }  
+    kDrivetrain.setAllPower(0);
+    
+    
+}
 
   public static double NavAngle() {
 		double angle = Robot.nav.getAngle(); 
