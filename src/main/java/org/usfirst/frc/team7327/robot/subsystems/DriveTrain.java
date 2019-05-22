@@ -34,12 +34,12 @@ public class DriveTrain extends Subsystem {
   
   //Discovery
   public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -99.2); 
-  public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -194.85);
-  public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -27.8); 
+  public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -191.85);
+  public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -24.8); 
   public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -65.7); 
 
   private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID, abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  true, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  false, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleBackLeft = new SwerveModule(Constants.kBackLeftSteerID, Constants.kBackLeftDriveID, abeSW,  true, Constants.kBackLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID, abeSE, false, Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
   

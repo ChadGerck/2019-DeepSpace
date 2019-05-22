@@ -130,6 +130,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    MoveAngle = 0;
     //m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     nav.reset();
@@ -180,36 +181,35 @@ public class Robot extends TimedRobot {
   
 
  
-  public void MoveTime(double angle, double speed, double time) { 
-
-   
-        
-    time = myTimer.get() + time;
-    
-    
-    while(myTimer.get() < time ) {
-      kDrivetrain.setAllPower(speed);
-      kDrivetrain.setAllAngle(angle);
-        
-      
-        try{Thread.sleep(20);}catch(InterruptedException e){e.printStackTrace();}
-    }  
-    kDrivetrain.setAllPower(0);
-    
-    
+private static void MoveTime(double angle, double speed, double time) { 
+  time = myTimer.get() + time;
+  while(myTimer.get() < time ) {
+    kDrivetrain.setAllPower(-speed);
+    kDrivetrain.setAllAngle(angle);    
+      try{Thread.sleep(20);}catch(InterruptedException e){e.printStackTrace();}
+  }  
+  kDrivetrain.setAllPower(0);  
 }
 
-  public static double NavAngle() {
-		double angle = Robot.nav.getAngle(); 
-		while(angle > 360) angle -= 360; 
-		while(angle < 0)   angle += 360;
-		return angle; 
-	}
-	public static double NavAngle(double add) {
-		double angle = Robot.nav.getAngle(); 
-		while(angle > 360) angle -= 360; 
-		while(angle < 0)   angle += 360;
-		return angle; 
-	}
+public static double MoveAngle = 0; 
+public static void MoveForward(){
+  MoveTime(MoveAngle, .4, .1); 
+}
+public static void TurnRight(){
+  MoveAngle -= 90; 
+} 
+
+public static double NavAngle() {
+  double angle = Robot.nav.getAngle(); 
+  while(angle > 360) angle -= 360; 
+	while(angle < 0)   angle += 360;
+	return angle; 
+}
+public static double NavAngle(double add) {
+	double angle = Robot.nav.getAngle(); 
+	while(angle > 360) angle -= 360; 
+	while(angle < 0)   angle += 360;
+	return angle; 
+}
 
 }
