@@ -64,17 +64,7 @@ public class Autonomous {
         Robot.MoveForward();
         Robot.MoveForward();
         Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();        
-        Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        //70 move forwards
+        //60 move forwards
         Robot.TurnRight();
         Robot.MoveForward();
         Robot.MoveForward();
@@ -91,13 +81,7 @@ public class Autonomous {
         Robot.MoveForward();
         Robot.MoveForward();        
         Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        Robot.MoveForward();
-        //20 move forwards
-         
+        //15 move forwards
 
     }
 }
