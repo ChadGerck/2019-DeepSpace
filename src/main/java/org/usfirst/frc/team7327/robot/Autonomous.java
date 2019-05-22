@@ -6,7 +6,7 @@ public class Autonomous {
     public static void Auto() {
         Robot.MoveForward(1.5);
         Robot.TurnRight();
-        Robot.MoveForward(0.5);
+        Robot.MoveForward(0.5); 
     }
 }
 
