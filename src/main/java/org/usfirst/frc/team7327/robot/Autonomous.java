@@ -15,6 +15,20 @@ public class Autonomous {
         Robot.MoveForward();
         Robot.MoveForward();
         Robot.TurnRight();
+        Robot.TurnRight();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        
        
     }
 }
