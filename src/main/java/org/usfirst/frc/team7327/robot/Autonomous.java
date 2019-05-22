@@ -39,8 +39,6 @@ public class Autonomous {
         Robot.MoveForward();
         Robot.MoveForward();
         Robot.MoveForward();
-
-        
     }
 }
 
