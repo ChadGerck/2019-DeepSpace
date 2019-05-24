@@ -55,7 +55,7 @@ public class Drive extends Command {
   boolean Climb = false;
   boolean simple = false; 
   boolean turnMode = true; 
-
+  boolean Elevatorms = false;
   double wheelXcos, wheelYsin, FLwheelX, FLwheelY, FRwheelX, FRwheelY, BLwheelX, BLwheelY, BRwheelX, BRwheelY, max = 0;
 
   double leftX, leftY, rightX, rightY, leftMag, rightMag, directMag = 0; 
@@ -188,7 +188,7 @@ public class Drive extends Command {
 		case 7: if(!Climb) Robot.kDrivetrain.setElevatorPosition(heightH3); break; 
     }
 
-    if(oi.LSClick(P2)) { Climb = true; }
+  /*  if(oi.LSClick(P2)) { Climb = true; }
     else if(oi.RSClick(P2)) { Climb = false; }
 
     if(Climb) {
@@ -197,10 +197,18 @@ public class Drive extends Command {
                 else{Robot.kDrivetrain.ClimbN(0);}      
             if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.4); }
                 else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.4); }
-                else {Robot.kDrivetrain.ClimbS(0);}
+                else {Robot.kDrivetrain.ClimbS(0);}*/
       
     }
  
+  //if(oi.AButtonDown(P2)){Elevatorms = true;}
+//else if (oi,RSClick(P2)){Elevatorms = false;}
+
+if(oi.AButtonDown(P2)){ Robot.kDrivetrain.Elevatorms(.4); }
+                else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.Elevatorms(-.4); } 
+                else{Robot.kDrivetrain.Elevatorms(0);}      
+           
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
