@@ -53,6 +53,7 @@ public class DriveTrain extends Subsystem {
   
   public static TalonSRX ClimbNW, ClimbNE, ClimbSW, ClimbSE; 
   public static VictorSPX ClimbWheels; 
+  public static TalonSRX Elevatorm1, Elevatorm2;
   
   static final double ekP = .0004;
 	static final double ekI = 0; 
@@ -68,7 +69,8 @@ public class DriveTrain extends Subsystem {
     ClimbSW = new TalonSRX(13); 
     ClimbSE = new TalonSRX(14); 
     ClimbWheels = new VictorSPX(15); 
-    
+    Elevatorm1 = new TalonSRX(17);
+    Elevatorm2 = new TalonSRX(18);
     turning = new TurnModule(tkP, tkI, tkD); 
   }
   @Override
@@ -134,9 +136,14 @@ public class DriveTrain extends Subsystem {
     ClimbNW.set(ControlMode.PercentOutput, power);
     ClimbNE.set(ControlMode.PercentOutput, power);
   }
-  public void ClimbS(double power) { 
+  public void ClimbS(double power) { +
     ClimbSW.set(ControlMode.PercentOutput, power);
     ClimbSE.set(ControlMode.PercentOutput, power);
+  }
+
+  public void Elevatorms(double power) { 
+    Elevatorm1.set(ControlMode.PercentOutput, power);
+    Elevatorm2.set(ControlMode.PercentOutput, -power);
   }
   public void setClimbWheels(double power) { ClimbWheels.set(ControlMode.PercentOutput, power); }
 
