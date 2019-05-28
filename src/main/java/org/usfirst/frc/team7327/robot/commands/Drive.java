@@ -194,7 +194,7 @@ public class Drive extends Command {
     }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
-    DriveCommand frontRightCommand = new DriveCommand(FRwheelRot, FRwheelMag * -speedthrottle);
+    DriveCommand frontRightCommand = new DriveCommand(FRwheelRot, FRwheelMag * speedthrottle);
     DriveCommand backLeftCommand = new DriveCommand(BLwheelRot, BLwheelMag * speedthrottle);
     DriveCommand backRightCommand = new DriveCommand(BRwheelRot, BRwheelMag * speedthrottle);
 
