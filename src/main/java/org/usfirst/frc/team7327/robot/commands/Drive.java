@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
@@ -180,6 +181,8 @@ public class Drive extends Command {
     if(fixRotation) { BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
     BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
     
+
+    SmartDashboard.putNumber("rotMag: ", rotMag); 
     max = FLwheelMag;
 
     if(FRwheelMag > max)      { max = FRwheelMag; }
