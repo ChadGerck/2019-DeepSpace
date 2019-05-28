@@ -155,7 +155,7 @@ public class Drive extends Command {
     else if(oi.XButtonDown(P1)) { finalAngle = 90; directMag = velocity; }
     else { directMag = 0; }
 
-    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.AButtonDown(P1) || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
+    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.AButtonDown(P1) || oi.BButtonDown(P1) || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
       fixRotation = true; }
     else{fixRotation = false;}
     wheelXcos = Math.cos(finalAngle/57.2957795) * directMag;
