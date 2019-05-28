@@ -94,45 +94,6 @@ public class Drive extends Command {
 		double y = ty.getDouble(0.0);
 		double area = ta.getDouble(0.0);
 
-<<<<<<< HEAD
-
-
-    double Kp = -0.03;
-    double steering_adjust = 0.0;
-    double min_command = 0.03;
-    double diffError = 0;
-    double lastError = 0;
-    sumError = 0; 
-    lastError = getError(); 
-    error = lastError; 
-    TurningPID = new Notifier(() ->  {
-      //SmartDashboard.putNumber("navTo: ", navTo);
-      //SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle());
-      error = getError(); 
-      diffError = lastError - getError(); 
-      sumError += getError(); 
-          testPIDOutput = kP * getError() + kI * sumError + kD * diffError;
-          testPIDOutput = Math.min(testPIDOutput, .5);
-          PIDOutput = Math.max(testPIDOutput, -.5); 
-          lastError = error;
-          var.heading=urethra;
-    if(Robot.oi.AButtonDown(P1))
-		{
-        double heading_error = -x; //error relative to how far it to where it wants to be
-        diffError = lastError - headingError;
-        lastError = error;
-        testPIDOutput = kP * getError() + kI * sumError + kD * diffError;
-			
-						smegering_adjust = Kp*heading_error + kD * diffError;
-				}
-				else if (x < 1.0)
-				{
-						steering_adjust = Kp*heading_error + kD * diffError;        }
-        
-			//	left_command += steering_adjust;
-       // right_command -= steering_adjust;
-        
-=======
     if(Robot.oi.AButtonDown(P1)) {
 			double heading_error = -x;
       diffError = lastError - heading_error; 
@@ -148,7 +109,6 @@ public class Drive extends Command {
     else if(Robot.oi.XButtonDown(P1)) {
       if(target == 0){ velocity = 0; }
       else { velocity = (DESIRED_TARGET_AREA - area) * DRIVE_K; }
->>>>>>> 625c24117cb855592a947c5f97d3156eb5385dcf
     }
 
     /*
@@ -177,12 +137,7 @@ public class Drive extends Command {
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     }
     else if(oi.AButtonDown(P1)){
-<<<<<<< HEAD
-      rotMag = steering_adjust;
-    
-=======
       rotMag = steering_adjust;  
->>>>>>> 625c24117cb855592a947c5f97d3156eb5385dcf
     }
     else{
       rotMag = 0; 
