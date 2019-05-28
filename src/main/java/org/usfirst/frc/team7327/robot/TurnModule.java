@@ -15,10 +15,10 @@ public class TurnModule{
     public TurnModule(double kP, double kI, double kD) {
     	sumError = 0; 
     	lastError = getError(); 
-    	error = lastError; 
+        error = lastError; 
+        
+        
     	TurningPID = new Notifier(() ->  {
-    		//SmartDashboard.putNumber("navTo: ", navTo);
-    		//SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle());
     		error = getError(); 
     		diffError = lastError - getError(); 
     		sumError += getError(); 
