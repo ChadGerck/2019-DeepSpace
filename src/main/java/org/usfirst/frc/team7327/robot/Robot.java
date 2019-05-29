@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
   //private String m_autoSelected;
   //private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static final DriveTrain kDrivetrain = new DriveTrain();
+  public static final SwerveMath swerveMath = new SwerveMath(0, 0, 0, false); 
 
   public static final OI oi = new OI();
 
