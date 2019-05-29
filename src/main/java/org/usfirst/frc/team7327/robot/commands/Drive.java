@@ -65,8 +65,8 @@ public class Drive extends Command {
 
   double SteerP = -0.025;
   double SteerD = 0.4; 
-  double SteerP2 = -0.025;
-  double SteerD2 = 0.4; 
+  double SteerP2 = -0.05;
+  double SteerD2 = 0.6; 
   double diffError = 0; 
   double lastError, lastError2 = 0; 
   double steering_adjust = 0.0;
