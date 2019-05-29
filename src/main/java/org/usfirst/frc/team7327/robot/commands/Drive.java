@@ -93,8 +93,18 @@ public class Drive extends Command {
 		double target = tv.getDouble(0.0); 
 		double x = tx.getDouble(0.0);
 		double y = ty.getDouble(0.0);
-		double area = ta.getDouble(0.0);
-
+    double area = ta.getDouble(0.0);
+    
+    if(leftMag >= 3 && Robot.oi.BButtonDown(P1)) {
+      if(heading_error > -4 && heading_error < 4) {
+        double heading_error = -x;
+        diffError = lastError2 - heading_error; 
+        steering_adjust = SteerP2*heading_error + SteerD2*diffError;
+        lastError2 = heading_error; 
+      }
+      directMag = .5;
+    
+      }
     if(Robot.oi.AButtonDown(P1)) {
 			double heading_error = -x;
       diffError = lastError - heading_error; 
