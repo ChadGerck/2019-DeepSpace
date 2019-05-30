@@ -95,9 +95,10 @@ public class Drive extends Command {
 		double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
     
+   double heading_error= -x;
     if(leftMag >= 3 && Robot.oi.BButtonDown(P1)) {
       if(heading_error > -4 && heading_error < 4) {
-        double heading_error = -x;
+       // double heading_error = -x;
         diffError = lastError2 - heading_error; 
         steering_adjust = SteerP2*heading_error + SteerD2*diffError;
         lastError2 = heading_error; 
@@ -106,13 +107,13 @@ public class Drive extends Command {
     
       }
     if(Robot.oi.AButtonDown(P1)) {
-			double heading_error = -x;
+			//double heading_error = -x;
       diffError = lastError - heading_error; 
 			steering_adjust = SteerP*heading_error + SteerD*diffError;
       lastError = heading_error; 
     }
     else if(Robot.oi.BButtonDown(P1)) {
-			double heading_error = -x;
+			//double heading_error = -x;
       diffError = lastError2 - heading_error; 
 			steering_adjust = SteerP2*heading_error + SteerD2*diffError;
       lastError2 = heading_error; 
@@ -120,6 +121,17 @@ public class Drive extends Command {
     else if(Robot.oi.XButtonDown(P1)) {
       if(target == 0){ velocity = 0; }
       else { velocity = (DESIRED_TARGET_AREA - area) * DRIVE_K; }
+    }
+
+    if(leftMag >= 3 && Robot.oi.BButton(P1)){
+      if(heading_error > -2 && heading_error < 2){
+        diffError = lastError2 - heading_error;
+        steering_adjust = SteerP2 * heading_error + SteerD2 * diffError;
+        lastError2 = heading_error;
+      
+      }
+
+      directMag = leftMag;
     }
 
     /*
