@@ -66,7 +66,7 @@ public class Drive extends Command {
   double SteerP = -0.025;
   double SteerD = 0.4; 
   double SteerP2 = -0.05;
-  double SteerD2 = 0.6; 
+  double SteerD2 = .6; 
   double diffError = 0; 
   double lastError, lastError2 = 0; 
   double steering_adjust = 0.0;
@@ -127,7 +127,6 @@ public class Drive extends Command {
 			steering_adjust = SteerP2*heading_error + SteerD2*diffError;
       lastError2 = heading_error; 
     }
-
     /*
     if(oi.BButton(P1)){ 
       if(speedthrottle ==1) { speedthrottle = .5;} //Comp speed switch
@@ -161,7 +160,8 @@ public class Drive extends Command {
     }
     
     if( oi.YButtonDown(P1)){
-      finalAngle = 0; directMag = steering_adjust;
+      finalAngle = Math.toDegrees(Math.atan2(leftX, steering_adjust));
+      directMag = (Math.abs(steering_adjust) + Math.abs(leftX))/2;
     }
     else if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle();
       directMag = leftMag; 
