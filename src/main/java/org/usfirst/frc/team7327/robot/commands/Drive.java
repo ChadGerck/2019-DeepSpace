@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package org.usfirst.frc.team7327.robot.commands;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -12,27 +5,12 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team7327.robot.Robot;
-import org.usfirst.frc.team7327.robot.SwerveMath;
-import org.usfirst.frc.team7327.robot.Util.DriveCommand;
-import org.usfirst.frc.team7327.robot.Util.ModuleLocation;
-
-import static org.usfirst.frc.team7327.robot.Robot.kDrivetrain;
 import static org.usfirst.frc.team7327.robot.Robot.oi;
 
 public class Drive extends Command {
-  
-  public Drive() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.kDrivetrain);
-  }
+  public Drive() { requires(Robot.kDrivetrain); }
 
-  // Called just before this Command runs the first time
   int DriveSetting, ElevSetting = 0; 
   @Override
   protected void initialize() { DriveSetting = 0; ElevSetting = 0; }
@@ -46,30 +24,19 @@ public class Drive extends Command {
 
   double throttle = .3, Redthrottle = 0, ballThrottle = 0; 
   double kP = 0.002; 
-  double navFinal = 0; 
-  double PIDOutput = 0; 
-  double rotMag = 0;
-  double rightArc = 0; 
+  double navFinal, PIDOutput, rotMag, rightArc = 0; 
 
   double FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag = 0; 
 
-  boolean Climb = false;
-  boolean simple = false; 
-  boolean turnMode = true; 
+  boolean simple = false, turnMode = true, fixRotation = false; 
 
   double wheelXcos, wheelYsin, FLwheelX, FLwheelY, FRwheelX, FRwheelY, BLwheelX, BLwheelY, BRwheelX, BRwheelY, max = 0;
 
   double leftX, leftY, rightX, rightY, leftMag, rightMag, directMag = 0; 
 
-  boolean fixRotation = false;
-
-  double SteerP = -0.025;
-  double SteerD = 0.4; 
-  double SteerP2 = -0.05;
-  double SteerD2 = 0.6; 
-  double diffError = 0; 
-  double lastError, lastError2 = 0; 
-  double steering_adjust = 0.0;
+  double SteerP = -0.025, SteerD = 0.4; 
+  double SteerP2 = -0.05, SteerD2 = 0.6; 
+  double diffError, lastError, lastError2, steering_adjust = 0.0;
 
   final double DRIVE_K = 0.26;                   
   final double DESIRED_TARGET_AREA = 13.0;
@@ -79,7 +46,6 @@ public class Drive extends Command {
 
   double velocity, target, x, y, area, heading_error; 
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
 
@@ -128,7 +94,8 @@ public class Drive extends Command {
     if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.AButtonDown(P1) || oi.BButtonDown(P1) || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
       fixRotation = true; }
     else{fixRotation = false;}
-    Robot.swerveMath(0,0,0,false); 
+
+    Robot.swerveMath.SwerveMath(finalAngle, directMag, rotMag, fixRotation); 
 
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
@@ -145,54 +112,21 @@ public class Drive extends Command {
 		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
 		
 		if(oi.Dpad(P2) >= 0 || oi.Dpad(P1) >= 0 || oi.YButtonDown(P2) || oi.XButtonDown(P2)) { 
-            if     (oi.DpadDown(P2) || oi.DpadDown(P2) )  { ElevSetting = 1; Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.DpadRight(P2) || oi.DpadRight(P2))  { ElevSetting = 2; Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.DpadUp(P2) || oi.DpadUp(P2)   )  { ElevSetting = 3; Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.DpadLeft(P2) || oi.DpadLeft(P2) )  { ElevSetting = 4; Robot.kDrivetrain.ElevOn(true); } 
-            else if(oi.YButtonDown(P2)){ ElevSetting = 7; Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.XButtonDown(P2)){ ElevSetting = 6; Robot.kDrivetrain.ElevOn(true); }
-    } else{ ElevSetting = 0; Robot.kDrivetrain.ElevOn(false); }
+            if     (oi.DpadDown(P2))  { Robot.kDrivetrain.setElevatorPosition(heightB0); Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.DpadRight(P2))  {Robot.kDrivetrain.setElevatorPosition(heightB1); Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.DpadUp(P2))  { Robot.kDrivetrain.setElevatorPosition(heightB2); Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.DpadLeft(P2))  { Robot.kDrivetrain.setElevatorPosition(heightB3); Robot.kDrivetrain.ElevOn(true); } 
+            else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.setElevatorPosition(heightH2); Robot.kDrivetrain.ElevOn(true); }
+            else if(oi.XButtonDown(P2)){  Robot.kDrivetrain.setElevatorPosition(heightH3); Robot.kDrivetrain.ElevOn(true); }
+    } else{ Robot.kDrivetrain.setRawElevator(throttle*(-oi.LeftTrigger(P2) + oi.RightTrigger(P2))); Robot.kDrivetrain.ElevOn(false); }
 
-		switch(ElevSetting) {
-    case 0: 
-      Robot.kDrivetrain.setRawElevator(throttle*(-oi.LeftTrigger(P2) + oi.RightTrigger(P2)));
-			break; 
-		case 1: Robot.kDrivetrain.setElevatorPosition(heightB0); break; 
-		case 2: Robot.kDrivetrain.setElevatorPosition(heightB1); break; 
-		case 3: Robot.kDrivetrain.setElevatorPosition(heightB2); break;
-		case 4: Robot.kDrivetrain.setElevatorPosition(heightB3); break; 
-		case 6: if(!Climb) Robot.kDrivetrain.setElevatorPosition(heightH2); break; 
-		case 7: if(!Climb) Robot.kDrivetrain.setElevatorPosition(heightH3); break; 
-    }
-
-    if(oi.LSClick(P2)) { Climb = true; }
-    else if(oi.RSClick(P2)) { Climb = false; }
-
-    if(Climb) {
-      if(oi.AButtonDown(P2)){ Robot.kDrivetrain.ClimbN(.4); }
-                else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.ClimbN(-.4); } 
-                else{Robot.kDrivetrain.ClimbN(0);}      
-            if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.4); }
-                else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.4); }
-                else {Robot.kDrivetrain.ClimbS(0);}
-    }
+	
  
   }
-
-  // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
+  protected boolean isFinished() { return false;}
   @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
+  protected void end() {}
   @Override
-  protected void interrupted() {
-  }
+  protected void interrupted() {}
 }

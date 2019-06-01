@@ -7,17 +7,17 @@ import static org.usfirst.frc.team7327.robot.Robot.kDrivetrain;
 
 public class SwerveMath {
 
-    double wheelXcos, wheelYsin, FLwheelX, FLwheelY, FRwheelX, FRwheelY, BLwheelX, BLwheelY, BRwheelX, BRwheelY,
-            max = 0;
+    static double wheelXcos, wheelYsin, FLwheelX, FLwheelY, FRwheelX, FRwheelY, BLwheelX, BLwheelY, BRwheelX, BRwheelY, max = 0;
 
-    double FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag = 0;
+    static double FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag = 0;
 
-    double finalAngle, FLwheelRot, FRwheelRot, BLwheelRot, BRwheelRot = 0;
-    int rotAngBR = 135, rotAngBL = 45, rotAngFR = -135, rotAngFL = -45;
+    static double FLwheelRot, FRwheelRot, BLwheelRot, BRwheelRot = 0;
+    static int rotAngBR = 135, rotAngBL = 45, rotAngFR = -135, rotAngFL = -45;
 
-    double leftX, leftY, rightX, rightY, leftMag, rightMag, directMag = 0;
 
-    public SwerveMath(double finalAngle, double directMag, double rotMag, boolean fixRotation) {
+    static double leftX, leftY, rightX, rightY, leftMag, rightMag = 0;
+
+    public static void SwerveMath(double finalAngle,double directMag, double rotMag, Boolean fixRotation) {
 
         wheelXcos = Math.cos(finalAngle / 57.2957795) * directMag;
         wheelYsin = Math.sin(finalAngle / 57.2957795) * directMag;
