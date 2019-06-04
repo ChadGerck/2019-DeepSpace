@@ -80,6 +80,14 @@ public class Drive extends Command {
     else { Extendor = DoubleSolenoid.Value.kOff; }
     Robot.kDrivetrain.setExtendor(Extendor);
   
+
+    if(oi.YButton(P1)){Robot.kDrivetrain.Elevatorms(.6);}
+      else if (oi.BButton(P1)){Robot.kDrivetrain.Elevatorms(-.6);}
+
+    else {Robot.kDrivetrain.Elevatorms(0);}
+
+
+
     /*
     if(oi.BButton(P1)){ 
       if(speedthrottle ==1) { speedthrottle = .5;} //Comp speed switch
@@ -158,6 +166,9 @@ public class Drive extends Command {
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		
   }
+
+
+
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

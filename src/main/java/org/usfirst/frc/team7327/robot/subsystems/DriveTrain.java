@@ -22,9 +22,9 @@ public class DriveTrain extends Subsystem {
   static final double tkD = 1; //.04 cement , .05 carpet
 
   //Harbi
-  public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -55.2); 
-  public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -310.3); 
-  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -187.7);
+  public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, 1); 
+  public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, 120); 
+  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, 270);
   
   //Discovery
   //public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -99.2); 
