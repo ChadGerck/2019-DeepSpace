@@ -85,12 +85,10 @@ public class Drive extends Command {
     rightY = oi.getRightYAxis();
     leftMag = oi.getLeftMagnitude();  
     rightMag = oi.getRightMagnitude(); 
-    if(rightMag > .7 || oi.AButtonDown(P1) || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1) ){
+    if(rightMag > .7  || oi.XButtonDown(P1) || oi.YButtonDown(P1) ){
       if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
-      else if(oi.AButtonDown(P1)) { rightArc = 315; } //Left Close
       else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
       else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
-      else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
       try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.PIDOutput;
     }
@@ -107,7 +105,7 @@ public class Drive extends Command {
     else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .5; }
     else { directMag = 0; }
 
-    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.AButtonDown(P1) || oi.BButtonDown(P1) || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
+    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
       fixRotation = true; }
     else{fixRotation = false;}
     wheelXcos = Math.cos(finalAngle/57.2957795) * directMag;
@@ -187,22 +185,6 @@ public class Drive extends Command {
 		case 6: if(!Climb) Robot.kDrivetrain.setElevatorPosition(heightH2); break; 
 		case 7: if(!Climb) Robot.kDrivetrain.setElevatorPosition(heightH3); break; 
     }
-
-    if(oi.LSClick(P2)) { Climb = true; }
-    else if(oi.RSClick(P2)) { Climb = false; }
-
-    if(Climb) {
-      if(oi.AButtonDown(P2)){ Robot.kDrivetrain.ClimbN(.4); }
-                else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.ClimbN(-.4); } 
-                else{Robot.kDrivetrain.ClimbN(0);}      
-            if(oi.XButtonDown(P2)){ Robot.kDrivetrain.ClimbS(.4); }
-                else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.ClimbS(-.4); }
-                else {Robot.kDrivetrain.ClimbS(0);}
-      
-    }
- 
-  //if(oi.AButtonDown(P2)){Elevatorms = true;}
-//else if (oi,RSClick(P2)){Elevatorms = false;}
 
     if(oi.AButtonDown(P2)){ Robot.kDrivetrain.Elevatorms(.6); }
     else if(oi.BButtonDown(P2)){ Robot.kDrivetrain.Elevatorms(-.6);}

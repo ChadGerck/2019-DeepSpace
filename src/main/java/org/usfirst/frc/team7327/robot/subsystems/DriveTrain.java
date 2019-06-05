@@ -62,12 +62,8 @@ public class DriveTrain extends Subsystem {
   public DriveTrain(){
 
     Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
-	Intake = new VictorSPX(9); 
+	  Intake = new VictorSPX(9); 
     BallVictor = new VictorSPX(10); 
-    ClimbNW = new TalonSRX(11); 
-    ClimbNE = new TalonSRX(12); 
-    ClimbSW = new TalonSRX(13); 
-    ClimbSE = new TalonSRX(14); 
     ClimbWheels = new VictorSPX(15); 
     Elevatorm1 = new TalonSRX(17);
     Elevatorm2 = new TalonSRX(18);
