@@ -107,47 +107,10 @@ public class Drive extends Command {
       //rotMag = 0; 
     //}
     
-    if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle();
-      directMag = leftMag; 
-    }
-    else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; directMag = -.5*oi.RightTrigger(P1); }
-    else if(oi.LeftTrigger(P1) > .1) {finalAngle = 180; directMag = -oi.LeftTrigger(P1); }
-    else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .5; }
-    else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .5; }
-    else { directMag = 0; }
+    if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle();}
 
-    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || leftMag > 0.3 || rightMag > 0.2 || oi.AButtonDown(P1) || oi.BButtonDown(P1) || oi.YButtonDown(P1) || oi.XButtonDown(P1)) {
-      fixRotation = true; }
-    else{fixRotation = false;}
-    wheelXcos = Math.cos(finalAngle/57.2957795) * directMag;
-    wheelYsin = Math.sin(finalAngle/57.2957795) * directMag;
 
-    FLwheelX = wheelXcos + Math.cos(rotAngFL/57.2957795) * -rotMag;
-    FLwheelY = wheelYsin + Math.sin(rotAngFL/57.2957795) * -rotMag;
-    if (fixRotation){ FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
-    FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
-    
-    BLwheelX = wheelXcos + Math.cos(rotAngBL/57.2957795) * -rotMag;
-    BLwheelY = wheelYsin + Math.sin(rotAngBL/57.2957795) * -rotMag;
-    if(fixRotation) { BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;} 
-    BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
-    
-    BRwheelX = wheelXcos + Math.cos(rotAngBR/57.2957795) * -rotMag;
-    BRwheelY = wheelYsin + Math.sin(rotAngBR/57.2957795) * -rotMag;
-    if(fixRotation) { BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
-    BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
-    
-    max = FLwheelMag;
-
-    if(BLwheelMag > max)      { max = BLwheelMag; }
-    else if(BRwheelMag > max) { max = BRwheelMag; }
-    if(max > .5){
-      FLwheelMag /= max; 
-      BLwheelMag /= max; 
-      BRwheelMag /= max;
-    }
-
-    DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
+    DriveCommand frontLeftCommand = new DriveCommand(finalAngle, leftMag);
     //DriveCommand backLeftCommand = new DriveCommand(BLwheelRot, BLwheelMag * speedthrottle);
     //DriveCommand backRightCommand = new DriveCommand(BRwheelRot, BRwheelMag * speedthrottle);
 
