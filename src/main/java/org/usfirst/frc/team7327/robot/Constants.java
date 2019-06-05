@@ -2,7 +2,7 @@ package org.usfirst.frc.team7327.robot;
 
 public class Constants{
     //Motors
-    public static int kFrontLeftDriveID = 1;
+    public static int kFrontLeftDriveID = 0;
     public static int kFrontLeftSteerID = 0;
     public static int kBackLeftDriveID = 5;
     public static int kBackLeftSteerID = 4;

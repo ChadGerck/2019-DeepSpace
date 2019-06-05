@@ -93,19 +93,19 @@ public class Drive extends Command {
     rightX = oi.getRightXAxis(); 
     rightY = oi.getRightYAxis();
     leftMag = oi.getLeftMagnitude();  
-    rightMag = oi.getRightMagnitude(); 
-    if(rightMag > .2 || oi.YButtonDown(P1)){
-      if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
+    //rightMag = oi.getRightMagnitude(); 
+    //if(rightMag > .2 || oi.YButtonDown(P1)){
+      //if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
       //oi.AButtonDown(P1)) { rightArc = 315; } //Left Close
       //else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
       //else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
       //else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
-      try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
-      rotMag = Robot.kDrivetrain.turning.getPIDOutput();
-    }
-    else{
-      rotMag = 0; 
-    }
+      //try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
+      //rotMag = Robot.kDrivetrain.turning.getPIDOutput();
+    //}
+    //else{
+      //rotMag = 0; 
+    //}
     
     if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle();
       directMag = leftMag; 
@@ -148,12 +148,12 @@ public class Drive extends Command {
     }
 
     DriveCommand frontLeftCommand = new DriveCommand(FLwheelRot, FLwheelMag * speedthrottle);
-    DriveCommand backLeftCommand = new DriveCommand(BLwheelRot, BLwheelMag * speedthrottle);
-    DriveCommand backRightCommand = new DriveCommand(BRwheelRot, BRwheelMag * speedthrottle);
+    //DriveCommand backLeftCommand = new DriveCommand(BLwheelRot, BLwheelMag * speedthrottle);
+    //DriveCommand backRightCommand = new DriveCommand(BRwheelRot, BRwheelMag * speedthrottle);
 
     kDrivetrain.setModule(ModuleLocation.FRONT_LEFT, frontLeftCommand);
-    kDrivetrain.setModule(ModuleLocation.BACK_LEFT, backLeftCommand);
-    kDrivetrain.setModule(ModuleLocation.BACK_RIGHT, backRightCommand);
+    //kDrivetrain.setModule(ModuleLocation.BACK_LEFT, backLeftCommand);
+    //kDrivetrain.setModule(ModuleLocation.BACK_RIGHT, backRightCommand);
 
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		
