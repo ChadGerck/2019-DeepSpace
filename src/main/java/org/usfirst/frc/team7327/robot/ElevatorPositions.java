@@ -1,11 +1,7 @@
 package org.usfirst.frc.team7327.robot;
 
-import org.usfirst.frc.team7327.robot.Util.DriveCommand;
-import org.usfirst.frc.team7327.robot.Util.ModuleLocation;
-
 import edu.wpi.first.wpilibj.XboxController;
 
-import static org.usfirst.frc.team7327.robot.Robot.kDrivetrain;
 import static org.usfirst.frc.team7327.robot.Robot.oi;
 
 public class ElevatorPositions {
@@ -16,7 +12,7 @@ public class ElevatorPositions {
     
     static double throttle = .3; 
 
-    public static void ElevatorPositions() {
+    public static void MoveElevators() {
         
 		if(oi.Dpad(P2) >= 0 || oi.YButtonDown(P2) || oi.XButtonDown(P2)) { 
             if     (oi.DpadDown(P2))   { Robot.kDrivetrain.setElevatorPosition(heightB0); Robot.kDrivetrain.ElevOn(true); }

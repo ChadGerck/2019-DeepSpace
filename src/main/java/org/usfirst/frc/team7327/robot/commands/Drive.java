@@ -7,47 +7,21 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team7327.robot.Robot;
 import static org.usfirst.frc.team7327.robot.Robot.oi;
-
-import org.usfirst.frc.team7327.robot.ElevatorModule;
 import org.usfirst.frc.team7327.robot.ElevatorPositions;
 
 public class Drive extends Command {
   public Drive() { requires(Robot.kDrivetrain); }
 
-  int DriveSetting, ElevSetting = 0; 
-  @Override
-  protected void initialize() { DriveSetting = 0; ElevSetting = 0; }
+  @Override protected void initialize() { }
 
   public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
-  double finalAngle, FLwheelRot, FRwheelRot, BLwheelRot, BRwheelRot = 0;
-  int rotAngBR = 135, rotAngBL = 45, rotAngFR = -135, rotAngFL = -45;    
-
-  double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
-
-  double Redthrottle = 0, ballThrottle = 0; 
-  double kP = 0.002; 
-  double navFinal, PIDOutput, rotMag, rightArc = 0; 
-
-  double FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag = 0; 
-
-  boolean simple = false, turnMode = true, fixRotation = false; 
-
-  double wheelXcos, wheelYsin, FLwheelX, FLwheelY, FRwheelX, FRwheelY, BLwheelX, BLwheelY, BRwheelX, BRwheelY, max = 0;
-
-  double leftX, leftY, rightX, rightY, leftMag, rightMag, directMag = 0; 
-
-  double SteerP = -0.025, SteerD = 0.4; 
-  double SteerP2 = -0.05, SteerD2 = 0.6; 
-  double diffError, lastError, lastError2, steering_adjust = 0.0;
-
-  final double DRIVE_K = 0.26;                   
-  final double DESIRED_TARGET_AREA = 13.0;
-
+  double finalAngle, magnitudeR2, Redthrottle, ballThrottle, rotMag, rightArc, leftX, leftY, rightX, rightY; 
+  double leftMag, rightMag, directMag, diffError, steering_adjust, velocity, target, x, y, area, heading_error; 
+  boolean fixRotation;   
+  double SteerP = -0.025, SteerD = 0.4, SteerP2 = -0.05, SteerD2 = 0.6, lastError = 0, lastError2 = 0;
+  final double DRIVE_K = 0.26, DESIRED_TARGET_AREA = 13.0;
   NetworkTable table; 
   NetworkTableEntry tv, tx, ty, ta; 
-
-  double velocity, target, x, y, area, heading_error; 
-
   
   public static final ElevatorPositions elevPosition = new ElevatorPositions(); 
 
@@ -77,7 +51,7 @@ public class Drive extends Command {
       else { velocity = (DESIRED_TARGET_AREA - area) * DRIVE_K; }
     }
 
-    leftX = oi.getLeftXAxis(); leftY = oi.getLeftYAxis();
+    leftX  = oi.getLeftXAxis();  leftY  = oi.getLeftYAxis();
     rightX = oi.getRightXAxis(); rightY = oi.getRightYAxis();
     leftMag = oi.getLeftMagnitude(); rightMag = oi.getRightMagnitude(); 
     if(rightMag > .7){ rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90;
@@ -100,7 +74,7 @@ public class Drive extends Command {
       fixRotation = true; }
     else{fixRotation = false;}
 
-    Robot.swerveMath.SwerveMath(finalAngle, directMag, rotMag, fixRotation); 
+    Robot.swerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
 
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
@@ -116,7 +90,7 @@ public class Drive extends Command {
 		else{ ballThrottle = 0; }
     Robot.kDrivetrain.setRawBallIn(ballThrottle); 
     
-    elevPosition.ElevatorPositions();
+    elevPosition.MoveElevators();
 		
   }
   @Override

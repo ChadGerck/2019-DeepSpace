@@ -17,7 +17,7 @@ public class SwerveMath {
 
     static double leftX, leftY, rightX, rightY, leftMag, rightMag = 0;
 
-    public static void SwerveMath(double finalAngle,double directMag, double rotMag, Boolean fixRotation) {
+    public static void ComputeSwerve(double finalAngle,double directMag, double rotMag, Boolean fixRotation) {
 
         wheelXcos = Math.cos(finalAngle / 57.2957795) * directMag;
         wheelYsin = Math.sin(finalAngle / 57.2957795) * directMag;
