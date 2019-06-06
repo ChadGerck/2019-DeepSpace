@@ -81,12 +81,12 @@ public class Drive extends Command {
     Robot.kDrivetrain.setExtendor(Extendor);
   
 
-    /*
-    if(oi.YButton(P1)){Robot.kDrivetrain.Elevatorms(.6);}
-      else if (oi.BButton(P1)){Robot.kDrivetrain.Elevatorms(-.6);}
+    
+    if(oi.LeftTrigger(P1)){Robot.kDrivetrain.Elevatorms(-.6);}
+      else if (oi.RightTrigger(P1)){Robot.kDrivetrain.Elevatorms(.6);}
 
     else {Robot.kDrivetrain.Elevatorms(0);}
-    */
+    
 
 
 
