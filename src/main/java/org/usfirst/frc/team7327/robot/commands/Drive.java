@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team7327.robot.Robot;
 import static org.usfirst.frc.team7327.robot.Robot.oi;
 
+import org.usfirst.frc.team7327.robot.ElevatorModule;
+import org.usfirst.frc.team7327.robot.ElevatorPositions;
+
 public class Drive extends Command {
   public Drive() { requires(Robot.kDrivetrain); }
 
@@ -20,9 +23,8 @@ public class Drive extends Command {
   int rotAngBR = 135, rotAngBL = 45, rotAngFR = -135, rotAngFL = -45;    
 
   double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
-	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 18033, heightH3 = 30973; 
 
-  double throttle = .3, Redthrottle = 0, ballThrottle = 0; 
+  double Redthrottle = 0, ballThrottle = 0; 
   double kP = 0.002; 
   double navFinal, PIDOutput, rotMag, rightArc = 0; 
 
@@ -45,6 +47,9 @@ public class Drive extends Command {
   NetworkTableEntry tv, tx, ty, ta; 
 
   double velocity, target, x, y, area, heading_error; 
+
+  
+  public static final ElevatorPositions elevPosition = new ElevatorPositions(); 
 
   @Override
   protected void execute() {
@@ -109,19 +114,10 @@ public class Drive extends Command {
 		if(magnitudeR2 > .3) { ballThrottle = .75*oi.RightStickY(P2); }
 		else if(oi.RightBumperDown(P2)) { ballThrottle = .5; }
 		else{ ballThrottle = 0; }
-		Robot.kDrivetrain.setRawBallIn(ballThrottle); 
+    Robot.kDrivetrain.setRawBallIn(ballThrottle); 
+    
+    elevPosition.ElevatorPositions();
 		
-		if(oi.Dpad(P2) >= 0 || oi.Dpad(P1) >= 0 || oi.YButtonDown(P2) || oi.XButtonDown(P2)) { 
-            if     (oi.DpadDown(P2))  { Robot.kDrivetrain.setElevatorPosition(heightB0); Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.DpadRight(P2))  {Robot.kDrivetrain.setElevatorPosition(heightB1); Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.DpadUp(P2))  { Robot.kDrivetrain.setElevatorPosition(heightB2); Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.DpadLeft(P2))  { Robot.kDrivetrain.setElevatorPosition(heightB3); Robot.kDrivetrain.ElevOn(true); } 
-            else if(oi.YButtonDown(P2)){ Robot.kDrivetrain.setElevatorPosition(heightH2); Robot.kDrivetrain.ElevOn(true); }
-            else if(oi.XButtonDown(P2)){  Robot.kDrivetrain.setElevatorPosition(heightH3); Robot.kDrivetrain.ElevOn(true); }
-    } else{ Robot.kDrivetrain.setRawElevator(throttle*(-oi.LeftTrigger(P2) + oi.RightTrigger(P2))); Robot.kDrivetrain.ElevOn(false); }
-
-	
- 
   }
   @Override
   protected boolean isFinished() { return false;}
