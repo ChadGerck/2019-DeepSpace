@@ -39,7 +39,7 @@ public class Drive extends Command {
 
   public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
   double finalAngle, FLwheelRot, BLwheelRot, BRwheelRot = 0;
-  int rotAngBR = 135, rotAngBL = 45, rotAngFL = -45;    
+  int rotAngBR = -135, rotAngBL = 135, rotAngFL = 45;    
 
   double degreesL, magnitudeL, degreesR, magnitudeR, degreesL2, magnitudeL2, magnitudeR2, setDegree =  0; 
 	int heightB0 = 0, heightB1 = 11000, heightB2 = 26000, heightB3 = 37000, heightH2 = 18033, heightH3 = 30973; 
@@ -81,10 +81,12 @@ public class Drive extends Command {
     Robot.kDrivetrain.setExtendor(Extendor);
   
 
+    /*
     if(oi.YButton(P1)){Robot.kDrivetrain.Elevatorms(.6);}
       else if (oi.BButton(P1)){Robot.kDrivetrain.Elevatorms(-.6);}
 
     else {Robot.kDrivetrain.Elevatorms(0);}
+    */
 
 
 
@@ -149,7 +151,7 @@ public class Drive extends Command {
 
     if(BLwheelMag > max)      { max = BLwheelMag; }
     else if(BRwheelMag > max) { max = BRwheelMag; }
-    if(max > .5){
+    if(max > 1){
       FLwheelMag /= max; 
       BLwheelMag /= max; 
       BRwheelMag /= max;
