@@ -3,10 +3,8 @@ package org.usfirst.frc.team7327.robot.subsystems;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import org.usfirst.frc.team7327.robot.Constants;
 import org.usfirst.frc.team7327.robot.ElevatorModule;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
@@ -78,6 +76,5 @@ public class DriveTrain extends Subsystem {
 	public double getLiftPosition() { return Elevator.getLiftPosition(); }
 	public void setRawBallIn(double speed){ BallVictor.set(ControlMode.PercentOutput, speed); }
 	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
-
   public void updateDashboard(){}
 }
