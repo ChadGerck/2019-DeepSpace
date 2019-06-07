@@ -95,9 +95,10 @@ public class Drive extends Command {
 		double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
     
+   double heading_error= -x;
     if(leftMag >= 3 && Robot.oi.BButtonDown(P1)) {
       if(heading_error > -4 && heading_error < 4) {
-        double heading_error = -x;
+       // double heading_error = -x;
         diffError = lastError2 - heading_error; 
         steering_adjust = SteerP2*heading_error + SteerD2*diffError;
         lastError2 = heading_error; 
@@ -106,13 +107,13 @@ public class Drive extends Command {
     
       }
     if(Robot.oi.AButtonDown(P1)) {
-			double heading_error = -x;
+			//double heading_error = -x;
       diffError = lastError - heading_error; 
 			steering_adjust = SteerP*heading_error + SteerD*diffError;
       lastError = heading_error; 
     }
     else if(Robot.oi.BButtonDown(P1)) {
-			double heading_error = -x;
+			//double heading_error = -x;
       diffError = lastError2 - heading_error; 
 			steering_adjust = SteerP2*heading_error + SteerD2*diffError;
       lastError2 = heading_error; 
@@ -120,6 +121,11 @@ public class Drive extends Command {
     else if(Robot.oi.XButtonDown(P1)) {
       if(target == 0){ velocity = 0; }
       else { velocity = (DESIRED_TARGET_AREA - area) * DRIVE_K; }
+    }
+    else if(Robot.oi.YButtonDown(P1)){
+      diffError = lastError2 - heading_error; 
+			steering_adjust = SteerP2*heading_error + SteerD2*diffError;
+      lastError2 = heading_error; 
     }
 
     /*
@@ -138,11 +144,11 @@ public class Drive extends Command {
     rightY = oi.getRightYAxis();
     leftMag = oi.getLeftMagnitude();  
     rightMag = oi.getRightMagnitude(); 
-    if(rightMag > .7 || oi.YButtonDown(P1)){
+    if(rightMag > .7 ){
       if(rightMag > .7) { rightArc = Math.toDegrees(Math.atan2(rightY, rightX)) + 90; }
       //oi.AButtonDown(P1)) { rightArc = 315; } //Left Close
       //else if(oi.XButtonDown(P1)) { rightArc = 225; } //Left Far
-      else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
+      //else if(oi.YButtonDown(P1)) { rightArc = 135; } //Right Far
       //else if(oi.BButtonDown(P1)) { rightArc = 45; } //Right Close
       try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
@@ -153,8 +159,16 @@ public class Drive extends Command {
     else{
       rotMag = 0; 
     }
+
+    /*
+    leftX, steeringAdjust
+    finalAngle = leftX 
+    */
     
-    if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle();
+    if( oi.YButtonDown(P1)){
+      finalAngle = 0; directMag = steering_adjust;
+    }
+    else if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle();
       directMag = leftMag; 
     }
     else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; directMag = -.5*oi.RightTrigger(P1); }
