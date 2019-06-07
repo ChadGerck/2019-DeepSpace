@@ -11,13 +11,18 @@ package org.usfirst.frc.team7327.robot;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import org.usfirst.frc.team7327.robot.subsystems.Drivetrain;
-import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
+
+import edu.wpi.first.wpilibj.Compressor;
+//import edu.wpi.cscore.UsbCamera;
+//import edu.wpi.cscore.VideoSink;
+//import edu.wpi.cscore.UsbCamera;
+//import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.I2C;
 
 /**
@@ -28,15 +33,24 @@ import edu.wpi.first.wpilibj.I2C;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  public static final Drivetrain kDrivetrain = new Drivetrain();
+  //private static final String kDefaultAuto = "Default";
+  //private static final String kCustomAuto = "My Auto";
+  //private String m_autoSelected;
+  //private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  public static final DriveTrain kDrivetrain = new DriveTrain();
 
   public static final OI oi = new OI();
 
   public static AHRS nav; 
+
+  
+  Compressor c0 = new Compressor(0);
+  
+  //public static VideoSink server;
+  //public static UsbCamera camera1;
+  //public static UsbCamera camera2;
+
+
 
   /**
    * This function is run when the robot is first started up and should be
@@ -44,16 +58,46 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.addDefault("Default Auto", kDefaultAuto);
-    m_chooser.addObject("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
 
+    //m_chooser.addDefault("Default Auto", kDefaultAuto);
+    //m_chooser.addObject("My Auto", kCustomAuto);
+    //SmartDashboard.putData("Auto choices", m_chooser);
     nav = new AHRS(I2C.Port.kMXP); 
+
+    //CameraServer.getInstance().startAutomaticCapture();
+
+    
+    //camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+    //camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+    //camera1.setFPS(30); 
+    //camera1.setFPS(30);
+    //server = CameraServer.getInstance().getServer();
+
+    //server.setSource(camera1);
+
+    
+		c0.setClosedLoopControl(true); 
+
+    /*
+    camServer = CameraServer.getInstance();
+    camServer.setQuality(100);
+    cameraFront = new UsbCamera("cam0", 0);
+    cameraMoveable = new UsbCamera("cam1", 1);
+    cameraFront.openCamera();
+    cameraMoveable.openCamera();
+    cameraFront.startCapture();
+    camera1.SetConnectionStrategy(cs::VideoSource::ConnectionStrategy::kConnectionKeepOpen);
+    camera2.SetConnectionStrategy(cs::VideoSource::ConnectionStrategy::kConnectionKeepOpen);
+    */
+
+
+    //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    //camera.setResolution(320, 240);
 
   }
 
   /**
-   * This function is called every robot packet, no matter the mode. Use
+   * This function is called every ro-ot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
    * autonomous, teleoperated and test.
    *
@@ -67,10 +111,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    nav.reset(); 
 
-    kDrivetrain.SetElevatorStatus();
-		kDrivetrain.ConfigElevator();
   }
 
   /**
@@ -86,9 +127,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
+    //m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    nav.reset();
   }
 
   /**
@@ -96,6 +137,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    /*
     switch (m_autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
@@ -105,6 +147,8 @@ public class Robot extends TimedRobot {
         // Put default auto code here
         break;
     }
+    */
+    Scheduler.getInstance().run();
   }
 
   /**
@@ -116,9 +160,6 @@ public class Robot extends TimedRobot {
     kDrivetrain.setAllPower(oi.getLeftMagnitude());
     kDrivetrain.setAllAngle(oi.getLeftJoystickAngle());
     */
-    SmartDashboard.putNumber("Left Joystick X", oi.getLeftXAxis());
-    SmartDashboard.putNumber("Left Joystick Y", oi.getLeftYAxis());
-    SmartDashboard.putNumber("Right Joystick X", oi.getRightXAxis());
     Scheduler.getInstance().run();
   }
 
@@ -131,13 +172,13 @@ public class Robot extends TimedRobot {
   }
 
   public static double NavAngle() {
-		double angle = Robot.nav.getAngle(); 
+		double angle = Robot.nav.getRoll() + 180; 
 		while(angle > 360) angle -= 360; 
 		while(angle < 0)   angle += 360;
 		return angle; 
 	}
 	public static double NavAngle(double add) {
-		double angle = Robot.nav.getAngle(); 
+		double angle = Robot.nav.getRoll(); 
 		while(angle > 360) angle -= 360; 
 		while(angle < 0)   angle += 360;
 		return angle; 

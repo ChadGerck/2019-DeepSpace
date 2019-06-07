@@ -4,13 +4,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 //import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 //import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 //import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-public class WrappedTalonSRX extends TalonSRX {
+public class WrappedVictorSPX extends VictorSPX {
     protected double mLastSet = Double.NaN;
     protected ControlMode mLastControlMode = null;
 
-    public WrappedTalonSRX(int deviceNumber) {
+    public WrappedVictorSPX(int deviceNumber) {
         super(deviceNumber);
     }
 
@@ -39,7 +39,7 @@ public class WrappedTalonSRX extends TalonSRX {
         //super.configPeakOutputReverse(-1, 10);
         //super.configNominalOutputForward(0, 10);
         //super.configNominalOutputReverse(0, 10);
-        //super.configNeutralDeadband(0.04,10);
+        ////super.configNeutralDeadband(0.04,10);
         //super.configVoltageCompSaturation(0, 10);
         //super.configVoltageMeasurementFilter(32, 10);
         //super.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);

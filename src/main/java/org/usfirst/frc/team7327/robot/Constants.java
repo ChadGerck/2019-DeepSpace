@@ -4,8 +4,6 @@ public class Constants{
     //Motors
     public static int kFrontLeftDriveID = 1;
     public static int kFrontLeftSteerID = 0;
-    public static int kFrontRightDriveID = 3;
-    public static int kFrontRightSteerID = 2;
     public static int kBackLeftDriveID = 5;
     public static int kBackLeftSteerID = 4;
     public static int kBackRightDriveID = 7;
@@ -13,7 +11,6 @@ public class Constants{
     
     //Module-Specific
     public static double kFrontLeftOffset = 31;//48;
-    public static double kFrontRightOffset = -46;//-54;
     public static double kBackLeftOffset = -98;//-94;
     public static double kBackRightOffset = 153;
 

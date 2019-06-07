@@ -3,8 +3,6 @@ package org.usfirst.frc.team7327.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
-import org.usfirst.frc.team7327.robot.Constants;
-
 public class OI{
     
     private static final double DEADZONE_LIMIT = 0.2;
@@ -98,5 +96,10 @@ public class OI{
         if(POV >= 225 && POV < 315) { return true; }
         else { return false; }
     }
+    /*
+    public boolean LeftStickPressed(XboxController controller){
+        return Controller.getRawButtonPressed(9); 
+    }
+    */
 
 }
