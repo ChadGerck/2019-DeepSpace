@@ -19,7 +19,7 @@ public class DriveTrain extends Subsystem {
 
   public TurnModule turning; 
   public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -99.2); 
-  public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -197.85);
+  public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -194.85);
   public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -27.8); 
   public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -65.7); 
 
@@ -41,18 +41,10 @@ public class DriveTrain extends Subsystem {
 
   public void setModule(ModuleLocation loc, double degrees, double power){
     switch(loc){
-      case FRONT_LEFT:
-        moduleFrontLeft.set(degrees, power);
-        break;
-      case FRONT_RIGHT:
-        moduleFrontRight.set(degrees, power);
-        break;
-      case BACK_LEFT:
-        moduleBackLeft.set(degrees, power);
-        break;
-      case BACK_RIGHT:
-        moduleBackRight.set(degrees, power);
-        break;
+      case FRONT_LEFT: moduleFrontLeft.set(degrees, power); break;
+      case FRONT_RIGHT:moduleFrontRight.set(degrees, power);break;
+      case BACK_LEFT:  moduleBackLeft.set(degrees, power);  break;
+      case BACK_RIGHT: moduleBackRight.set(degrees, power); break;
     }
   }
 
