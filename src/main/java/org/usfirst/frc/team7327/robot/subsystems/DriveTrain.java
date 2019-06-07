@@ -3,10 +3,8 @@ package org.usfirst.frc.team7327.robot.subsystems;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import org.usfirst.frc.team7327.robot.Constants;
@@ -22,52 +20,31 @@ public class DriveTrain extends Subsystem {
   public TurnModule turning; 
 
   
-  static final double tkP = 2;  //.4 cement , .6 carpet
+  static final double tkP = 2;  
   static final double tkI = .0;
-  static final double tkD = .1; //.04 cement , .05 carpet
+  static final double tkD = .1;
 
-  //Harbi
-  //public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -55.2); 
-  //public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -237.85);
-  //public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -310.3); 
-  //public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -187.7);
-  
-  //Discovery
   public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -99.2); 
   public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -197.85);
   public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -27.8); 
   public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -65.7); 
 
-  private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID, abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleFrontRight = new SwerveModule(Constants.kFrontRightSteerID, Constants.kFrontRightDriveID, abeNE,  false, Constants.kFrontRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleBackLeft = new SwerveModule(Constants.kBackLeftSteerID, Constants.kBackLeftDriveID, abeSW,  true, Constants.kBackLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID, abeSE, false, Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  
-  
-	//private DoubleSolenoid Bicep; 
+  private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID , abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  private SwerveModule moduleFrontRight =new SwerveModule(Constants.kFrontRightSteerID,Constants.kFrontRightDriveID, abeNE, false,Constants.kFrontRightOffset,Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  private SwerveModule moduleBackLeft  = new SwerveModule(Constants.kBackLeftSteerID,  Constants.kBackLeftDriveID  , abeSW, true, Constants.kBackLeftOffset,  Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID , abeSE, false,Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
 
   public static ElevatorModule Elevator;
   
-  public static VictorSPX BallVictor;
-  public static VictorSPX Intake;
+  public static VictorSPX BallVictor, Intake;
   
-  public static TalonSRX ClimbNW, ClimbNE, ClimbSW, ClimbSE; 
-  public static VictorSPX ClimbWheels; 
-  
-  static final double ekP = .0004;
-	static final double ekI = 0; 
-	static final double ekD = 0; 
+  static final double ekP = .0004, ekI = 0, ekD = 0; 
   
   public DriveTrain(){
 
     Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
 	  Intake = new VictorSPX(9); 
     BallVictor = new VictorSPX(10); 
-    ClimbNW = new TalonSRX(11); 
-    ClimbNE = new TalonSRX(12); 
-    ClimbSW = new TalonSRX(13); 
-    ClimbSE = new TalonSRX(14); 
-    ClimbWheels = new VictorSPX(15); 
     
     turning = new TurnModule(tkP, tkI, tkD); 
   }
@@ -131,16 +108,6 @@ public class DriveTrain extends Subsystem {
     moduleBackRight.setDrivePower(power);
   }
 
-  public void ClimbN(double power) { 
-    ClimbNW.set(ControlMode.PercentOutput, power);
-    ClimbNE.set(ControlMode.PercentOutput, power);
-  }
-  public void ClimbS(double power) { 
-    ClimbSW.set(ControlMode.PercentOutput, power);
-    ClimbSE.set(ControlMode.PercentOutput, power);
-  }
-  public void setClimbWheels(double power) { ClimbWheels.set(ControlMode.PercentOutput, power); }
-
   public void setRawElevator(double speed){ Elevator.setRawElev(speed); }
 	public void setElevatorPosition(double position){ Elevator.setPosition(position); }
 	public void ElevOn(boolean On) { Elevator.setOn(On); }
@@ -152,19 +119,5 @@ public class DriveTrain extends Subsystem {
 	public void setRawBallIn(double speed){ BallVictor.set(ControlMode.PercentOutput, speed); }
 	public void setRawIntake(double intakevalue) { Intake.set(ControlMode.PercentOutput, intakevalue);	} 
 
-  public void updateDashboard(){
-    //SmartDashboard.putNumber("Front Left Error", moduleFrontLeft.getError());
-    // SmartDashboard.putNumber("Front Right Error", moduleFrontRight.getError());
-    // SmartDashboard.putNumber("Back Left Error", moduleBackLeft.getError());
-    // SmartDashboard.putNumber("Back Right Error", moduleBackRight.getError());
-
-    // SmartDashboard.putNumber("Front Left Setpoint", moduleFrontLeft.getSetpointDegrees());
-    // SmartDashboard.putNumber("Front Right Setpoint", moduleFrontRight.getSetpointDegrees());
-    // SmartDashboard.putNumber("Back Left Setpoint", moduleBackLeft.getSetpointDegrees());
-    // SmartDashboard.putNumber("Back Right Setpoint", moduleBackRight.getSetpointDegrees());
-  }
-
-  public double getGyro(){
-    return 0;
-  }
+  public void updateDashboard(){}
 }
