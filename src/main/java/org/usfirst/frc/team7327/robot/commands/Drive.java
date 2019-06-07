@@ -6,6 +6,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team7327.robot.Robot;
+import org.usfirst.frc.team7327.robot.SwerveMath;
+
 import static org.usfirst.frc.team7327.robot.Robot.oi;
 import org.usfirst.frc.team7327.robot.ElevatorPositions;
 
@@ -22,8 +24,6 @@ public class Drive extends Command {
   final double DRIVE_K = 0.26, DESIRED_TARGET_AREA = 13.0;
   NetworkTable table; 
   NetworkTableEntry tv, tx, ty, ta; 
-  
-  public static final ElevatorPositions elevPosition = new ElevatorPositions(); 
 
   @Override
   protected void execute() {
@@ -74,7 +74,7 @@ public class Drive extends Command {
       fixRotation = true; }
     else{fixRotation = false;}
 
-    Robot.swerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
+    SwerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
 
 		if(oi.StartButton(P1)) { Robot.nav.reset(); }
 		if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
@@ -90,13 +90,10 @@ public class Drive extends Command {
 		else{ ballThrottle = 0; }
     Robot.kDrivetrain.setRawBallIn(ballThrottle); 
     
-    elevPosition.MoveElevators();
+    ElevatorPositions.MoveElevators();
 		
   }
-  @Override
-  protected boolean isFinished() { return false;}
-  @Override
-  protected void end() {}
-  @Override
-  protected void interrupted() {}
+  @Override protected boolean isFinished() { return false;}
+  @Override protected void end() {}
+  @Override protected void interrupted() {}
 }

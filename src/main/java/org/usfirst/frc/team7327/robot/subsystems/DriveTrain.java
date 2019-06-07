@@ -18,12 +18,6 @@ import org.usfirst.frc.team7327.robot.TurnModule;
 public class DriveTrain extends Subsystem {
 
   public TurnModule turning; 
-
-  
-  static final double tkP = 2;  
-  static final double tkI = .0;
-  static final double tkD = .1;
-
   public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -99.2); 
   public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -197.85);
   public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -27.8); 
@@ -35,38 +29,15 @@ public class DriveTrain extends Subsystem {
   private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID , abeSE, false,Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
 
   public static ElevatorModule Elevator;
-  
   public static VictorSPX BallVictor, Intake;
   
-  static final double ekP = .0004, ekI = 0, ekD = 0; 
-  
   public DriveTrain(){
-
-    Elevator = new ElevatorModule(8, ekP, ekI, ekD); 
+    Elevator = new ElevatorModule(8, Constants.ekP, Constants.ekI, Constants.ekD); 
 	  Intake = new VictorSPX(9); 
     BallVictor = new VictorSPX(10); 
-    
-    turning = new TurnModule(tkP, tkI, tkD); 
+    turning = new TurnModule(Constants.tkP, Constants.tkI, Constants.tkD); 
   }
-  @Override
-  public void initDefaultCommand() {
-    setDefaultCommand(new Drive());
-  }
-  
-  public SwerveModule getModule(ModuleLocation location){
-    switch(location){
-      case FRONT_LEFT:
-        return moduleFrontLeft;
-      case FRONT_RIGHT:
-        return moduleFrontRight;
-      case BACK_LEFT:
-        return moduleBackLeft;
-      case BACK_RIGHT:
-        return moduleBackRight;
-      default:
-        return null;
-    }
-  }
+  @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
 
   public void setModule(ModuleLocation loc, double degrees, double power){
     switch(loc){
@@ -90,9 +61,7 @@ public class DriveTrain extends Subsystem {
 	public double getAbeSW(){ return abeSW.get(); }
 	public double getAbeSE(){ return abeSE.get(); }
 
-  public void setModule(ModuleLocation loc, DriveCommand command){
-    setModule(loc, command.getDegrees(), command.getSpeed());
-  }
+  public void setModule(ModuleLocation loc, DriveCommand command){ setModule(loc, command.getDegrees(), command.getSpeed()); }
 
   public void setAllAngle(double degrees){
     moduleFrontLeft.setSteeringDegrees(degrees);
@@ -100,7 +69,6 @@ public class DriveTrain extends Subsystem {
     moduleBackLeft.setSteeringDegrees(degrees);
     moduleBackRight.setSteeringDegrees(degrees);
   }
-
   public void setAllPower(double power){
     moduleFrontLeft.setDrivePower(power);
     moduleFrontRight.setDrivePower(power);

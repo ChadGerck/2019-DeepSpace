@@ -6,50 +6,16 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 public class OI{
     
     private static final double DEADZONE_LIMIT = 0.2;
-    
-    public final XboxController Controller0 = new XboxController(0);
-    public final XboxController Controller1 = new XboxController(1);
+    public final XboxController Controller0 = new XboxController(0), Controller1 = new XboxController(1);
 
-    public OI(){
-    }
-    /*
-    public double getLeftAngle(){
-        return Controller0.getDirectionDegrees();
-    }
-    */
-
-    public double getLeftJoystickAngle(){
-        return Math.toDegrees(Math.atan2(Controller0.getRawAxis(0), -Controller0.getRawAxis(1)));
-    }
-
-    public double getLeftXAxis(){
-        return Math.abs(Controller0.getRawAxis(0)) > 0.1 ? Controller0.getRawAxis(0) : 0;
-    }
-
-    public double getLeftYAxis(){
-        /*
-        double val = ((-stick.getRawAxis(1)) + Constants.kLeftYOffset) * (1.0/(1.0-Constants.kLeftYOffset));
-        val = val > 1.0 ? 1.0 : val;
-        val = val < -1.0 ? -1.0 : val;
-        val = Math.abs(val) < .05 ? 0 : val;
-        return val;*/
-        return Math.abs(Controller0.getRawAxis(1)) > 0.1 ? Controller0.getRawAxis(1) : 0;
-    }
-
-    public double getRightXAxis(){
-        return (Math.abs(Controller0.getRawAxis(4)) > 0.3 ? Controller0.getRawAxis(4) : 0);
-    }
-
-    public double getRightYAxis(){
-        return (Math.abs(Controller0.getRawAxis(5)) > 0.1 ? Controller0.getRawAxis(5) : 0);
-    }
-
-    public double getLeftMagnitude(){
-        return Math.hypot(Controller0.getRawAxis(1), Controller0.getRawAxis(0));
-    }
-    public double getRightMagnitude(){
-        return Math.hypot(Controller0.getRawAxis(4), Controller0.getRawAxis(5));
-    }
+    public OI(){ }
+    public double getLeftJoystickAngle(){ return Math.toDegrees(Math.atan2(Controller0.getRawAxis(0), -Controller0.getRawAxis(1))); }
+    public double getLeftXAxis(){ return Math.abs(Controller0.getRawAxis(0)) > 0.1 ? Controller0.getRawAxis(0) : 0; }
+    public double getLeftYAxis(){ return Math.abs(Controller0.getRawAxis(1)) > 0.1 ? Controller0.getRawAxis(1) : 0; }
+    public double getRightXAxis(){ return (Math.abs(Controller0.getRawAxis(4)) > 0.3 ? Controller0.getRawAxis(4) : 0); }
+    public double getRightYAxis(){ return (Math.abs(Controller0.getRawAxis(5)) > 0.1 ? Controller0.getRawAxis(5) : 0); }
+    public double getLeftMagnitude(){ return Math.hypot(Controller0.getRawAxis(1), Controller0.getRawAxis(0)); }
+    public double getRightMagnitude(){ return Math.hypot(Controller0.getRawAxis(4), Controller0.getRawAxis(5)); }
 
     public double LeftStickX  (XboxController Controller){ double raw = Controller.getRawAxis(0); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
     public double LeftStickY  (XboxController Controller){ double raw = Controller.getRawAxis(1); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
@@ -96,10 +62,4 @@ public class OI{
         if(POV >= 225 && POV < 315) { return true; }
         else { return false; }
     }
-    /*
-    public boolean LeftStickPressed(XboxController controller){
-        return Controller.getRawButtonPressed(9); 
-    }
-    */
-
 }
