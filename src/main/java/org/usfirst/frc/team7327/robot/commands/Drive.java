@@ -50,6 +50,11 @@ public class Drive extends Command {
       if(target == 0){ velocity = 0; }
       else { velocity = (DESIRED_TARGET_AREA - area) * DRIVE_K; }
     }
+    else if(Robot.oi.YButtonDown(P1)){
+      diffError = lastError2 - heading_error; 
+			steering_adjust = SteerP2*heading_error + SteerD2*diffError;
+      lastError2 = heading_error; 
+    }
 
     leftX  = oi.getLeftXAxis();  leftY  = oi.getLeftYAxis();
     rightX = oi.getRightXAxis(); rightY = oi.getRightYAxis();
@@ -60,8 +65,10 @@ public class Drive extends Command {
     }
     else if(oi.AButtonDown(P1)){ rotMag = steering_adjust; }
     else{ rotMag = 0; }
-    
-    if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); directMag = leftMag; }
+    if( oi.YButtonDown(P1)){
+      finalAngle = 0; directMag = steering_adjust;
+    }
+    else if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); directMag = leftMag; }
     else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; directMag = -.5*oi.RightTrigger(P1); }
     else if(oi.LeftTrigger(P1) > .1) {finalAngle = 180; directMag = -oi.LeftTrigger(P1); }
     else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .5; }
