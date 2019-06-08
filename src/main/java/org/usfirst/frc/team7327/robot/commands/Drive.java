@@ -82,8 +82,8 @@ public class Drive extends Command {
   
 
     
-    if(oi.LeftTrigger(P1)){Robot.kDrivetrain.Elevatorms(-.6);}
-      else if (oi.RightTrigger(P1)){Robot.kDrivetrain.Elevatorms(.6);}
+    if(oi.AButtonDown(P1)){Robot.kDrivetrain.Elevatorms(-.6);}
+      else if (oi.BButtonDown(P1)){Robot.kDrivetrain.Elevatorms(.6);}
 
     else {Robot.kDrivetrain.Elevatorms(0);}
     
