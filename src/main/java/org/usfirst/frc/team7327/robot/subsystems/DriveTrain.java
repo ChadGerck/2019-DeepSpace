@@ -109,8 +109,9 @@ public class DriveTrain extends Subsystem {
     moduleBackLeft.setDrivePower(power);
     moduleBackRight.setDrivePower(power);
   }
-  public void Elevatorms(double power){
-    Elevatorm1.
+  public void Elevatorms(double power) { 
+    Elevatorm1.set(ControlMode.PercentOutput, power);
+    Elevatorm2.set(ControlMode.PercentOutput, -power);
 
   }
   public void updateDashboard(){
