@@ -14,7 +14,6 @@ import org.usfirst.frc.team7327.robot.SwerveModule;
 import org.usfirst.frc.team7327.robot.TurnModule;
 
 public class DriveTrain extends Subsystem {
-
   public TurnModule turning; 
   public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -99.2); 
   public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -194.85);
@@ -36,7 +35,6 @@ public class DriveTrain extends Subsystem {
     turning = new TurnModule(Constants.tkP, Constants.tkI, Constants.tkD); 
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
-
   public void setModule(ModuleLocation loc, double degrees, double power){
     switch(loc){
       case FRONT_LEFT: moduleFrontLeft.set(degrees, power); break;
@@ -45,27 +43,19 @@ public class DriveTrain extends Subsystem {
       case BACK_RIGHT: moduleBackRight.set(degrees, power); break;
     }
   }
-
 	public double getAbeNW(){ return abeNW.get(); }
 	public double getAbeNE(){ return abeNE.get(); }
 	public double getAbeSW(){ return abeSW.get(); }
 	public double getAbeSE(){ return abeSE.get(); }
-
   public void setModule(ModuleLocation loc, DriveCommand command){ setModule(loc, command.getDegrees(), command.getSpeed()); }
-
   public void setAllAngle(double degrees){
-    moduleFrontLeft.setSteeringDegrees(degrees);
-    moduleFrontRight.setSteeringDegrees(degrees);
-    moduleBackLeft.setSteeringDegrees(degrees);
-    moduleBackRight.setSteeringDegrees(degrees);
+    moduleFrontLeft.setSteeringDegrees(degrees); moduleFrontRight.setSteeringDegrees(degrees);
+    moduleBackLeft.setSteeringDegrees(degrees);  moduleBackRight.setSteeringDegrees(degrees);
   }
   public void setAllPower(double power){
-    moduleFrontLeft.setDrivePower(power);
-    moduleFrontRight.setDrivePower(power);
-    moduleBackLeft.setDrivePower(power);
-    moduleBackRight.setDrivePower(power);
+    moduleFrontLeft.setDrivePower(power); moduleFrontRight.setDrivePower(power);
+    moduleBackLeft.setDrivePower(power);  moduleBackRight.setDrivePower(power);
   }
-
   public void setRawElevator(double speed){ Elevator.setRawElev(speed); }
 	public void setElevatorPosition(double position){ Elevator.setPosition(position); }
 	public void ElevOn(boolean On) { Elevator.setOn(On); }
