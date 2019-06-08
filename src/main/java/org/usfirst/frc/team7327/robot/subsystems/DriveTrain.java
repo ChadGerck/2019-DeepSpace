@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import org.usfirst.frc.team7327.robot.Constants;
 import org.usfirst.frc.team7327.robot.Util.DriveCommand;
 import org.usfirst.frc.team7327.robot.Util.ModuleLocation;
@@ -38,13 +40,15 @@ public class DriveTrain extends Subsystem {
   
   private DoubleSolenoid Pincher; 
   private DoubleSolenoid Extendor;
-
+  public TalonSRX Elevatorm1, Elevatorm2;
   public DriveTrain(){
 
     turning = new TurnModule(tkP, tkI, tkD); 
 
     Pincher = new DoubleSolenoid(0, 1); 
     Extendor = new DoubleSolenoid(2, 3);
+    Elevatorm1 = new TalonSRX(17);
+    Elevatorm2 = new TalonSRX(18);
   }
   @Override
   public void initDefaultCommand() {
@@ -105,7 +109,10 @@ public class DriveTrain extends Subsystem {
     moduleBackLeft.setDrivePower(power);
     moduleBackRight.setDrivePower(power);
   }
+  public void Elevatorms(double power){
+    Elevatorm1.
 
+  }
   public void updateDashboard(){
     //SmartDashboard.putNumber("Front Left Error", moduleFrontLeft.getError());
     // SmartDashboard.putNumber("Front Right Error", moduleFrontRight.getError());
