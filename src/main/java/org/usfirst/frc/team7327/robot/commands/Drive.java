@@ -22,11 +22,11 @@ public class Drive extends Command {
 			steering_adjust = SteerP*-x + SteerD*(lastError+x);
       lastError = -x; 
     }
-    if(oi.RightMag(P1) > .7){ try { Robot.kDrivetrain.turning.setYaw(oi.RightArc(P1) - Robot.NavAngle());} catch (Exception e) {}
+    if(oi.RightMag(P1) > .7){ try {Robot.kDrivetrain.turning.setYaw(oi.RightArc(P1) - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     } else{ rotMag = 0; }
 
-    if( oi.AButtonDown(P1)){ finalAngle = Math.atan2(steering_adjust,oi.LeftX(P1)); directMag = steering_adjust + oi.LeftX(P1); }
+    if( oi.AButtonDown(P1)){ finalAngle = Math.atan2(steering_adjust,oi.LeftX(P1)); directMag = (Math.abs(steering_adjust) + Math.abs(oi.LeftX(P1)))/2; }
     else if(oi.LeftMag(P1) >= .3){ finalAngle = Math.toDegrees(Math.atan2(oi.LeftX(P1), oi.LeftY(P1))) + Robot.NavAngle(); directMag = oi.LeftMag(P1); }
     else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; directMag = -.5*oi.RightTrigger(P1); } else if(oi.LeftTrigger(P1) > .1) {finalAngle = 180; directMag = -oi.LeftTrigger(P1); }
     else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .5; } else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .5; }

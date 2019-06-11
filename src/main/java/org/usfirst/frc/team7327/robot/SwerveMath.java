@@ -2,41 +2,41 @@ package org.usfirst.frc.team7327.robot;
 import static org.usfirst.frc.team7327.robot.Robot.kDrivetrain;
 
 public class SwerveMath {
-    static double wheelXcos, wheelYsin, FLwheelX, FLwheelY, FRwheelX, FRwheelY, BLwheelX, BLwheelY, BRwheelX, BRwheelY, max, 
-    FLwheelMag, FRwheelMag, BLwheelMag, BRwheelMag, FLwheelRot, FRwheelRot, BLwheelRot, BRwheelRot, leftX, leftY, rightX, rightY, leftMag, rightMag;
+    static double wheelXcos, wheelYsin, NWwheelX, NWwheelY, NEwheelX, NEwheelY, SWwheelX, SWwheelY, SEwheelX, SEwheelY, max, 
+    NWwheelMag, NEwheelMag, SWwheelMag, SEwheelMag, NWwheelRot, NEwheelRot, SWwheelRot, SEwheelRot;
     static double rotAng = .70710678; 
     public static void ComputeSwerve(double finalAngle,double directMag, double rotMag, Boolean fixRotation) {
         wheelXcos = Math.cos(finalAngle / 57.2957795) * directMag; 
         wheelYsin = Math.sin(finalAngle / 57.2957795) * directMag;
 
-        FLwheelX = wheelXcos+(rotAng*-rotMag);
-        FLwheelY = wheelYsin+(rotAng* rotMag);
-        if(fixRotation){FLwheelRot = Math.atan2(FLwheelY, FLwheelX) * 57.2957795;}
-        FLwheelMag = Math.hypot(FLwheelX, FLwheelY);
+        NWwheelX = wheelXcos+(rotAng*-rotMag);
+        NWwheelY = wheelYsin+(rotAng* rotMag);
+        if(fixRotation){NWwheelRot = Math.atan2(NWwheelY, NWwheelX) * 57.2957795;}
+        NWwheelMag = Math.hypot(NWwheelX, NWwheelY);
 
-        FRwheelX = wheelXcos+(rotAng* rotMag);
-        FRwheelY = wheelYsin+(rotAng* rotMag);
-        if(fixRotation){FRwheelRot = Math.atan2(FRwheelY, FRwheelX) * 57.2957795;}
-        FRwheelMag = Math.hypot(FRwheelX, FRwheelY);
+        NEwheelX = wheelXcos+(rotAng* rotMag);
+        NEwheelY = wheelYsin+(rotAng* rotMag);
+        if(fixRotation){NEwheelRot = Math.atan2(NEwheelY, NEwheelX) * 57.2957795;}
+        NEwheelMag = Math.hypot(NEwheelX, NEwheelY);
 
-        BLwheelX = wheelXcos+(rotAng*-rotMag);
-        BLwheelY = wheelYsin+(rotAng*-rotMag);
-        if(fixRotation){BLwheelRot = Math.atan2(BLwheelY, BLwheelX) * 57.2957795;}
-        BLwheelMag = Math.hypot(BLwheelX, BLwheelY);
+        SWwheelX = wheelXcos+(rotAng*-rotMag);
+        SWwheelY = wheelYsin+(rotAng*-rotMag);
+        if(fixRotation){SWwheelRot = Math.atan2(SWwheelY, SWwheelX) * 57.2957795;}
+        SWwheelMag = Math.hypot(SWwheelX, SWwheelY);
 
-        BRwheelX = wheelXcos+(rotAng* rotMag);
-        BRwheelY = wheelYsin+(rotAng*-rotMag);
-        if(fixRotation){BRwheelRot = Math.atan2(BRwheelY, BRwheelX) * 57.2957795;}
-        BRwheelMag = Math.hypot(BRwheelX, BRwheelY);
+        SEwheelX = wheelXcos+(rotAng* rotMag);
+        SEwheelY = wheelYsin+(rotAng*-rotMag);
+        if(fixRotation){SEwheelRot = Math.atan2(SEwheelY, SEwheelX) * 57.2957795;}
+        SEwheelMag = Math.hypot(SEwheelX, SEwheelY);
 
-        max=FLwheelMag;
-        if(FRwheelMag>max){max=FRwheelMag;} 
-        else if(BLwheelMag>max){max=BLwheelMag;}else if(BRwheelMag>max){max=BRwheelMag;}
-        if(max>1){FLwheelMag/=max;FRwheelMag/=max;BLwheelMag/=max;BRwheelMag/=max;}
+        max=NWwheelMag;
+        if(NEwheelMag>max){max=NEwheelMag;} 
+        else if(SWwheelMag>max){max=SWwheelMag;}else if(SEwheelMag>max){max=SEwheelMag;}
+        if(max>1){NWwheelMag/=max;NEwheelMag/=max;SWwheelMag/=max;SEwheelMag/=max;}
 
-        kDrivetrain.setModule("FRONT_LEFT" ,FLwheelRot,FLwheelMag);
-        kDrivetrain.setModule("FRONT_RIGHT",FRwheelRot,FRwheelMag);
-        kDrivetrain.setModule("BACK_LEFT"  ,BLwheelRot,BLwheelMag);
-        kDrivetrain.setModule("BACK_RIGHT" ,BRwheelRot,BRwheelMag);
+        kDrivetrain.setModule("NW",NWwheelRot,NWwheelMag);
+        kDrivetrain.setModule("NE",NEwheelRot,NEwheelMag);
+        kDrivetrain.setModule("SW",SWwheelRot,SWwheelMag);
+        kDrivetrain.setModule("SE",SEwheelRot,SEwheelMag);
     }
 }

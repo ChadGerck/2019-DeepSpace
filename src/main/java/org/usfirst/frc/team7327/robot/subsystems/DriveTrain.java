@@ -24,17 +24,13 @@ public class DriveTrain extends Subsystem {
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
   public void setModule(String loc,double degrees,double power){
-    switch(loc){
-      case "FRONT_LEFT" :moduleNW.set(degrees,power);break;
-      case "FRONT_RIGHT":moduleNE.set(degrees,power);break;
-      case "BACK_LEFT"  :moduleSW.set(degrees,power);break;
-      case "BACK_RIGHT" :moduleSE.set(degrees,power);break;
+    switch(loc){case "NW":moduleNW.set(degrees,power);break; case "NE":moduleNE.set(degrees,power);break;
+                case "SW":moduleSW.set(degrees,power);break; case "SE":moduleSE.set(degrees,power);break;
     }
-  }
-	public double getAbeNW(){ return abeNW.get(); }
-	public double getAbeNE(){ return abeNE.get(); }
-	public double getAbeSW(){ return abeSW.get(); }
-	public double getAbeSE(){ return abeSE.get(); }
+  }public double getAbeNW(){ return abeNW.get(); } 
+  public  double getAbeNE(){ return abeNE.get(); }
+	public  double getAbeSW(){ return abeSW.get(); }
+	public  double getAbeSE(){ return abeSE.get(); }
   public void setAllAngle(double degrees){
     moduleNW.setSteeringDegrees(degrees); moduleNE.setSteeringDegrees(degrees);
     moduleSW.setSteeringDegrees(degrees); moduleSE.setSteeringDegrees(degrees);
