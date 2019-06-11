@@ -10,6 +10,7 @@ package org.usfirst.frc.team7327.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -165,7 +166,9 @@ public class Drive extends Command {
     kDrivetrain.setModule(ModuleLocation.BACK_LEFT, backLeftCommand);
     kDrivetrain.setModule(ModuleLocation.BACK_RIGHT, backRightCommand);
 
-		if(oi.StartButton(P1)) { Robot.nav.reset(); }
+    if(oi.StartButton(P1)) { Robot.nav.reset(); }
+    
+    SmartDashboard.putNumber("nav", Robot.NavAngle()); 
 		
   }
 

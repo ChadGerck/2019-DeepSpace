@@ -172,13 +172,13 @@ public class Robot extends TimedRobot {
   }
 
   public static double NavAngle() {
-		double angle = Robot.nav.getRoll() + 180; 
+		double angle = Robot.nav.getYaw() + 45; 
 		while(angle > 360) angle -= 360; 
 		while(angle < 0)   angle += 360;
 		return angle; 
 	}
 	public static double NavAngle(double add) {
-		double angle = Robot.nav.getRoll(); 
+		double angle = Robot.nav.getYaw() + 45; 
 		while(angle > 360) angle -= 360; 
 		while(angle < 0)   angle += 360;
 		return angle; 
