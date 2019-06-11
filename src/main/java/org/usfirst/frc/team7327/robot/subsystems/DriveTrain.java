@@ -19,10 +19,8 @@ public class DriveTrain extends Subsystem {
   public static ElevatorModule Elevator;
   public static VictorSPX BallVictor, Intake;
   public DriveTrain(){
-    Elevator = new ElevatorModule(8); 
-	  Intake = new VictorSPX(9); 
-    BallVictor = new VictorSPX(10); 
-    turning = new TurnModule(); 
+    Elevator  = new ElevatorModule(8); Intake = new VictorSPX(9); 
+    BallVictor= new VictorSPX(10);    turning = new TurnModule(); 
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
   public void setModule(String loc,double degrees,double power){
