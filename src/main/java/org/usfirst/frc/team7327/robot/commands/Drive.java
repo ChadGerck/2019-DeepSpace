@@ -1,7 +1,10 @@
 package org.usfirst.frc.team7327.robot.commands;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.SwerveMath;
 import static org.usfirst.frc.team7327.robot.Robot.oi;
@@ -26,7 +29,7 @@ public class Drive extends Command {
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     } else{ rotMag = 0; }
 
-    if( oi.AButtonDown(P1)){ finalAngle = Math.atan2(steering_adjust,oi.LeftX(P1)); directMag = (Math.abs(steering_adjust) + Math.abs(oi.LeftX(P1)))/2; }
+    if( oi.AButtonDown(P1)){ finalAngle = Math.toDegrees(Math.atan2(oi.LeftX(P1),steering_adjust)); directMag = (Math.abs(steering_adjust) + Math.abs(oi.LeftX(P1)))/2; }
     else if(oi.LeftMag(P1) >= .3){ finalAngle = Math.toDegrees(Math.atan2(oi.LeftX(P1), oi.LeftY(P1))) + Robot.NavAngle(); directMag = oi.LeftMag(P1); }
     else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; directMag = -.5*oi.RightTrigger(P1); } else if(oi.LeftTrigger(P1) > .1) {finalAngle = 180; directMag = -oi.LeftTrigger(P1); }
     else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .5; } else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .5; }
