@@ -65,7 +65,8 @@ public class Drive extends Command {
     }
     else if(oi.AButtonDown(P1)){ rotMag = steering_adjust; }
     else{ rotMag = 0; }
-    if( oi.YButtonDown(P1)){ finalAngle = 0; directMag = steering_adjust; }
+
+    if( oi.YButtonDown(P1)){ finalAngle = Math.atan2(steering_adjust,leftX); directMag = steering_adjust + leftX; }
     else if(leftMag >= .3){ finalAngle = Math.toDegrees(Math.atan2(leftX, leftY)) + Robot.NavAngle(); directMag = leftMag; }
     else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; directMag = -.5*oi.RightTrigger(P1); }
     else if(oi.LeftTrigger(P1) > .1) {finalAngle = 180; directMag = -oi.LeftTrigger(P1); }
