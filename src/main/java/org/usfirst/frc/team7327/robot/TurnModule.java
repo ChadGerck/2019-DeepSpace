@@ -6,8 +6,8 @@ public class TurnModule{
     private Notifier TurningPID; 
     private double error, sumError, diffError, lastError, testPIDOutput, navTo; 
     public static double PIDOutput = 0;
-    
-    public TurnModule(double kP, double kI, double kD) {
+    static final double kP = 2, kI = .0, kD = .1;
+    public TurnModule() {
     	sumError = 0; 
     	lastError = getError(); 
         error = lastError; 
@@ -22,7 +22,6 @@ public class TurnModule{
     	}); 
     	TurningPID.startPeriodic(0.05);
     }
-
     public double getError(){ double navFinal = boundHalfDegrees(navTo)/180; return navFinal; }	
 	public static double boundHalfDegrees(double angle_degrees) {
         while (angle_degrees >= 180.0) angle_degrees -= 360.0;

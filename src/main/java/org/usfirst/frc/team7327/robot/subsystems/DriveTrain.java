@@ -5,49 +5,46 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import org.usfirst.frc.team7327.robot.Constants;
 import org.usfirst.frc.team7327.robot.ElevatorModule;
-import org.usfirst.frc.team7327.robot.Util.DriveCommand;
-import org.usfirst.frc.team7327.robot.Util.ModuleLocation;
 import org.usfirst.frc.team7327.robot.commands.Drive;
 import org.usfirst.frc.team7327.robot.SwerveModule;
 import org.usfirst.frc.team7327.robot.TurnModule;
 
 public class DriveTrain extends Subsystem {
   public TurnModule turning; 
-  public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, -99.2); 
-  public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, -194.85);
-  public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, -27.8); 
-  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, -65.7); 
+  public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, 80.8); 
+  public static Potentiometer abeNE = new AnalogPotentiometer(3, 360, 165.15);
+  public static Potentiometer abeSW = new AnalogPotentiometer(1, 360, 152.2); 
+  public static Potentiometer abeSE = new AnalogPotentiometer(2, 360, 294.3); 
 
-  private SwerveModule moduleFrontLeft = new SwerveModule(Constants.kFrontLeftSteerID, Constants.kFrontLeftDriveID , abeNW, true, Constants.kFrontLeftOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleFrontRight =new SwerveModule(Constants.kFrontRightSteerID,Constants.kFrontRightDriveID, abeNE, false,Constants.kFrontRightOffset,Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleBackLeft  = new SwerveModule(Constants.kBackLeftSteerID,  Constants.kBackLeftDriveID  , abeSW, true, Constants.kBackLeftOffset,  Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
-  private SwerveModule moduleBackRight = new SwerveModule(Constants.kBackRightSteerID, Constants.kBackRightDriveID , abeSE, false,Constants.kBackRightOffset, Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD);
+  double kSwerveP = 4.8; 
+  private SwerveModule moduleFrontLeft = new SwerveModule(0,1, abeNW, kSwerveP);
+  private SwerveModule moduleFrontRight= new SwerveModule(2,3, abeNE, kSwerveP);
+  private SwerveModule moduleBackLeft  = new SwerveModule(4,5, abeSW, kSwerveP);
+  private SwerveModule moduleBackRight = new SwerveModule(6,7, abeSE, kSwerveP);
 
   public static ElevatorModule Elevator;
   public static VictorSPX BallVictor, Intake;
   
   public DriveTrain(){
-    Elevator = new ElevatorModule(8, Constants.ekP, Constants.ekI, Constants.ekD); 
+    Elevator = new ElevatorModule(8); 
 	  Intake = new VictorSPX(9); 
     BallVictor = new VictorSPX(10); 
-    turning = new TurnModule(Constants.tkP, Constants.tkI, Constants.tkD); 
+    turning = new TurnModule(); 
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
-  public void setModule(ModuleLocation loc, double degrees, double power){
+  public void setModule(String loc, double degrees, double power){
     switch(loc){
-      case FRONT_LEFT: moduleFrontLeft.set(degrees, power); break;
-      case FRONT_RIGHT:moduleFrontRight.set(degrees, power);break;
-      case BACK_LEFT:  moduleBackLeft.set(degrees, power);  break;
-      case BACK_RIGHT: moduleBackRight.set(degrees, power); break;
+      case "FRONT_LEFT" :moduleFrontLeft .set(degrees, power);break;
+      case "FRONT_RIGHT":moduleFrontRight.set(degrees, power);break;
+      case "BACK_LEFT"  :moduleBackLeft  .set(degrees, power);break;
+      case "BACK_RIGHT" :moduleBackRight .set(degrees, power);break;
     }
   }
 	public double getAbeNW(){ return abeNW.get(); }
 	public double getAbeNE(){ return abeNE.get(); }
 	public double getAbeSW(){ return abeSW.get(); }
 	public double getAbeSE(){ return abeSE.get(); }
-  public void setModule(ModuleLocation loc, DriveCommand command){ setModule(loc, command.getDegrees(), command.getSpeed()); }
   public void setAllAngle(double degrees){
     moduleFrontLeft.setSteeringDegrees(degrees); moduleFrontRight.setSteeringDegrees(degrees);
     moduleBackLeft.setSteeringDegrees(degrees);  moduleBackRight.setSteeringDegrees(degrees);

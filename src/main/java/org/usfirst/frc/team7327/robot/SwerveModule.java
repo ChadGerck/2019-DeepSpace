@@ -3,7 +3,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
-import org.usfirst.frc.team7327.robot.Util.DriveCommand;
 import org.usfirst.frc.team7327.robot.Util.WrappedTalonSRX;
 import org.usfirst.frc.team7327.robot.Util.WrappedVictorSPX;
 
@@ -12,43 +11,34 @@ public class SwerveModule{
     private WrappedVictorSPX mSteering;
     private Notifier pidLoop;          
     private volatile double currentError, pidOutput;
-    private boolean isReversed;
     private double setpoint, lastAngle;
     private static final double dt = 0.05;  
     private Potentiometer steeringEncoder;
-    
     /**
      * @param kSteeringID   the ID of the steering motor
      * @param kDriveID      the ID of the drive motor
      * @param SteeringEncoder the AbsoluteEncoder for SwerveDrive
-     * @param isReversed    if the module is physically reversed on the robot
      * @param kP            the steering kP gain
      * @param kI            the steering kI gain
      * @param kD            the steering kD gain
      */
-    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, boolean isReversed, double offset, double kP, double kI, double kD){
+    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP){
         mDrive = new WrappedTalonSRX(kDriveID);
         mSteering = new WrappedVictorSPX(kSteeringID);
         mDrive.setNeutralMode(NeutralMode.Coast); 
         lastAngle = 0;
         this.steeringEncoder = steeringEncoder;
         mDrive.reset(); mSteering.reset();
-        
         pidLoop = new Notifier(() -> {
             currentError = getModifiedError();  
             pidOutput = kP * currentError;
             mSteering.set(ControlMode.PercentOutput, pidOutput);
         });
-        this.isReversed = isReversed;
         pidLoop.startPeriodic(dt);
     }
-
     public double getError(){ return setpoint - getSteeringEncoder(); }
     public double getModifiedError(){ return (boundHalfDegrees(getError()))/180; }
-    public void setDrivePower(double power){
-        if(isReversed) mDrive.set(ControlMode.PercentOutput, -power);
-        else mDrive.set(ControlMode.PercentOutput, power);
-    }
+    public void setDrivePower(double power){ mDrive.set(ControlMode.PercentOutput, power); }
     public void setSteeringDegrees(double deg){ setpoint = boundHalfDegrees(deg); }
     public double getSetpointDegrees(){ return setpoint; }
     public void set(double degrees, double power){
@@ -64,7 +54,6 @@ public class SwerveModule{
             lastAngle = degrees;
         }
     }
-    public void set(DriveCommand command){ set(command.getDegrees(), command.getSpeed()); }
     public static double boundHalfDegrees(double angle_degrees) {
         while (angle_degrees >= 180.0) angle_degrees -= 360.0;
         while (angle_degrees < -180.0) angle_degrees += 360.0;

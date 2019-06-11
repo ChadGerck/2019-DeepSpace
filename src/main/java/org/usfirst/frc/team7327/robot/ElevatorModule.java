@@ -9,14 +9,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Notifier;
 
 public class ElevatorModule{
-
     private TalonSRX mLift; 
     private Notifier SteeringPID;
     private double error, sumError, diffError, lastError;
     private double setPoint;
     private double PIDOutput;
     private boolean on; 
-    public ElevatorModule(int kDriveID, double kP, double kI, double kD) {
+    static final double kP = .0004, kI = 0, kD = 0; 
+    public ElevatorModule(int kDriveID) {
         mLift = new TalonSRX(kDriveID);
         sumError = 0;
         lastError = getError();
@@ -29,14 +29,12 @@ public class ElevatorModule{
             PIDOutput = Math.min(.8, PIDOutput);
             PIDOutput = Math.max(-.6, PIDOutput); 
             if(on) { mLift.set(ControlMode.PercentOutput, PIDOutput); }
-            
             lastError = error;
         });
         SteeringPID.startPeriodic(0.01);
         mLift.enableVoltageCompensation(true);
 		mLift.setNeutralMode(NeutralMode.Brake);
     }
-
     public double getError(){ return setPoint - getLiftPosition(); }
     public void setPosition(double position){ setPoint = position; }
     public void setRawElev(double speed){ mLift.set(ControlMode.PercentOutput, speed); }
