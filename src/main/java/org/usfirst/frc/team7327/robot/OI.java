@@ -1,5 +1,4 @@
 package org.usfirst.frc.team7327.robot;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
