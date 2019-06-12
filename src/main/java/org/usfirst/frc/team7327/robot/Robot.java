@@ -12,7 +12,7 @@ public class Robot extends TimedRobot {
   public static final OI oi = new OI();
   public static AHRS nav; 
   Compressor c0 = new Compressor(0);
-  @Override public void robotInit() { nav = new AHRS(I2C.Port.kMXP); }
+  @Override public void robotInit() { nav = new AHRS(I2C.Port.kMXP); c0.setClosedLoopControl(true); }
   @Override public void robotPeriodic() { kDrivetrain.updateDashboard();}
   @Override public void teleopInit() { //kDrivetrain.SetElevatorStatus(); kDrivetrain.ConfigElevator(); 
   }
