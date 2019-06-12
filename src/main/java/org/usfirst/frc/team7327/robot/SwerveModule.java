@@ -2,13 +2,12 @@ package org.usfirst.frc.team7327.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class SwerveModule{
     private TalonSRX mDrive; 
-    private VictorSPX mSteering;
+    private TalonSRX mSteering;
     private Notifier pidLoop;          
     private volatile double currentError, pidOutput;
     private double setpoint, lastAngle;
@@ -22,7 +21,7 @@ public class SwerveModule{
      */
     public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP){
         mDrive = new TalonSRX(kDriveID);
-        mSteering = new VictorSPX(kSteeringID);
+        mSteering = new TalonSRX(kSteeringID);
         mDrive.setNeutralMode(NeutralMode.Coast); 
         lastAngle = 0;
         this.steeringEncoder = steeringEncoder;
