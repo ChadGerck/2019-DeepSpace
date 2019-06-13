@@ -37,16 +37,12 @@ public class SwerveModule{
     public void setDrivePower(double power){mDrive.set(ControlMode.PercentOutput, power);}
     public void setSteeringDegrees(double deg){setpoint = boundHalfDegrees(deg);}
     public double getSetpointDegrees(){return setpoint;}
-    public void set(double degrees, double power){
-        double supplement = degrees > 0 ? degrees - 180 : 180 + degrees;
+    public void set(double degrees, double power){ 
+        double supplement = degrees > 0 ? degrees-180 : 180+degrees;
         if(Math.abs(supplement-lastAngle) <= 90){
-            setSteeringDegrees(supplement);
-            setDrivePower(-power);
+            setSteeringDegrees(supplement); setDrivePower(-power);
             lastAngle = supplement;
-        }
-        else {
-            setSteeringDegrees(degrees);
-            setDrivePower(power);
+        }else {setSteeringDegrees(degrees); setDrivePower(power); 
             lastAngle = degrees;
         }
     }
