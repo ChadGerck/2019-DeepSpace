@@ -2,7 +2,10 @@ package org.usfirst.frc.team7327.robot.commands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.SwerveMath;
 import static org.usfirst.frc.team7327.robot.Robot.oi;
@@ -18,13 +21,15 @@ public class Drive extends Command {
   DoubleSolenoid.Value Pincher, Extender; 
 
   @Override protected void execute() {
-    if(oi.AButton(P1)){ Pincher = DoubleSolenoid.Value.kForward; }
-    else if(oi.BButton(P1)){ Pincher = DoubleSolenoid.Value.kReverse; }
-    else{ Pincher = DoubleSolenoid.Value.kOff;  }
+    if(oi.AButton(P1)){ Pincher = Value.kForward; }
+    else if(oi.BButton(P1)){ Pincher = Value.kReverse; }
+    else{ Pincher = Value.kOff;  }
+    Robot.kDrivetrain.setPincher(Pincher);
 
-    if(oi.XButton(P1)){ Extender = DoubleSolenoid.Value.kForward; }
-    else if(oi.YButton(P1)){ Extender = DoubleSolenoid.Value.kReverse; }
-    else{ Extender = DoubleSolenoid.Value.kOff;  }
+    if(oi.XButton(P1)){ Extender = Value.kForward; }
+    else if(oi.YButton(P1)){ Extender = Value.kReverse; }
+    else{ Extender = Value.kOff;  }
+    Robot.kDrivetrain.setExtender(Extender);
 
     if(oi.RightTrigger(P1) > .1){ Robot.kDrivetrain.setElevator(-.6); }
     else if(oi.LeftTrigger(P1) > .1){ Robot.kDrivetrain.setElevator(.6); }

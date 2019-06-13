@@ -37,7 +37,7 @@ public class DriveTrain extends Subsystem {
 	public  double getAbeSW(){ return abeSW.get(); }
   public  double getAbeSE(){ return abeSE.get(); }
   public void setPincher(DoubleSolenoid.Value value){Pincher.set(value);}
-  public void setExtendor(DoubleSolenoid.Value value){Extender.set(value);}
+  public void setExtender(DoubleSolenoid.Value value){Extender.set(value);}
   public void setElevator(double power){ Elevatorm1.set(ControlMode.PercentOutput, power); Elevatorm2.set(ControlMode.PercentOutput, -power);}
   public void setAllAngle(double degrees){ moduleNW.setSteeringDegrees(degrees);
     moduleSW.setSteeringDegrees(degrees); moduleSE.setSteeringDegrees(degrees);
