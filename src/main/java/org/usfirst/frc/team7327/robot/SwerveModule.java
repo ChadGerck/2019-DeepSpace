@@ -3,11 +3,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class SwerveModule{
-    private TalonSRX mDrive; 
+    private CANSparkMax m_motor;
     private VictorSPX mSteering;
     private Notifier pidLoop;          
     private volatile double currentError, pidOutput;
@@ -21,9 +23,8 @@ public class SwerveModule{
      * @param kP            the steering kP gain
      */
     public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP){
-        mDrive = new TalonSRX(kDriveID);
+        m_motor = new CANSparkMax(kDriveID, MotorType.kBrushless);
         mSteering = new VictorSPX(kSteeringID);
-        mDrive.setNeutralMode(NeutralMode.Coast); 
         lastAngle = 0;
         this.steeringEncoder = steeringEncoder;
         pidLoop = new Notifier(() -> {
@@ -35,7 +36,7 @@ public class SwerveModule{
     }
     public double getError(){return setpoint - getSteeringEncoder();}
     public double getModifiedError(){return (boundHalfDegrees(getError()))/180;}
-    public void setDrivePower(double power){mDrive.set(ControlMode.PercentOutput, power);}
+    public void setDrivePower(double power){m_motor.set(ControlMode.PercentOutput, power);}
     public void setSteeringDegrees(double deg){setpoint = boundHalfDegrees(deg);}
     public double getSetpointDegrees(){return setpoint;}
     public void set(double degrees, double power){
