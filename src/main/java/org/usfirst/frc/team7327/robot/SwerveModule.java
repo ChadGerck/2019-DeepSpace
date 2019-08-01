@@ -1,9 +1,8 @@
 package org.usfirst.frc.team7327.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
@@ -36,7 +35,7 @@ public class SwerveModule{
     }
     public double getError(){return setpoint - getSteeringEncoder();}
     public double getModifiedError(){return (boundHalfDegrees(getError()))/180;}
-    public void setDrivePower(double power){m_motor.set(ControlMode.PercentOutput, power);}
+    public void setDrivePower(double power){m_motor.set(power);}
     public void setSteeringDegrees(double deg){setpoint = boundHalfDegrees(deg);}
     public double getSetpointDegrees(){return setpoint;}
     public void set(double degrees, double power){
