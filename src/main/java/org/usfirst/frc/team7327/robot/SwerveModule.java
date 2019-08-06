@@ -15,14 +15,13 @@ public class SwerveModule{
     private double setpoint, lastAngle;
     private static final double dt = 0.05;  
     private Potentiometer steeringEncoder;
-    private Boolean isFlipped; 
     /**
      * @param kSteeringID   the ID of the steering motor
      * @param kDriveID      the ID of the drive motor
      * @param SteeringEncoder the AbsoluteEncoder for SwerveDrive
      * @param kP            the steering kP gain
      */
-    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP, boolean isFlipped){
+    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP){
         m_motor = new CANSparkMax(kDriveID, MotorType.kBrushless);
         mSteering = new VictorSPX(kSteeringID);
         lastAngle = 0;
@@ -33,14 +32,10 @@ public class SwerveModule{
             mSteering.set(ControlMode.PercentOutput, pidOutput);
         });
         pidLoop.startPeriodic(dt);
-        this.isFlipped = isFlipped; 
     }
     public double getError(){return setpoint - getSteeringEncoder();}
     public double getModifiedError(){return (boundHalfDegrees(getError()))/180;}
-    public void setDrivePower(double power){
-    	if(isFlipped) m_motor.set(-power);
-        else          m_motor.set(power);
-    }
+    public void setDrivePower(double power){m_motor.set(power);}
     public void setSteeringDegrees(double deg){setpoint = boundHalfDegrees(deg);}
     public double getSetpointDegrees(){return setpoint;}
     public void set(double degrees, double power){
