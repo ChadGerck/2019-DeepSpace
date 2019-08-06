@@ -13,12 +13,14 @@ public class Drive extends Command {
   public Drive() { requires(Robot.kDrivetrain); }
   @Override protected void initialize() { }
   public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
-  double finalAngle, Redthrottle, ballThrottle, rotMag, rightArc; 
+  double finalAngle, 
+  Redthrottle, ballThrottle, rotMag, rightArc; 
   double directMag, steering_adjust, x; 
   boolean fixRotation;   
   double SteerP = -0.05, SteerD = 0.6, lastError = 0;
 
   @Override protected void execute() {
+  
     if(Robot.oi.AButtonDown(P1)){
       x = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 			steering_adjust = SteerP*-x + SteerD*(lastError+x);

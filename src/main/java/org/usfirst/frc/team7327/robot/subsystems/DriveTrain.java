@@ -27,10 +27,11 @@ public class DriveTrain extends Subsystem {
     switch(loc){case "NW":moduleNW.set(degrees,power);break; case "NE":moduleNE.set(degrees,power);break;
                 case "SW":moduleSW.set(degrees,power);break; case "SE":moduleSE.set(degrees,power);break;
     }
-  }public double getAbeNW(){ return abeNW.get(); } 
-  public  double getAbeNE(){ return abeNE.get(); }
-	public  double getAbeSW(){ return abeSW.get(); }
-	public  double getAbeSE(){ return abeSE.get(); }
+  }public SwerveModule getModuleNW(){ return moduleNW;}
+  public  SwerveModule getModuleNE(){ return moduleNE; }
+	public  SwerveModule getModuleSW(){ return moduleSW;}
+  public  SwerveModule getModuleSE(){ return moduleSE; }
+
   public void setAllAngle(double degrees){
     moduleNW.setSteeringDegrees(degrees); moduleNE.setSteeringDegrees(degrees);
     moduleSW.setSteeringDegrees(degrees); moduleSE.setSteeringDegrees(degrees);
