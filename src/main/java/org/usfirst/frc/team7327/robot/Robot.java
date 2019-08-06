@@ -17,7 +17,7 @@ public class Robot extends TimedRobot {
   @Override public void teleopPeriodic() { Scheduler.getInstance().run(); }
   @Override public void testPeriodic() {}
   public static double NavAngle() {return NavAngle(0);}
-  public static double NavAngle(double add){double angle = Robot.nav.getYaw()+add;
+  public static double NavAngle(double add){double angle = Robot.nav.getAngle()+add;
     while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
 	}
 }
