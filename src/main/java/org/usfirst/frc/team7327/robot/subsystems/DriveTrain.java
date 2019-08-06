@@ -14,8 +14,8 @@ public class DriveTrain extends Subsystem {
   public static Potentiometer abeNW = new AnalogPotentiometer(0, 360,  80.8), abeNE = new AnalogPotentiometer(3, 360, 165.2), 
                               abeSW = new AnalogPotentiometer(1, 360, 152.2), abeSE = new AnalogPotentiometer(2, 360, 294.3); 
   double kSwerveP = 4.8; 
-  private SwerveModule moduleNW= new SwerveModule(0,1, abeNW, kSwerveP), moduleNE= new SwerveModule(2,3, abeNE, kSwerveP),
-                       moduleSW= new SwerveModule(4,5, abeSW, kSwerveP), moduleSE= new SwerveModule(6,7, abeSE, kSwerveP);
+  private SwerveModule moduleNW= new SwerveModule(0,1, abeNW, kSwerveP, false), moduleNE= new SwerveModule(2,3, abeNE, kSwerveP, true),
+                       moduleSW= new SwerveModule(4,5, abeSW, kSwerveP, false), moduleSE= new SwerveModule(6,7, abeSE, kSwerveP, true);
   public static ElevatorModule Elevator;
   public static VictorSPX BallVictor, Intake;
   public DriveTrain(){
