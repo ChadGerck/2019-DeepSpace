@@ -29,7 +29,7 @@ public class SwerveModule{
         this.steeringEncoder = steeringEncoder;
         pidLoop = new Notifier(() -> {
             currentError = getModifiedError();  
-            pidOutput = kP*0.1 * currentError;
+            pidOutput = kP * currentError;
             mSteering.set(ControlMode.PercentOutput, pidOutput);
         });
         pidLoop.startPeriodic(dt);
