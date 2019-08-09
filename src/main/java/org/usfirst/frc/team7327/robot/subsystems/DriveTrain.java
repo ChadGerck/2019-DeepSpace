@@ -1,5 +1,6 @@
 package org.usfirst.frc.team7327.robot.subsystems;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -18,9 +19,11 @@ public class DriveTrain extends Subsystem {
                        moduleSW= new SwerveModule(4,5, abeSW, kSwerveP, false), moduleSE= new SwerveModule(6,7, abeSE, kSwerveP, false);
   public static ElevatorModule Elevator;
   public static VictorSPX BallVictor, Intake;
+  public static DoubleSolenoid Pincher, Extendor; 
   public DriveTrain(){
     Elevator  = new ElevatorModule(8); Intake = new VictorSPX(9); 
     BallVictor= new VictorSPX(10);    turning = new TurnModule(); 
+    Pincher = new DoubleSolenoid(0, 1); Extendor = new DoubleSolenoid(2, 3);
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
   public void setModule(String loc,double degrees,double power){
