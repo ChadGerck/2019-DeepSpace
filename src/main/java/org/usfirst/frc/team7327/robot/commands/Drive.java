@@ -1,7 +1,9 @@
 package org.usfirst.frc.team7327.robot.commands;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team7327.robot.Robot;
@@ -18,6 +20,9 @@ public class Drive extends Command {
   double directMag, steering_adjust, x; 
   boolean fixRotation;   
   double SteerP = -0.05, SteerD = 0.6, lastError = 0;
+
+  DoubleSolenoid.Value Pincher = Value.kOff; 
+  DoubleSolenoid.Value Extendor = Value.kOff; 
 
   @Override protected void execute() {
   
