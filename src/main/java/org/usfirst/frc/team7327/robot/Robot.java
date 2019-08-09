@@ -5,13 +5,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.I2C;
 
 public class Robot extends TimedRobot {
   public static final DriveTrain kDrivetrain = new DriveTrain();
   public static final OI oi = new OI();
   public static AHRS nav; 
-  @Override public void robotInit() { nav = new AHRS(I2C.Port.kMXP); }
+  @Override public void robotInit() { nav = new AHRS(I2C.Port.kMXP); 
+    CameraServer.getInstance().startAutomaticCapture();
+  }
   @Override public void robotPeriodic() { kDrivetrain.updateDashboard();
     SmartDashboard.putNumber("NW", Robot.kDrivetrain.getModuleNW().getSteeringEncoder()); 
     SmartDashboard.putNumber("NE", Robot.kDrivetrain.getModuleNE().getSteeringEncoder()); 
