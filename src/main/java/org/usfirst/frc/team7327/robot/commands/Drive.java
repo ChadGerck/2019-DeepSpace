@@ -50,6 +50,17 @@ public class Drive extends Command {
 		else{ ballThrottle = 0; } Robot.kDrivetrain.setRawBallIn(ballThrottle); 
     
     ElevatorPositions.MoveElevators();
+
+
+    if(oi.AButton(P1)){ Pincher = DoubleSolenoid.Value.kForward; }
+    else if(oi.BButton(P1)){ Pincher = DoubleSolenoid.Value.kReverse; }
+    else { Pincher = DoubleSolenoid.Value.kOff; }
+    Robot.kDrivetrain.setPincher(Pincher);
+
+    if(oi.XButton(P1)){Extendor = DoubleSolenoid.Value.kForward; }
+    else if(oi.YButton(P1)){Extendor = DoubleSolenoid.Value.kReverse; }
+    else { Extendor = DoubleSolenoid.Value.kOff; }
+    Robot.kDrivetrain.setExtendor(Extendor);
   }
   @Override protected boolean isFinished() { return false;}
   @Override protected void end() {}
