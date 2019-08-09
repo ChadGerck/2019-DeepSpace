@@ -34,7 +34,9 @@ public class DriveTrain extends Subsystem {
   public  SwerveModule getModuleNE(){ return moduleNE; }
 	public  SwerveModule getModuleSW(){ return moduleSW;}
   public  SwerveModule getModuleSE(){ return moduleSE; }
-
+  public void setPincher(DoubleSolenoid.Value value){ Pincher.set(value); }
+  public void setExtendor(DoubleSolenoid.Value value){ Extendor.set(value); }
+  
   public void setAllAngle(double degrees){
     moduleNW.setSteeringDegrees(degrees); moduleNE.setSteeringDegrees(degrees);
     moduleSW.setSteeringDegrees(degrees); moduleSE.setSteeringDegrees(degrees);
