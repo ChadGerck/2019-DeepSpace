@@ -7,14 +7,17 @@ import com.kauailabs.navx.frc.AHRS;
 import org.usfirst.frc.team7327.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.I2C;
 
 public class Robot extends TimedRobot {
   public static final DriveTrain kDrivetrain = new DriveTrain();
   public static final OI oi = new OI();
   public static AHRS nav; 
+  Compressor c0 = new Compressor(0);
   @Override public void robotInit() { nav = new AHRS(I2C.Port.kMXP); 
     CameraServer.getInstance().startAutomaticCapture();
+    c0.setClosedLoopControl(true); 
   }
   @Override public void robotPeriodic() { kDrivetrain.updateDashboard();
     SmartDashboard.putNumber("NW", Robot.kDrivetrain.getModuleNW().getSteeringEncoder()); 
