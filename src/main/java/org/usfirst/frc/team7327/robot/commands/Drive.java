@@ -34,7 +34,12 @@ public class Drive extends Command {
       
     }
     
-    if(oi.RightMag(P1) > .7){ try {Robot.kDrivetrain.turning.setYaw(oi.RightArc(P1) - Robot.NavAngle());} catch (Exception e) {}
+    if(oi.RightMag(P1) > .7 || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1)){
+      if(oi.RightMag(P1) > .7) { rightArc = oi.RightArc(P1); }
+      else if(oi.XButtonDown(P1)) { rightArc = 135; } //Left Close 315 //Right Close 45
+      else if(oi.YButtonDown(P1)) { rightArc = 45; } //Left Far   225 //Right Far  135
+      else if(oi.BButtonDown(P1)) { rightArc = 0; } //Left Far   225 //Right Far  135
+      try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     } else{ rotMag = 0; }
 
@@ -44,7 +49,7 @@ public class Drive extends Command {
     else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .125; } else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .125; }
     else { directMag = 0; }
 
-    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || oi.LeftMag(P1) >= 0.2 || oi.RightMag(P1) > 0.2 || oi.AButtonDown(P1)) {
+    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || oi.LeftMag(P1) >= 0.2 || oi.RightMag(P1) > 0.2 || oi.AButtonDown(P1) || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1)) {
       fixRotation = true; 
     } else{fixRotation = false;}
     SwerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
