@@ -5,7 +5,7 @@ public class TurnModule{
     private Notifier TurningPID; 
     private double error, diffError, lastError, testPIDOutput, navTo; 
     public static double PIDOutput = 0;
-    static final double kP = 2, kD = .1;
+    static final double kP = 1, kD = .1;
     public TurnModule() {
     	lastError = getError(); 
     	TurningPID = new Notifier(() ->  {

@@ -3,7 +3,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class OI{
-    private static final double DEADZONE_LIMIT = 0.2;
+    private static final double DEADZONE_LIMIT = 0.1;
     public final XboxController Controller0 = new XboxController(0), Controller1 = new XboxController(1);
 
     public double RightArc(XboxController Controller){ return Math.toDegrees(Math.atan2(RightY(Controller), RightX(Controller))) + 90; }

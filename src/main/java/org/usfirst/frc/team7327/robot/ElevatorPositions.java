@@ -8,14 +8,12 @@ public class ElevatorPositions {
   static double throttle = .3; 
 
   public static void MoveElevators() {
-		if(oi.Dpad(P2) >= 0 || oi.YButtonDown(P2) || oi.XButtonDown(P2)) { 
+		if(oi.Dpad(P2) >= 0) { 
       Robot.kDrivetrain.ElevOn(true);
       if     (oi.DpadDown(P2))   {Robot.kDrivetrain.setElevatorPosition(heightB0);}
       else if(oi.DpadRight(P2))  {Robot.kDrivetrain.setElevatorPosition(heightB1);}
       else if(oi.DpadUp(P2))     {Robot.kDrivetrain.setElevatorPosition(heightB2);}
       else if(oi.DpadLeft(P2))   {Robot.kDrivetrain.setElevatorPosition(heightB3);} 
-      else if(oi.YButtonDown(P2)){Robot.kDrivetrain.setElevatorPosition(heightH2);}
-      else if(oi.XButtonDown(P2)){Robot.kDrivetrain.setElevatorPosition(heightH3);}
     } else{ Robot.kDrivetrain.setRawElevator(throttle*(-oi.LeftTrigger(P2) + oi.RightTrigger(P2))); Robot.kDrivetrain.ElevOn(false); }
   }
 }
