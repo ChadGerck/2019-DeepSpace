@@ -1,10 +1,13 @@
 package org.usfirst.frc.team7327.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.SwerveMath;
@@ -18,38 +21,57 @@ public class Drive extends Command {
   double finalAngle, Redthrottle, ballThrottle, rotMag, rightArc; 
   double directMag, steering_adjust, x; 
   boolean fixRotation;   
-  double SteerP = -0.05, SteerD = 0, lastError = 0;
+  double SteerP = -0.025, SteerD = 0, lastError = 0;
+  boolean rocketAngle = true; 
 
-  DoubleSolenoid.Value Pincher = Value.kOff; 
-  DoubleSolenoid.Value Extendor = Value.kOff; 
+  private ShuffleboardTab tab = Shuffleboard.getTab("RocketAngle");
+  private NetworkTableEntry angleR = tab.add("RocketAngle", rocketAngle).getEntry();
+    
+
+  DoubleSolenoid.Value Pincher, Extendor, pullout = Value.kOff; 
 
   @Override protected void execute() {
-  
-    
+
     if(Robot.oi.AButtonDown(P1)){
       x = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-      if(x >= -4 && x <= 4){ steering_adjust = 0; }
+      if(x >= -3 && x <= 3){ steering_adjust = 0; }
       else{ steering_adjust = SteerP*-x + SteerD*(lastError+x); }
       lastError = -x; 
-      
+    }
+
+    if(Robot.oi.BackButton(P2)){
+      if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getNumber(0).doubleValue() == 1 || NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getNumber(0).doubleValue() == 0){
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+      } else if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getNumber(0).doubleValue() == 3){
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+      }
+    }
+
+    if(Robot.oi.BackButton(P1)){
+      if(rocketAngle){ rocketAngle = false;
+      }else{ rocketAngle = true; }
+      angleR.setBoolean(rocketAngle);
     }
     
-    if(oi.RightMag(P1) > .7 || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1)){
+    if(oi.RightMag(P1) > .7  || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1) || oi.LeftTrigger(P1) > .1 || oi.RightTrigger(P1) > .1){
       if(oi.RightMag(P1) > .7) { rightArc = oi.RightArc(P1); }
-      else if(oi.XButtonDown(P1)) { rightArc = 135; } //Left Close 315 //Right Close 45
-      else if(oi.YButtonDown(P1)) { rightArc = 45; } //Left Far   225 //Right Far  135
-      else if(oi.BButtonDown(P1)) { rightArc = 0; } //Left Far   225 //Right Far  135
+      else if(oi.XButtonDown(P1) && rocketAngle) { rightArc = 135; } 
+      else if(oi.YButtonDown(P1) && rocketAngle) { rightArc = 45; } 
+      else if(oi.XButtonDown(P1) && !rocketAngle){ rightArc = 225; } 
+      else if(oi.YButtonDown(P1) && !rocketAngle){ rightArc = 315; }
+      else if(oi.LeftTrigger(P1) > .1) { rightArc = 270; }
+      else if(oi.RightTrigger(P1) > .1) {rightArc = 90; }
+      else if(oi.BButtonDown(P1)){ rightArc = 0; } 
       try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     } else{ rotMag = 0; }
 
     if( oi.AButtonDown(P1)){ finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(P1),steering_adjust))-90; directMag = (Math.abs(steering_adjust) + Math.abs(oi.LeftY(P1)))/2; }
     else if(oi.LeftMag(P1) >= .2){ finalAngle = Math.toDegrees(Math.atan2(oi.LeftX(P1), oi.LeftY(P1))) + Robot.NavAngle(); directMag = .5*oi.LeftMag(P1); }
-    else if(oi.RightTrigger(P1) > .1) {finalAngle = 0; directMag = -.125*oi.RightTrigger(P1); } else if(oi.LeftTrigger(P1) > .1) {finalAngle = 180; directMag = .125 * -oi.LeftTrigger(P1); }
-    else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .125; } else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .125; }
+    else if(oi.RightBumperDown(P1)) { finalAngle = 90; directMag = .05; } else if(oi.LeftBumperDown(P1)) { finalAngle = 270; directMag = .05; }
     else { directMag = 0; }
 
-    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || oi.LeftMag(P1) >= 0.2 || oi.RightMag(P1) > 0.2 || oi.AButtonDown(P1) || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1)) {
+    if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || oi.LeftMag(P1) >= 0.2 || oi.RightMag(P1) > 0.7 || oi.AButtonDown(P1) || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1)) {
       fixRotation = true; 
     } else{fixRotation = false;}
     SwerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
@@ -65,15 +87,21 @@ public class Drive extends Command {
     ElevatorPositions.MoveElevators();
 
 
-    if(oi.AButton(P2)){ Pincher = DoubleSolenoid.Value.kForward; }
-    else if(oi.BButton(P2)){ Pincher = DoubleSolenoid.Value.kReverse; }
-    else { Pincher = DoubleSolenoid.Value.kOff; }
+    if(oi.XButton(P2)){ Pincher = Value.kForward; }
+    else if(oi.BButton(P2)){ Pincher = Value.kReverse; }
+    else { Pincher = Value.kOff; }
     Robot.kDrivetrain.setPincher(Pincher);
 
-    if(oi.XButton(P2)){Extendor = DoubleSolenoid.Value.kForward; }
-    else if(oi.YButton(P2)){Extendor = DoubleSolenoid.Value.kReverse; }
-    else { Extendor = DoubleSolenoid.Value.kOff; }
+    if(oi.YButton(P2)){Extendor = Value.kForward; }
+    else if(oi.AButton(P2)){Extendor = Value.kReverse; }
+    else { Extendor = Value.kOff; }
     Robot.kDrivetrain.setExtendor(Extendor);
+
+    if(oi.LeftY(P2) > .7){ pullout = Value.kForward; }
+    else if(oi.LeftY(P2) < -.7){ pullout = Value.kReverse; }
+    else { pullout = Value.kOff; }
+    Robot.kDrivetrain.setPullout(pullout);
+
   }
   @Override protected boolean isFinished() { return false;}
   @Override protected void end() {}

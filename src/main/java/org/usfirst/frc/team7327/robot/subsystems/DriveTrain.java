@@ -19,11 +19,12 @@ public class DriveTrain extends Subsystem {
                        moduleSW= new SwerveModule(4,5, abeSW, kSwerveP, false), moduleSE= new SwerveModule(6,7, abeSE, kSwerveP, false);
   public static ElevatorModule Elevator;
   public static VictorSPX BallVictor, Intake;
-  public static DoubleSolenoid Pincher, Extendor; 
+  public static DoubleSolenoid Pincher, Extendor, pullout; 
   public DriveTrain(){
     Elevator  = new ElevatorModule(8); Intake = new VictorSPX(9); 
     BallVictor= new VictorSPX(10);    turning = new TurnModule(); 
     Pincher = new DoubleSolenoid(3, 4); Extendor = new DoubleSolenoid(2, 5);
+    pullout = new DoubleSolenoid(1,6); 
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
   public void setModule(String loc,double degrees,double power){
@@ -36,6 +37,7 @@ public class DriveTrain extends Subsystem {
   public  SwerveModule getModuleSE(){ return moduleSE; }
   public void setPincher(DoubleSolenoid.Value value){ Pincher.set(value); }
   public void setExtendor(DoubleSolenoid.Value value){ Extendor.set(value); }
+  public void setPullout(DoubleSolenoid.Value value){ pullout.set(value); }
   
   public void setAllAngle(double degrees){
     moduleNW.setSteeringDegrees(degrees); moduleNE.setSteeringDegrees(degrees);
