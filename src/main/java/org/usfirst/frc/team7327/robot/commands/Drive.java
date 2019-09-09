@@ -28,7 +28,7 @@ public class Drive extends Command {
     
     if(Robot.oi.AButtonDown(P1)){
       x = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-      if(x >= -5 && x <= 5){ steering_adjust = 0; }
+      if(x >= -3 && x <= 3){ steering_adjust = 0; }
       else{ steering_adjust = SteerP*-x + SteerD*(lastError+x); }
       lastError = -x; 
       
