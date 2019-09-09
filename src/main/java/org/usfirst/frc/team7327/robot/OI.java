@@ -7,6 +7,7 @@ public class OI{
     public final XboxController Controller0 = new XboxController(0), Controller1 = new XboxController(1);
 
     public double RightArc(XboxController Controller){ return Math.toDegrees(Math.atan2(RightY(Controller), RightX(Controller))) + 90; }
+    public double LeftArc(XboxController Controller){ return Math.toDegrees(Math.atan2(LeftY(Controller), LeftX(Controller))) + 90; }
     public double getLeftJoystickAngle(XboxController Controller){ return Math.toDegrees(Math.atan2(Controller.getRawAxis(0), -Controller0.getRawAxis(1))); }
     public double LeftMag (XboxController Controller){ return Math.hypot(Controller.getRawAxis(1), Controller.getRawAxis(0)); }
     public double RightMag(XboxController Controller){ return Math.hypot(Controller.getRawAxis(4), Controller.getRawAxis(5)); }
@@ -34,6 +35,8 @@ public class OI{
     public boolean BackButton     (XboxController Controller){ return Controller.getRawButtonPressed(7); }
     public boolean LSClick        (XboxController Controller){ return Controller.getStickButtonPressed(Hand.kLeft); }
     public boolean RSClick        (XboxController Controller){ return Controller.getStickButtonPressed(Hand.kRight); }
+    public boolean LSClickDown    (XboxController Controller){ return Controller.getStickButton(Hand.kLeft); }
+    public boolean RSClickDown    (XboxController Controller){ return Controller.getStickButton(Hand.kRight); }
     public double  Dpad           (XboxController Controller){ return Controller.getPOV(); }
     
     public boolean DpadUp(XboxController Controller){ double POV = Controller.getPOV(); 

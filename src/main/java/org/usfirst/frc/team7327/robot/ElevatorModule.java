@@ -13,7 +13,7 @@ public class ElevatorModule{
     private double setPoint;
     private double PIDOutput;
     private boolean on; 
-    static final double kP = .0004, kI = 0, kD = 0; 
+    static final double kP = .0008, kI = 0, kD = 0; 
     public ElevatorModule(int kDriveID) {
         mLift = new TalonSRX(kDriveID);
         sumError = 0;
@@ -24,8 +24,8 @@ public class ElevatorModule{
             diffError = lastError - getError();
             sumError += getError();
             PIDOutput = kP * getError() + kI * sumError + kD * diffError;
-            PIDOutput = Math.min(.8, PIDOutput);
-            PIDOutput = Math.max(-.6, PIDOutput); 
+            PIDOutput = Math.min(1, PIDOutput);
+            PIDOutput = Math.max(-.8, PIDOutput); 
             if(on) { mLift.set(ControlMode.PercentOutput, PIDOutput); }
             lastError = error;
         });
