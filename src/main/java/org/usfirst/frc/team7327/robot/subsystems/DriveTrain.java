@@ -28,8 +28,8 @@ public class DriveTrain extends Subsystem {
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
   public void setModule(String loc,double degrees,double power){
-    switch(loc){case "NW":moduleNW.set(degrees,power);break; case "NE":moduleNE.set(degrees,power);break;
-                case "SW":moduleSW.set(degrees,power);break; case "SE":moduleSE.set(degrees,power);break;
+    switch(loc){case "NW":moduleNW.set(degrees,0.25*power);break; case "NE":moduleNE.set(degrees,0.25*power);break;
+                case "SW":moduleSW.set(degrees,0.25*power);break; case "SE":moduleSE.set(degrees,0.25*power);break;
     }
   }public SwerveModule getModuleNW(){ return moduleNW;}
   public  SwerveModule getModuleNE(){ return moduleNE; }
