@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
     //c0.setClosedLoopControl(true); 
   }
   @Override public void robotPeriodic() { kDrivetrain.updateDashboard(); }
-  @Override public void teleopInit() { kDrivetrain.SetElevatorStatus(); kDrivetrain.ConfigElevator(); }
+  @Override public void teleopInit() { }
   @Override public void autonomousInit() { nav.reset(); }
   @Override public void autonomousPeriodic() { Scheduler.getInstance().run(); }
   @Override public void teleopPeriodic() { Scheduler.getInstance().run(); }
