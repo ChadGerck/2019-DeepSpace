@@ -16,8 +16,14 @@ public class Drive extends Command {
     
     if(oi.StartButton(P1)) { Robot.nav.reset(); }
 
-    if(oi.LeftX(P1) > .3){
+    if(oi.LeftY(P1) > .3){
       Robot.kDrivetrain.setDrive(.2);
+    }
+    else if(oi.LeftY(P1) < -.3){
+      Robot.kDrivetrain.setDrive(-.2);
+    }
+    else {
+      Robot.kDrivetrain.setDrive(0); 
     }
     
 		
