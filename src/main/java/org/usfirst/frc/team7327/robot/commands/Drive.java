@@ -22,8 +22,17 @@ public class Drive extends Command {
     else if(oi.LeftY(P1) < -.3){
       Robot.kDrivetrain.setDrive(-.2);
     }
-    else {
-      Robot.kDrivetrain.setDrive(0); 
+    else if(oi.RightX(P1) > .3){
+      Robot.kDrivetrain.setRight(.2);
+      Robot.kDrivetrain.setLeft(-.2);
+    }
+    else if(oi.RightX(P1) < -.3){
+      Robot.kDrivetrain.setRight(-.2);
+      Robot.kDrivetrain.setLeft(.2);
+    }
+    else { 
+      Robot.kDrivetrain.setRight(0);
+      Robot.kDrivetrain.setLeft(0); 
     }
 
     
