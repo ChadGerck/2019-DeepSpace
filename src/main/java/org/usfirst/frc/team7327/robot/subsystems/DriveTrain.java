@@ -8,12 +8,21 @@ import org.usfirst.frc.team7327.robot.commands.Drive;
 
 public class DriveTrain extends Subsystem {
   public static TalonSRX drive1; 
+  public static TalonSRX drive2; 
+  public static TalonSRX drive3; 
+  public static TalonSRX drive4; 
   public DriveTrain(){
     drive1 = new TalonSRX(1); 
+    drive2 = new TalonSRX(2);
+    drive3 = new TalonSRX(3);
+    drive4 = new TalonSRX(4);
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
   public void setDrive(double speed){
-    drive1.set(ControlMode.PercentOutput, speed);
+    drive1.set(ControlMode.PercentOutput, -speed*0.6);
+    drive2.set(ControlMode.PercentOutput, speed*0.6);
+    drive3.set(ControlMode.PercentOutput, -speed);
+    drive4.set(ControlMode.PercentOutput, speed*0.6);
   }
   
   public void updateDashboard(){}
