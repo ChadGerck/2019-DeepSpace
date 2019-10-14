@@ -17,15 +17,22 @@ public class Drive extends Command {
     if(oi.StartButton(P1)) { Robot.nav.reset(); }
 
     if(oi.LeftY(P1) > .3){
-      Robot.kDrivetrain.setDrive(.2);
+      Robot.kDrivetrain.setLeft(.2);
     }
     else if(oi.LeftY(P1) < -.3){
-      Robot.kDrivetrain.setDrive(-.2);
+      Robot.kDrivetrain.setLeft(-.2);
+    }
+    else if(oi.RightX(P1) > .3){
+      Robot.kDrivetrain.setRight(.2);
+    }
+    else if(oi.RightX(P1) < -.3){
+      Robot.kDrivetrain.setRight(-.2);
     }
     else { 
       Robot.kDrivetrain.setRight(0);
       Robot.kDrivetrain.setLeft(0); 
     }
+
     
 		
   }
