@@ -23,8 +23,8 @@ public class DriveTrain extends Subsystem {
   public DriveTrain(){
     Elevator  = new ElevatorModule(8); Intake = new VictorSPX(9); 
     BallVictor= new VictorSPX(10);    turning = new TurnModule(); 
-    Pincher = new DoubleSolenoid(3, 4); Extendor = new DoubleSolenoid(2, 5);
-    pullout = new DoubleSolenoid(1,6); 
+    Pincher = new DoubleSolenoid(0,3, 4); Extendor = new DoubleSolenoid(0,2, 5);
+    pullout = new DoubleSolenoid(1,0,7); 
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
   public void setModule(String loc,double degrees,double power){
