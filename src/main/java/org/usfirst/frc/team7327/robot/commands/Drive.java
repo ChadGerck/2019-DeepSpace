@@ -22,10 +22,10 @@ public class Drive extends Command {
 
       
      
-      Robot.kDrivetrain.setSouthWest(oi.LeftY(P1)*.4 + (oi.RightX(P1)*.4 ) - (oi.LeftX(P1)*.4)); 
-      Robot.kDrivetrain.setNorthWest(oi.LeftY(P1)*.4 + (oi.RightX(P1)*.4 ) + (oi.LeftX(P1)*.4)); 
-      Robot.kDrivetrain.setSouthEast(oi.LeftY(P1)*.4 - (oi.RightX(P1)*.4 ) + (oi.LeftX(P1)*.4)); 
-      Robot.kDrivetrain.setNorthEast(oi.LeftY(P1)*.4 - (oi.RightX(P1)*.4 ) - (oi.LeftX(P1)*.4)); 
+    Robot.kDrivetrain.setSouthWest(oi.LeftY(P1)*1 + (oi.RightX(P1)*1 ) - (oi.LeftX(P1)*1)); 
+    Robot.kDrivetrain.setNorthWest(oi.LeftY(P1)*1 + (oi.RightX(P1)*1 ) + (oi.LeftX(P1)*1)); 
+    Robot.kDrivetrain.setSouthEast(oi.LeftY(P1)*1 - (oi.RightX(P1)*1 ) + (oi.LeftX(P1)*1)); 
+    Robot.kDrivetrain.setNorthEast(oi.LeftY(P1)*1 - (oi.RightX(P1)*1 ) - (oi.LeftX(P1)*1)); 
     
      
     
