@@ -9,25 +9,17 @@ import edu.wpi.first.wpilibj.Notifier;
 public class ElevatorModule{
     private TalonSRX mLift; 
     private Notifier SteeringPID;
-    private double error, sumError, diffError, lastError;
     private double setPoint;
     private double PIDOutput;
     private boolean on; 
-    static final double kP = .0008, kI = 0, kD = 0; 
+    static final double kP = .0008; 
     public ElevatorModule(int kDriveID) {
         mLift = new TalonSRX(kDriveID);
-        sumError = 0;
-        lastError = getError();
-        error = lastError;
         SteeringPID = new Notifier(() -> {
-        	error = getError();
-            diffError = lastError - getError();
-            sumError += getError();
-            PIDOutput = kP * getError() + kI * sumError + kD * diffError;
+            PIDOutput = kP * getError();
             PIDOutput = Math.min(1, PIDOutput);
             PIDOutput = Math.max(-.8, PIDOutput); 
             if(on) { mLift.set(ControlMode.PercentOutput, PIDOutput); }
-            lastError = error;
         });
         SteeringPID.startPeriodic(0.01);
         mLift.enableVoltageCompensation(true);

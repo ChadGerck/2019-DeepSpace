@@ -1,4 +1,6 @@
 package org.usfirst.frc.team7327.robot;
+
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
@@ -38,6 +40,11 @@ public class OI{
     public boolean LSClickDown    (XboxController Controller){ return Controller.getStickButton(Hand.kLeft); }
     public boolean RSClickDown    (XboxController Controller){ return Controller.getStickButton(Hand.kRight); }
     public double  Dpad           (XboxController Controller){ return Controller.getPOV(); }
+
+    public double LEDValue() { return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getNumber(0).doubleValue(); }
+    public void LEDOn() { NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); } 
+    public void LEDOff(){ NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); } 
+    public double LimelightTx() { return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0); }
     
     public boolean DpadUp(XboxController Controller){ double POV = Controller.getPOV(); 
         if((POV >= 0 && POV < 45) || (POV >= 315 && POV < 360)) { return true; } else { return false; }
