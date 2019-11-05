@@ -15,7 +15,8 @@ public class Autonomous {
             x = x + 1; 
 
             if(x == 30 ){
-                Robot.TurnRight()
+                Robot.TurnRight();
+                Robot.TurnRight();
         }
 
 
