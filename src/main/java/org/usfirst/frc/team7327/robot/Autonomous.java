@@ -18,20 +18,22 @@ public class Autonomous {
         }
 */
         int x = 0;
-        while( x < 64){
+        while( x < 80){
             Robot.MoveForward();
             x = x + 1; 
             if(x == 30){
-            Robot.TurnRight();
-            Robot.TurnRight();
+            Robot.TurnRight();}
+            if(x == 40){
+            Robot.TurnRight();    
             }
+            
         }
 
 
 
         
 
-
+/*
         int x = 0;
         while( x < 30){
             Robot.MoveForward();
@@ -46,7 +48,7 @@ public class Autonomous {
         }
         Robot.TurnRight();
         Robot.TurnRight();
-        
+ */       
         /*
         Robot.MoveForward();
         Robot.MoveForward();
