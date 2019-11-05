@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.SwerveMath;
@@ -18,16 +19,12 @@ public class Drive extends Command {
   public Drive() { requires(Robot.kDrivetrain); }
   @Override protected void initialize() { }
   public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
-  double finalAngle, Redthrottle, ballThrottle, rotMag, rightArc; 
-  double directMag, steering_adjust, x; 
-  boolean fixRotation;   
+  double finalAngle, Redthrottle, ballThrottle, rotMag, rightArc, directMag, steering_adjust, x; 
   double SteerP = -0.025, SteerD = 0, lastError = 0;
-  boolean rocketAngle = true; 
+  boolean fixRotation, rocketAngle = true; 
 
   private ShuffleboardTab tab = Shuffleboard.getTab("RocketAngle");
   private NetworkTableEntry angleR = tab.add("RocketAngle", rocketAngle).getEntry();
-    
-
   DoubleSolenoid.Value Pincher, Extendor, pullout = Value.kOff; 
 
   @Override protected void execute() {
@@ -48,20 +45,20 @@ public class Drive extends Command {
     }
 
     if(Robot.oi.BackButton(P1)){
-      if(rocketAngle){ rocketAngle = false;
-      }else{ rocketAngle = true; }
+      if(rocketAngle){ rocketAngle = false;}
+      else{ rocketAngle = true; }
       angleR.setBoolean(rocketAngle);
     }
     
     if(oi.RightMag(P1) > .7  || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1) || oi.LeftTrigger(P1) > .1 || oi.RightTrigger(P1) > .1){
       if(oi.RightMag(P1) > .7) { rightArc = oi.RightArc(P1); }
-      else if(oi.XButtonDown(P1) && rocketAngle) { rightArc = 135; } 
-      else if(oi.YButtonDown(P1) && rocketAngle) { rightArc = 45; } 
-      else if(oi.XButtonDown(P1) && !rocketAngle){ rightArc = 225; } 
+      else if(oi.XButtonDown(P1) && rocketAngle) { rightArc = 135; }
+      else if(oi.YButtonDown(P1) && rocketAngle) { rightArc = 45;  }
+      else if(oi.XButtonDown(P1) && !rocketAngle){ rightArc = 225; }
       else if(oi.YButtonDown(P1) && !rocketAngle){ rightArc = 315; }
       else if(oi.LeftTrigger(P1) > .1) { rightArc = 270; }
       else if(oi.RightTrigger(P1) > .1) {rightArc = 90; }
-      else if(oi.BButtonDown(P1)){ rightArc = 0; } 
+      else if(oi.BButtonDown(P1)){ rightArc = 0; }
       try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     } else{ rotMag = 0; }
@@ -86,7 +83,6 @@ public class Drive extends Command {
     
     ElevatorPositions.MoveElevators();
 
-
     if(oi.XButton(P2)){ Pincher = Value.kForward; }
     else if(oi.BButton(P2)){ Pincher = Value.kReverse; }
     else { Pincher = Value.kOff; }
@@ -102,6 +98,8 @@ public class Drive extends Command {
     else { pullout = Value.kOff; }
     Robot.kDrivetrain.setPullout(pullout);
 
+    System.out.println(oi.RSClick(P1)); 
+    SmartDashboard.putBoolean("RSClick: ", oi.RSClick(P1)); 
 
   }
   @Override protected boolean isFinished() { return false;}
