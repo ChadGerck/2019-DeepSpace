@@ -18,8 +18,10 @@ public class Autonomous {
         }
     }
 
-    public static void MoveForward(){
-        Robot.MoveForward(); 
+    public static void MoveForward(int y){
+        while (x < 80)
+        Robot.MoveForward();
+         
     }
     public static void TurnRight(){
         Robot.TurnRight();
