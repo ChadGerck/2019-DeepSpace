@@ -5,35 +5,36 @@ import org.usfirst.frc.team7327.robot.Robot;
 public class Autonomous {
     public static void Auto() {
 
-        /*
-        int x = 0;
-        while( x < 80){
-            MoveForward(1);
-            x = x + 1; 
-            if(x == 30){
-            TurnRight();}
-            if(x == 40){
-            TurnRight();    
-            }
-        
-        }
-        */
 
-        
+       DriveRectangle();
     }
     
+    public static void DriveRectangle(){  
+        MoveForward(30);
+        TurnRight(1);
+        MoveForward(10);
+        TurnRight(1);
+        MoveForward(30);
+        TurnRight(1);
+        MoveForward(10);
+        TurnRight(1);
+    }
 
 
-
-    public static void MoveForward(int x){
-        while( x < 84){
+    public static void MoveForward(int y) {
+        int x = 0;
+        while( x < y){
             Robot.MoveForward();
             x = x + 1;
         }
     }
     
-    public static void TurnRight(){
-        Robot.TurnRight();
+    public static void TurnRight(int z){
+        int a = 0;
+        while( a < z){
+            Robot.TurnRight();
+            a = a + 1;
+        }
     }
 }
 
