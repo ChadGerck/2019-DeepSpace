@@ -5,23 +5,27 @@ import org.usfirst.frc.team7327.robot.Robot;
 public class Autonomous {
     public static void Auto() {
 
-        int x = 0;
-        while( x < 80){
-            MoveForward();
-            x = x + 1; 
-            if(x == 30){
-            TurnRight();}
-            if(x == 40){
-            TurnRight();    
-            }
-            
-        }
-    }
 
+        DriveSquare();
+
+    }
+    public static void DriveSquare(){
+        MoveForward(30);
+        TurnRight();
+        MoveForward(10);
+        TurnRight();
+        MoveForward(30);
+        TurnRight();
+        MoveForward(10);
+    }
     public static void MoveForward(int y){
-        while (x < 80)
-        Robot.MoveForward();
-         
+
+        int x = 0;
+        while (x < y){
+            Robot.MoveForward();
+            x = x + 1;
+        }
+        
     }
     public static void TurnRight(){
         Robot.TurnRight();
