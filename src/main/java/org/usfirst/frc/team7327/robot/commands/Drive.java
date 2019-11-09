@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.SwerveMath;
@@ -20,7 +19,7 @@ public class Drive extends Command {
   public static XboxController P1 = oi.Controller0, P2 = oi.Controller1;  
   double finalAngle, Redthrottle, ballThrottle, rotMag, rightArc, directMag, steering_adjust, x; 
   double SteerP = -0.025;
-  boolean fixRotation, rocketAngle = true; 
+  boolean fixRotation, rocketAngle = true, evadeMode = false; 
 
   private ShuffleboardTab tab = Shuffleboard.getTab("RocketAngle");
   private NetworkTableEntry angleR = tab.add("RocketAngle", rocketAngle).getEntry();
@@ -28,13 +27,13 @@ public class Drive extends Command {
 
   @Override protected void execute() {
 
-    if(Robot.oi.BackButton(P2)){
-      if(oi.LEDValue() == 1 || oi.LEDValue() == 0){ oi.LEDOn(); } else if(oi.LEDValue() == 3){ oi.LEDOff(); }
-    }if(Robot.oi.BackButton(P1)){
-      if(rocketAngle){ rocketAngle = false;} else{ rocketAngle = true; } angleR.setBoolean(rocketAngle);
-    }
-    
-    if(oi.RightMag(P1) > .7  || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1) || oi.LeftTrigger(P1) > .1 || oi.RightTrigger(P1) > .1){
+    if(Robot.oi.BackButton(P2)){ if(oi.LEDValue() == 1 || oi.LEDValue() == 0){ oi.LEDOn(); } else if(oi.LEDValue() == 3){ oi.LEDOff(); }}
+    if(Robot.oi.BackButton(P1)){ if(rocketAngle){ rocketAngle = false;} else{ rocketAngle = true; } angleR.setBoolean(rocketAngle); }
+
+    if(oi.RSClick(P1)){if(evadeMode){evadeMode=false;}else{evadeMode=true;}}
+
+    if(evadeMode){ rotMag = oi.RightX(P1); }
+    else if(oi.RightMag(P1) > .7  || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1) || oi.LeftTrigger(P1) > .1 || oi.RightTrigger(P1) > .1){
       if(oi.RightMag(P1) > .7) { rightArc = oi.RightArc(P1); }
       else if(oi.XButtonDown(P1) && rocketAngle) { rightArc = 135; } else if(oi.XButtonDown(P1) && !rocketAngle){ rightArc = 225; }
       else if(oi.YButtonDown(P1) && rocketAngle) { rightArc = 45;  } else if(oi.YButtonDown(P1) && !rocketAngle){ rightArc = 315; }
@@ -52,8 +51,8 @@ public class Drive extends Command {
     else { directMag = 0; }
 
     if(oi.LeftBumperDown(P1) || oi.RightBumperDown(P1) || oi.RightTrigger(P1) > .1 || oi.LeftTrigger(P1) > .1 || oi.LeftMag(P1) >= 0.2 || oi.RightMag(P1) > 0.7 || oi.AButtonDown(P1) || oi.XButtonDown(P1) || oi.YButtonDown(P1) || oi.BButtonDown(P1)) {
-      fixRotation = true; 
-    } else{fixRotation = false;}
+      fixRotation = false; 
+    } else{fixRotation = true;}
     SwerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
 		
 		if(oi.RightBumperDown(P2)) { Redthrottle = .6; } else if(oi.LeftBumperDown(P2)) { Redthrottle = -.6;}
@@ -70,10 +69,6 @@ public class Drive extends Command {
     else { Extendor = Value.kOff; } Robot.kDrivetrain.setExtendor(Extendor);
     if(oi.LeftY(P2) > .7){ pullout = Value.kForward; } else if(oi.LeftY(P2) < -.7){ pullout = Value.kReverse; }
     else { pullout = Value.kOff; } Robot.kDrivetrain.setPullout(pullout);
-
-    System.out.println(oi.RSClick(P1)); 
-    SmartDashboard.putBoolean("RSClick: ", oi.RSClick(P1)); 
-
 
   }
   @Override protected boolean isFinished() { return false;}
