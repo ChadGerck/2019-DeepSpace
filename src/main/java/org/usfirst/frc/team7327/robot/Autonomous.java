@@ -1,12 +1,18 @@
 package org.usfirst.frc.team7327.robot;
 
 import org.usfirst.frc.team7327.robot.Robot; 
+import org.usfirst.frc.team7327.robot.Group7;
 
 public class Autonomous {
+
+    public static Group7 call;
+
+
     public static void Auto() {
+        call.DriveSquare();
 
 
-        DriveSquare();
+        
 
     }
     public static void DriveSquare(){
