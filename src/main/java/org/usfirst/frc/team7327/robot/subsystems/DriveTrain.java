@@ -4,9 +4,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import org.usfirst.frc.team7327.robot.TurnModule;
 import org.usfirst.frc.team7327.robot.commands.Drive;
 
 public class DriveTrain extends Subsystem {
+  public  static TurnModule turning; 
   public static TalonSRX drive1; 
   public static TalonSRX drive2; 
   public static TalonSRX drive3; 
@@ -16,6 +19,7 @@ public class DriveTrain extends Subsystem {
     drive2 = new TalonSRX(2);
     drive3 = new TalonSRX(3);
     drive4 = new TalonSRX(4);
+    turning = new TurnModule();
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
   public void setDrive(double speed){

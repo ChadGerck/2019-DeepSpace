@@ -29,8 +29,9 @@ public class Drive extends Command {
     Robot.kDrivetrain.setNorthWest(oi.LeftY(P1)*1 + (oi.RightX(P1)*1 ) + (oi.LeftX(P1)*1)); 
     Robot.kDrivetrain.setSouthEast(oi.LeftY(P1)*1 - (oi.RightX(P1)*1 ) + (oi.LeftX(P1)*1)); 
     Robot.kDrivetrain.setNorthEast(oi.LeftY(P1)*1 - (oi.RightX(P1)*1 ) - (oi.LeftX(P1)*1)); 
+    Robot.kDrivetrain.setturning(rotMag);
     
-  if( oi.RightMag(P1) > .7 ) { rightArc = oi.RightArc(); 
+  if( oi.RightMag(P1) > .7 ) { rightArc = oi.RightArc(P1); 
     try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
     rotMag = Robot.kDrivetrain.turning.getPIDOutput();}
    else {rotMag = 0;}  
