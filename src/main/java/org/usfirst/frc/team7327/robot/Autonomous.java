@@ -5,36 +5,71 @@ import org.usfirst.frc.team7327.robot.Robot;
 public class Autonomous {
     public static void Auto() {
 
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.TurnRight();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.TurnRight();
+        Robot.TurnRight();
+        Robot.TurnRight();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.TurnRight();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.TurnRight();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.TurnRight();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.MoveForward();
+        Robot.TurnRight();
+        Robot.TurnRight();
+        Robot.TurnRight();
+        Robot.MoveForward();
+        Robot.TurnRight();
+        Robot.TurnRight();
 
-       DriveRectangle();
-    }
     
-    public static void DriveRectangle(){  
-        MoveForward(30);
-        TurnRight(1);
-        MoveForward(10);
-        TurnRight(1);
-        MoveForward(30);
-        TurnRight(1);
-        MoveForward(10);
-        TurnRight(1);
-    }
-
-
-    public static void MoveForward(int y) {
-        int x = 0;
-        while( x < y){
-            Robot.MoveForward();
-            x = x + 1;
-        }
-    }
     
-    public static void TurnRight(int z){
-        int a = 0;
-        while( a < z){
-            Robot.TurnRight();
-            a = a + 1;
-        }
+        
+    
+
+
     }
 }
 
