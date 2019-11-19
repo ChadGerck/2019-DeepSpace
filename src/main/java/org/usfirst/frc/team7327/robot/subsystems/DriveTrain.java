@@ -27,6 +27,7 @@ public class DriveTrain extends Subsystem {
     drive2.set(ControlMode.PercentOutput, speed*0.6);
     drive3.set(ControlMode.PercentOutput, -speed);
     drive4.set(ControlMode.PercentOutput, speed*0.6);
+    
   }
   public void setLeft(double speed){
     

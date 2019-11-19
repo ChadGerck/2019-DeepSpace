@@ -25,13 +25,13 @@ public class Drive extends Command {
 
       
      
-    Robot.kDrivetrain.setSouthWest(oi.LeftY(P1)*1 + (oi.RightX(P1)*1 ) - (oi.LeftX(P1)*1)); 
-    Robot.kDrivetrain.setNorthWest(oi.LeftY(P1)*1 + (oi.RightX(P1)*1 ) + (oi.LeftX(P1)*1)); 
-    Robot.kDrivetrain.setSouthEast(oi.LeftY(P1)*1 - (oi.RightX(P1)*1 ) + (oi.LeftX(P1)*1)); 
-    Robot.kDrivetrain.setNorthEast(oi.LeftY(P1)*1 - (oi.RightX(P1)*1 ) - (oi.LeftX(P1)*1)); 
-    Robot.kDrivetrain.setturning(rotMag);
+    Robot.kDrivetrain.setSouthWest(oi.LeftY(P1)*1 + (oi.RightX(P1)*1 ) - (oi.LeftX(P1)*1) + (rotMag)); 
+    Robot.kDrivetrain.setNorthWest(oi.LeftY(P1)*1 + (oi.RightX(P1)*1 ) + (oi.LeftX(P1)*1) + (rotMag)); 
+    Robot.kDrivetrain.setSouthEast(oi.LeftY(P1)*1 - (oi.RightX(P1)*1 ) + (oi.LeftX(P1)*1) + (rotMag)); 
+    Robot.kDrivetrain.setNorthEast(oi.LeftY(P1)*1 - (oi.RightX(P1)*1 ) - (oi.LeftX(P1)*1) + (rotMag)); 
+    //rotMag 
     
-  if( oi.RightMag(P1) > .7 ) { rightArc = oi.RightArc(P1); 
+  //smegmaif( oi.RightMag(P1) > .7 ) { rightArc = oi.RightArc(P1); 
     try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
     rotMag = Robot.kDrivetrain.turning.getPIDOutput();}
    else {rotMag = 0;}  
@@ -41,7 +41,7 @@ public class Drive extends Command {
 
 
   }
-  @Override protected boolean isFinished() { return false;}
+  @Override protected boolean isFinished() { return true;}
   @Override protected void end() {}
   @Override protected void interrupted() {}
 }
