@@ -192,8 +192,8 @@ private static void MoveTime(double angle, double speed, double time) {
 }
 
 public static double MoveAngle = 0; 
-public static void MoveForward(double duration){
-  MoveTime(MoveAngle, .4, duration); 
+public static void MoveForward(){
+  MoveTime(MoveAngle, .4, 1); 
 }
 public static void TurnRight(){
   MoveAngle -= 90; 
