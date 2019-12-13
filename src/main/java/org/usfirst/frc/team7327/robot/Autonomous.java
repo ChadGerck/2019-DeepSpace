@@ -8,18 +8,10 @@ public class Autonomous {
         int x = 0; 
         while(x < 69){
             Robot.MoveForward();
-            if(x == 26){
-                Robot.TurnRight();
-            }
-            if(x == 9){
-                Robot.TurnRight();
-            }
-            if(x == 26){
-                Robot.TurnRight();
-            }
-            if(x == 8){
-                Robot.TurnRight();
-            }
+            if(x == 26){ Robot.TurnRight();}
+            if(x == 35){ Robot.TurnRight();}
+            if(x == 61){ Robot.TurnRight();}
+            if(x == 69){ Robot.TurnRight();}
             x = x + 1; 
         }
 
