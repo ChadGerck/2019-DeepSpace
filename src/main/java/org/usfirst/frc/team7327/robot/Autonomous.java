@@ -5,10 +5,14 @@ import org.usfirst.frc.team7327.robot.Robot;
 public class Autonomous {
     public static void Auto() {
         MoveForward(26);
-            Robot.TurnRight();
-    }   MoveForward(35);
-            Robot.TurnRight();
-        MoveForward(31);
+        Robot.TurnRight();
+        MoveForward(9);
+        MoveForward(26);
+        Robot.TurnRight();
+        MoveForward(9);
+    }
+        
+
 
     public static void MoveForward(int y){
           
