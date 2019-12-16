@@ -4,12 +4,8 @@ import org.usfirst.frc.team7327.robot.Robot;
 
 public class Autonomous {
     public static void Auto() {
-        MoveForward(26);
-        Robot.TurnRight();
-        MoveForward(9);
-        MoveForward(26);
-        Robot.TurnRight();
-        MoveForward(9);
+        DrivinginSquare();
+   
     }
         
 
@@ -21,9 +17,18 @@ public class Autonomous {
             Robot .MoveForward();
             x = x + 1;
         }
-
     }
-}
+    public static void DrivinginSquare(){
+        MoveForward(26);
+        Robot.TurnRight();
+        MoveForward(9);
+        Robot.TurnRight();
+        MoveForward(26);
+        Robot.TurnRight();
+        MoveForward(9);
+    }
+} 
+
 
 
        /*
