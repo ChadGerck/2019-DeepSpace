@@ -5,9 +5,9 @@ import org.usfirst.frc.team7327.robot.Robot;
 public class Autonomous {
     public static void Auto() {
         DrivinginSquare();
-   
+        NewLane();
+                                                             
     }
-        
 
 
     public static void MoveForward(int y){
@@ -27,8 +27,21 @@ public class Autonomous {
         Robot.TurnRight();
         MoveForward(9);
     }
-} 
+ 
 
+    public static void NewLane(){
+        MoveForward(26);
+        Robot.TurnLeft();
+        MoveForward(9);
+        Robot.TurnLeft();
+        MoveForward(10);
+        Robot.TurnLeft();
+        MoveForward(16);
+        Robot.TurnLeft();
+        MoveForward(10);
+    }
+
+}
 
 
        /*
