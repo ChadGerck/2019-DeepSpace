@@ -8,6 +8,14 @@ public class Autonomous {
         NewLane();
                                                              
     }
+    public static void Leftyturn(int z){
+        int x = 0; 
+        while(x < z ){
+            //Robot.TurnLeft();
+
+        }
+    }
+
 
 
     public static void MoveForward(int y){

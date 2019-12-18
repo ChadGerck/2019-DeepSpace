@@ -198,9 +198,6 @@ public static void MoveForward(){
 public static void TurnRight(){
   MoveAngle -= 90; 
 } 
-public static void TurnLeft(){
-  MoveAngle += 90;
-}
 
 public static double NavAngle() {
   double angle = Robot.nav.getAngle(); 
