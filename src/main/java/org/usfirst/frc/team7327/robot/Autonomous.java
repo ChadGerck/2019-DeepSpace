@@ -5,13 +5,6 @@ import org.usfirst.frc.team7327.robot.Robot;
 public class Autonomous {
 
     public static void Auto() {
-
-
-        int x = 10;
-        if(x == 10){
-            Robot.TurnRight();
-        }
-        /*
         int x;
         x = 0; 
         while(x < 13){
@@ -29,6 +22,5 @@ public class Autonomous {
             Robot.MoveForward();
             x = x + 1;
         }
-        */
     }
 }
