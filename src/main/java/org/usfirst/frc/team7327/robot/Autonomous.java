@@ -5,6 +5,15 @@ import org.usfirst.frc.team7327.robot.Robot;
 
 public class Autonomous {
     public static void Auto() {
+
+
+
+        int x;
+        x = 0; 
+        if(x == 10){
+            Robot.TurnRight();
+        }
+        /*
         int x;
         x = 0; 
         while( x < 20){
@@ -27,7 +36,7 @@ public class Autonomous {
             x = x + 1;
          }
         Robot.TurnRight();
-
+         */
 
         
     }
