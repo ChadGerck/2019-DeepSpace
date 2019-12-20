@@ -7,12 +7,27 @@ public class Autonomous {
     public static void Auto() {
 
 
-
+        
         int x;
         x = 0; 
-        if(x == 10){
-            Robot.TurnRight();
+        while( x < 62){
+            Robot.MoveForward();
+            x = x + 1;
+            if(x == 20){
+                Robot.TurnRight();
+            }
+             if(x == 31){
+                 Robot.TurnRight();
+             }   
+            if(x == 51){
+                Robot.TurnRight();
+            }
+            if(x == 62){
+                Robot.TurnRight();
+            }
         }
+        
+
         /*
         int x;
         x = 0; 
