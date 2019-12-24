@@ -27,8 +27,8 @@ public class Drive extends Command {
 
   @Override protected void execute() {
 
-    if(Robot.oi.BackButton(P2)){ if(oi.LEDValue() == 1 || oi.LEDValue() == 0){ oi.LEDOn(); } else if(oi.LEDValue() == 3){ oi.LEDOff(); }}
-    if(Robot.oi.BackButton(P1)){ if(rocketAngle){ rocketAngle = false;} else{ rocketAngle = true; } angleR.setBoolean(rocketAngle); }
+    if(oi.BackButton(P2)){ if(oi.LEDValue() == 1 || oi.LEDValue() == 0){ oi.LEDOn(); } else if(oi.LEDValue() == 3){ oi.LEDOff(); }}
+    if(oi.BackButton(P1)){ if(rocketAngle){ rocketAngle = false;} else{ rocketAngle = true; } angleR.setBoolean(rocketAngle); }
 
     if(oi.RSClick(P1)){if(evadeMode){evadeMode=false;}else{evadeMode=true;}}
 
