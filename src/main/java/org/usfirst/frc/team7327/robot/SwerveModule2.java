@@ -3,13 +3,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
-public class SwerveModule{
+public class SwerveModule2{
     private CANSparkMax m_motor;
-    private VictorSPX mSteering;
+    private CANSparkMax mSteering;
     private Notifier pidLoop;          
     private volatile double currentError, pidOutput;
     private double setpoint, lastAngle;
@@ -22,15 +21,18 @@ public class SwerveModule{
      * @param SteeringEncoder the AbsoluteEncoder for SwerveDrive
      * @param kP            the steering kP gain
      */
-    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP, boolean isFlipped){
+    public SwerveModule2(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP, boolean isFlipped){
         m_motor = new CANSparkMax(kDriveID, MotorType.kBrushless);
-        mSteering = new VictorSPX(kSteeringID);
+        mSteering = new CANSparkMax(kSteeringID, MotorType.kBrushless);
+        //if(kSteeringID == 8){ mSteering = new CANSparkMax(kSteeringID); }
+        //else{ mSteering = new VictorSPX(kSteeringID); }
         lastAngle = 0;
         this.steeringEncoder = steeringEncoder;
         pidLoop = new Notifier(() -> {
             currentError = getModifiedError();  
             pidOutput = kP * currentError;
-            mSteering.set(ControlMode.PercentOutput, pidOutput);
+            if(kSteeringID == 8){ mSteering.set(pidOutput); }
+            else{mSteering.set(pidOutput); }
         });
         pidLoop.startPeriodic(dt);
         this.isFlipped = isFlipped; 

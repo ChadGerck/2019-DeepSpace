@@ -23,3 +23,4 @@ public class TurnModule{
     public void setYaw(double degree){navTo = degree;}
     public double getPIDOutput(){return PIDOutput;}
 }
+
