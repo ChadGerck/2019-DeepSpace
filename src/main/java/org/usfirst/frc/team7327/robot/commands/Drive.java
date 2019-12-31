@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.SwerveMath;
 import static org.usfirst.frc.team7327.robot.Robot.oi;
-import org.usfirst.frc.team7327.robot.ElevatorPositions;
+// import org.usfirst.frc.team7327.robot.ElevatorPositions;
 
 public class Drive extends Command {
   public Drive() { requires(Robot.kDrivetrain); }
@@ -55,20 +55,20 @@ public class Drive extends Command {
     } else{fixRotation = true;}
     SwerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
 		
-		if(oi.RightBumperDown(P2)) { Redthrottle = .6; } else if(oi.LeftBumperDown(P2)) { Redthrottle = -.6;}
-		else { Redthrottle = 0; } Robot.kDrivetrain.setRawIntake(Redthrottle);
-		if(oi.RightMag(P2) > .3) { ballThrottle = .75*oi.RightY(P2); } else if(oi.RightBumperDown(P2)) { ballThrottle = .5; }
-    else{ ballThrottle = 0; } Robot.kDrivetrain.setRawBallIn(ballThrottle); 
+		// if(oi.RightBumperDown(P2)) { Redthrottle = .6; } else if(oi.LeftBumperDown(P2)) { Redthrottle = -.6;}
+		// else { Redthrottle = 0; } Robot.kDrivetrain.setRawIntake(Redthrottle);
+		// if(oi.RightMag(P2) > .3) { ballThrottle = .75*oi.RightY(P2); } else if(oi.RightBumperDown(P2)) { ballThrottle = .5; }
+    // else{ ballThrottle = 0; } Robot.kDrivetrain.setRawBallIn(ballThrottle); 
     
-    if(oi.StartButton(P1)) { Robot.nav.reset(); } if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
-    ElevatorPositions.MoveElevators();
+    // if(oi.StartButton(P1)) { Robot.nav.reset(); } if(oi.StartButton(P2)) { Robot.kDrivetrain.ResetElevator(); }
+    // ElevatorPositions.MoveElevators();
 
-    if(oi.XButton(P2)){ Pincher = Value.kForward; } else if(oi.BButton(P2)){ Pincher = Value.kReverse; }
-    else { Pincher = Value.kOff; } Robot.kDrivetrain.setPincher(Pincher);
-    if(oi.YButton(P2)){Extendor = Value.kForward; } else if(oi.AButton(P2)){Extendor = Value.kReverse; }
-    else { Extendor = Value.kOff; } Robot.kDrivetrain.setExtendor(Extendor);
-    if(oi.LeftY(P2) > .7){ pullout = Value.kForward; } else if(oi.LeftY(P2) < -.7){ pullout = Value.kReverse; }
-    else { pullout = Value.kOff; } Robot.kDrivetrain.setPullout(pullout);
+    // if(oi.XButton(P2)){ Pincher = Value.kForward; } else if(oi.BButton(P2)){ Pincher = Value.kReverse; }
+    // else { Pincher = Value.kOff; } Robot.kDrivetrain.setPincher(Pincher);
+    // if(oi.YButton(P2)){Extendor = Value.kForward; } else if(oi.AButton(P2)){Extendor = Value.kReverse; }
+    // else { Extendor = Value.kOff; } Robot.kDrivetrain.setExtendor(Extendor);
+    // if(oi.LeftY(P2) > .7){ pullout = Value.kForward; } else if(oi.LeftY(P2) < -.7){ pullout = Value.kReverse; }
+    // else { pullout = Value.kOff; } Robot.kDrivetrain.setPullout(pullout);
 
   }
   @Override protected boolean isFinished() { return false;}

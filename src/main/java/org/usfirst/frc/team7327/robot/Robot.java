@@ -17,17 +17,17 @@ public class Robot extends TimedRobot {
   Compressor c0 = new Compressor(0);
   @Override public void robotInit() { nav = new AHRS(I2C.Port.kMXP); 
     CameraServer.getInstance().startAutomaticCapture();
-    c0.setClosedLoopControl(true); 
+    // c0.setClosedLoopControl(true); 
   }
   @Override public void robotPeriodic() { kDrivetrain.updateDashboard(); }
-  @Override public void teleopInit() { kDrivetrain.SetElevatorStatus(); kDrivetrain.ConfigElevator(); }
+@Override public void teleopInit() { /*kDrivetrain.SetElevatorStatus(); kDrivetrain.ConfigElevator();*/ }
   @Override public void autonomousInit() { nav.reset(); }
   @Override public void autonomousPeriodic() { Scheduler.getInstance().run(); }
   @Override public void teleopPeriodic() { Scheduler.getInstance().run();
-    if(oi.LSClick(oi.Controller1)){
-      if(flag){ c0.setClosedLoopControl(false); flag = false; }
-      else{ c0.setClosedLoopControl(true); flag = true; }
-    }
+    // if(oi.LSClick(oi.Controller1)){
+    //   if(flag){ c0.setClosedLoopControl(false); flag = false; }
+    //   else{ c0.setClosedLoopControl(true); flag = true; }
+    // }
   }
   @Override public void testPeriodic() {}
   public static double NavAngle() {return NavAngle(0);}
