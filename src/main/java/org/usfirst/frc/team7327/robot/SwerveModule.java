@@ -3,6 +3,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveModule{
     private CANSparkMax m_motor;
@@ -27,8 +28,10 @@ public class SwerveModule{
         pidLoop = new Notifier(() -> {
             currentError = getModifiedError();  
             pidOutput = kP * currentError;
-            if(kSteeringID == 8){ mSteering.set(pidOutput); }
-            else{mSteering.set(pidOutput); }
+            pidOutput = Math.min(pidOutput, .5);
+            pidOutput = Math.max(pidOutput, -.5); 
+            mSteering.set(pidOutput);
+            SmartDashboard.putNumber("PidOutput: ", pidOutput);
         });
         pidLoop.startPeriodic(dt);
         this.isFlipped = isFlipped; 

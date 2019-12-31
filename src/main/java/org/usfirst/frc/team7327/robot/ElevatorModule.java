@@ -21,7 +21,7 @@ public class ElevatorModule{
             PIDOutput = Math.max(-.8, PIDOutput); 
             if(on) { mLift.set(ControlMode.PercentOutput, PIDOutput); }
         });
-        SteeringPID.startPeriodic(0.01);
+        SteeringPID.startPeriodic(0.0001);
         mLift.enableVoltageCompensation(true);
 		mLift.setNeutralMode(NeutralMode.Brake);
     }
