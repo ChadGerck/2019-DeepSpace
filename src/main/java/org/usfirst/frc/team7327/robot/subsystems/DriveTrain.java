@@ -12,8 +12,8 @@ import org.usfirst.frc.team7327.robot.TurnModule;
 
 public class DriveTrain extends Subsystem {
   public TurnModule turning; 
-  public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, 10.8), abeNE = new AnalogPotentiometer(1, 360, 315.2), 
-                              abeSW = new AnalogPotentiometer(2, 360, 142.2), abeSE = new AnalogPotentiometer(3, 360, 120.3); 
+  public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, 262.8), abeNE = new AnalogPotentiometer(1, 360, 131.2), 
+                              abeSW = new AnalogPotentiometer(2, 360, 345.2), abeSE = new AnalogPotentiometer(3, 360, 220.3); 
   double kSwerveP = .8, kSwerveD = .1; 
   private SwerveModule moduleNW= new SwerveModule(1,2, abeNW, kSwerveP, kSwerveD, false), moduleNE = new SwerveModule(3,4, abeNE, kSwerveP, kSwerveD, false),
                        moduleSW= new SwerveModule(5,6, abeSW, kSwerveP, kSwerveD, false), moduleSE= new SwerveModule(7,8, abeSE, kSwerveP, kSwerveD,  false);
@@ -23,7 +23,8 @@ public class DriveTrain extends Subsystem {
   //public static DoubleSolenoid Pincher, Extendor, pullout; 
   public DriveTrain(){
     // Elevator  = new ElevatorModule(8); Intake = new VictorSPX(9); 
-    // BallVictor= new VictorSPX(10);    turning = new TurnModule(); 
+    // BallVictor= new VictorSPX(10);    
+    turning = new TurnModule(); 
     // Pincher = new DoubleSolenoid(0,3, 4); Extendor = new DoubleSolenoid(0,2, 5);
     // pullout = new DoubleSolenoid(1,0,7); 
   }

@@ -43,7 +43,7 @@ public class Drive extends Command {
       else if(oi.LeftTrigger(P1) > .1) { rightArc = 270; }           else if(oi.RightTrigger(P1) > .1) {rightArc = 90; }
       else if(oi.BButtonDown(P1)){ rightArc = 0; }
       try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
-      //rotMag = Robot.kDrivetrain.turning.getPIDOutput();
+      rotMag = Robot.kDrivetrain.turning.getPIDOutput();
     } else{ rotMag = 0; }
 
     if( oi.AButtonDown(P1)){ 
