@@ -44,8 +44,8 @@ public class SwerveModule{
     public double getError(){return setpoint - getSteeringEncoder();}
     public double getModifiedError(){return (boundHalfDegrees(getError()))/180;}
     public void setDrivePower(double power){
-    	//if(isFlipped) m_motor.set(-power);
-        //else          m_motor.set(power);
+    	if(isFlipped) m_motor.set(-power);
+        else          m_motor.set(power);
     }
     public void setSteeringDegrees(double deg){setpoint = boundHalfDegrees(deg);}
     public double getSetpointDegrees(){return setpoint;}

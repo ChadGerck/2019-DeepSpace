@@ -12,11 +12,11 @@ import org.usfirst.frc.team7327.robot.TurnModule;
 
 public class DriveTrain extends Subsystem {
   public TurnModule turning; 
-  public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, 10.8), abeNE = new AnalogPotentiometer(3, 360, 315.2), 
-                              abeSW = new AnalogPotentiometer(1, 360, 142.2), abeSE = new AnalogPotentiometer(2, 360, 120.3); 
+  public static Potentiometer abeNW = new AnalogPotentiometer(0, 360, 10.8), abeNE = new AnalogPotentiometer(1, 360, 315.2), 
+                              abeSW = new AnalogPotentiometer(2, 360, 142.2), abeSE = new AnalogPotentiometer(3, 360, 120.3); 
   double kSwerveP = .8, kSwerveD = .1; 
-  private SwerveModule moduleNW= new SwerveModule(9,8, abeNW, kSwerveP, kSwerveD, false);//moduleNE= new SwerveModule(2,3, abeNE, kSwerveP, false),
-                       //moduleSW= new SwerveModule(4,5, abeSW, kSwerveP, false), moduleSE= new SwerveModule(6,7, abeSE, kSwerveP, false);
+  private SwerveModule moduleNW= new SwerveModule(1,2, abeNW, kSwerveP, kSwerveD, false), moduleNE = new SwerveModule(3,4, abeNE, kSwerveP, kSwerveD, false),
+                       moduleSW= new SwerveModule(5,6, abeSW, kSwerveP, kSwerveD, false), moduleSE= new SwerveModule(7,8, abeSE, kSwerveP, kSwerveD,  false);
   
   public static ElevatorModule Elevator;
   //public static VictorSPX BallVictor, Intake;
@@ -29,27 +29,23 @@ public class DriveTrain extends Subsystem {
   }
   @Override public void initDefaultCommand() { setDefaultCommand(new Drive()); }
   public void setModule(String loc,double degrees,double power){
-    switch(loc){case "NW":moduleNW.set(degrees,power);break; //case "NE":moduleNE.set(degrees,power);break;
-                //case "SW":moduleSW.set(degrees,power);break; case "SE":moduleSE.set(degrees,power);break;
-                //case "NW2":moduleNW2.set(degrees,power);break;
+    switch(loc){case "NW":moduleNW.set(degrees,power);break; case "NE":moduleNE.set(degrees,power);break;
+                case "SW":moduleSW.set(degrees,power);break; case "SE":moduleSE.set(degrees,power);break;
     }
   }public SwerveModule getModuleNW(){ return moduleNW;}
-  //public  SwerveModule getModuleNE(){ return moduleNE; }
-	//public  SwerveModule getModuleSW(){ return moduleSW;}
-  //public  SwerveModule getModuleSE(){ return moduleSE; }
-  //public  SwerveModule2 getModuleNW2(){ return moduleNW2; }
+  public  SwerveModule getModuleNE(){ return moduleNE; }
+	public  SwerveModule getModuleSW(){ return moduleSW;}
+  public  SwerveModule getModuleSE(){ return moduleSE; }
   // public void setPincher(DoubleSolenoid.Value value){ Pincher.set(value); }
   // public void setExtendor(DoubleSolenoid.Value value){ Extendor.set(value); }
   // public void setPullout(DoubleSolenoid.Value value){ pullout.set(value); }
   
   public void setAllAngle(double degrees){
-    moduleNW.setSteeringDegrees(degrees); //moduleNE.setSteeringDegrees(degrees);
-    //moduleSW.setSteeringDegrees(degrees); moduleSE.setSteeringDegrees(degrees);
-    //moduleNW2.setSteeringDegrees(degrees);
+    moduleNW.setSteeringDegrees(degrees); moduleNE.setSteeringDegrees(degrees);
+    moduleSW.setSteeringDegrees(degrees); moduleSE.setSteeringDegrees(degrees);
   }public void setAllPower(double power){
-    moduleNW.setDrivePower(power); //moduleNE.setDrivePower(power);
-    //moduleSW.setDrivePower(power); moduleSE.setDrivePower(power);
-    //moduleNW2.setDrivePower(power);
+    moduleNW.setDrivePower(power); moduleNE.setDrivePower(power);
+    moduleSW.setDrivePower(power); moduleSE.setDrivePower(power);
   }
   //  }public void setRawElevator(double speed){ Elevator.setRawElev(speed); }
 	// public void setElevatorPosition(double position){ Elevator.setPosition(position); }

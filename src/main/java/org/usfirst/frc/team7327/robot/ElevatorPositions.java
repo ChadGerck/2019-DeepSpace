@@ -3,7 +3,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import static org.usfirst.frc.team7327.robot.Robot.oi;
 
 public class ElevatorPositions {
-  public static XboxController P1 = oi.Controller0, P2 = oi.Controller1; 
+  public static XboxController P1 = oi.Controller0;//, P2 = oi.Controller1; 
   static int heightB0 = 0, heightB1 = 15000, heightB2 = 29000, heightB3 = 37000, heightH2 = 18033, heightH3 = 30973; 
   static double throttle = .3; 
 }

@@ -35,9 +35,8 @@ public class SwerveMath {
         if(max>1){NWwheelMag/=max;NEwheelMag/=max;SWwheelMag/=max;SEwheelMag/=max;}
 
         kDrivetrain.setModule("NW",NWwheelRot,NWwheelMag);
-        //kDrivetrain.setModule("NE",NEwheelRot,NEwheelMag);
-        //kDrivetrain.setModule("SW",SWwheelRot,SWwheelMag);
-        //kDrivetrain.setModule("SE",SEwheelRot,SEwheelMag);
-        //kDrivetrain.setModule("NW2",NWwheelRot,NWwheelMag);
+        kDrivetrain.setModule("NE",NEwheelRot,NEwheelMag);
+        kDrivetrain.setModule("SW",SWwheelRot,SWwheelMag);
+        kDrivetrain.setModule("SE",SEwheelRot,SEwheelMag);
     }
 }
