@@ -5,16 +5,16 @@ public class TurnModule{
     private Notifier TurningPID; 
     private double error, diffError, lastError, navTo; 
     public static double PIDOutput = 0;
-    static final double kP = 1, kD = .1;
+    static final double kP = 1, kD = .1; //l
     public TurnModule() {
-    	lastError = getError(); 
+    	lastError = getError(); //l
     	TurningPID = new Notifier(() ->  {
     		error = getError(); 
-    		diffError = lastError - error; 
-            PIDOutput = kP * error + kD * diffError;
+    		diffError = lastError - error; //l
+            PIDOutput = kP * error + kD * diffError; //l
             PIDOutput = Math.min(PIDOutput, .5);
             PIDOutput = Math.max(PIDOutput, -.5); 
-            lastError = error;
+            lastError = error; //l
     	}); 
     	TurningPID.startPeriodic(0.05);
     }

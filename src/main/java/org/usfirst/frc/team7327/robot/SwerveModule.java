@@ -9,7 +9,7 @@ public class SwerveModule{
     private CANSparkMax m_motor;
     private CANSparkMax mSteering;
     private Notifier pidLoop;          
-    private volatile double currentError, pidOutput;
+    private volatile double currentError, lastError, pidOutput;
     private double setpoint, lastAngle;
     private static final double dt = 0.05;  
     private Potentiometer steeringEncoder;
@@ -20,27 +20,32 @@ public class SwerveModule{
      * @param SteeringEncoder the AbsoluteEncoder for SwerveDrive
      * @param kP            the steering kP gain
      */
-    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP, boolean isFlipped){
+    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP, double kD, boolean isFlipped){
         m_motor = new CANSparkMax(kDriveID, MotorType.kBrushless);
         mSteering = new CANSparkMax(kSteeringID, MotorType.kBrushless);
         lastAngle = 0;
         this.steeringEncoder = steeringEncoder;
+        
+        lastError = getModifiedError();
         pidLoop = new Notifier(() -> {
             currentError = getModifiedError();  
-            pidOutput = kP * currentError;
-            pidOutput = Math.min(pidOutput, .5);
-            pidOutput = Math.max(pidOutput, -.5); 
-            mSteering.set(pidOutput);
+            pidOutput = kP * currentError + kD * (lastError - currentError);
+            pidOutput = Math.min(pidOutput, .8);
+            pidOutput = Math.max(pidOutput, -.8); 
+            mSteering.set(-pidOutput); //Flipped turning value for Spark, if you use +pidOutput it will converge to error = 1 instead of 0
             SmartDashboard.putNumber("PidOutput: ", pidOutput);
+            SmartDashboard.putNumber("CurrentError: ", currentError);
+            lastError = currentError;
         });
+
         pidLoop.startPeriodic(dt);
         this.isFlipped = isFlipped; 
     }
     public double getError(){return setpoint - getSteeringEncoder();}
     public double getModifiedError(){return (boundHalfDegrees(getError()))/180;}
     public void setDrivePower(double power){
-    	if(isFlipped) m_motor.set(-power);
-        else          m_motor.set(power);
+    	//if(isFlipped) m_motor.set(-power);
+        //else          m_motor.set(power);
     }
     public void setSteeringDegrees(double deg){setpoint = boundHalfDegrees(deg);}
     public double getSetpointDegrees(){return setpoint;}
