@@ -1,4 +1,6 @@
 package org.usfirst.frc.team7327.robot;
+
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Notifier;
@@ -14,6 +16,7 @@ public class SwerveModule{
     private static final double dt = 0.05;  
     private Potentiometer steeringEncoder;
     private Boolean isFlipped; 
+    private CANEncoder encoder; 
     /**
      * @param kSteeringID   the ID of the steering motor
      * @param kDriveID      the ID of the drive motor
@@ -23,6 +26,7 @@ public class SwerveModule{
     public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP, double kD, boolean isFlipped){
         m_motor = new CANSparkMax(kDriveID, MotorType.kBrushless);
         mSteering = new CANSparkMax(kSteeringID, MotorType.kBrushless);
+        encoder = new CANEncoder(m_motor);
         lastAngle = 0;
         this.steeringEncoder = steeringEncoder;
         
@@ -62,4 +66,5 @@ public class SwerveModule{
     public double getSteeringEncoder(){
         double angle=steeringEncoder.get();while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
     }
+    public double getDriveEncoder(){ return encoder.getPosition(); }
 }

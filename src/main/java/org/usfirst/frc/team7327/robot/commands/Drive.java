@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.SwerveDriveOdometry; 
 
 import org.usfirst.frc.team7327.robot.Robot;
 import org.usfirst.frc.team7327.robot.SwerveMath;
@@ -16,7 +17,7 @@ import static org.usfirst.frc.team7327.robot.Robot.oi;
 
 public class Drive extends Command {
   public Drive() { requires(Robot.kDrivetrain); }
-  @Override protected void initialize() { }
+  protected void initialize() { }
   public static XboxController P1 = oi.Controller0;//, P2 = oi.Controller1;  
   double finalAngle, Redthrottle, ballThrottle, rotMag, rightArc, directMag, steering_adjust, x; 
   double SteerP = -0.025;
@@ -26,7 +27,29 @@ public class Drive extends Command {
   private NetworkTableEntry angleR = tab.add("RocketAngle", rocketAngle).getEntry();
   DoubleSolenoid.Value Pincher, Extendor, pullout = Value.kOff; 
 
-  @Override protected void execute() {
+
+
+// Locations for the swerve drive modules relative to the robot center.
+Translation2d m_frontLeftLocation = new Translation2d(0.381, 0.381);
+Translation2d m_frontRightLocation = new Translation2d(0.381, -0.381);
+Translation2d m_backLeftLocation = new Translation2d(-0.381, 0.381);
+Translation2d m_backRightLocation = new Translation2d(-0.381, -0.381);
+
+// Creating my kinematics object using the module locations
+SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
+  m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation
+);
+
+// Creating my odometry object from the kinematics object. Here,
+// our starting pose is 5 meters along the long end of the field and in the
+// center of the field along the short end, facing forward.
+SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
+  getGyroHeading(), new Pose2d(5.0, 13.5, new Rotation2d());
+
+
+
+
+  protected void execute() {
 
     //if(Robot.oi.BackButton(P2)){ if(oi.LEDValue() == 1 || oi.LEDValue() == 0){ oi.LEDOn(); } else if(oi.LEDValue() == 3){ oi.LEDOff(); }}
     if(Robot.oi.BackButton(P1)){ if(rocketAngle){ rocketAngle = false;} else{ rocketAngle = true; } angleR.setBoolean(rocketAngle); }
@@ -74,7 +97,7 @@ public class Drive extends Command {
     // else { pullout = Value.kOff; } Robot.kDrivetrain.setPullout(pullout);
 
   }
-  @Override protected boolean isFinished() { return false;}
-  @Override protected void end() {}
-  @Override protected void interrupted() {}
+  protected boolean isFinished() { return false;}
+  protected void end() {}
+  protected void interrupted() {}
 }
