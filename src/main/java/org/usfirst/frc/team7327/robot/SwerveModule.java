@@ -7,15 +7,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
-import org.usfirst.frc.team7327.robot.Util.DriveCommand;
-import org.usfirst.frc.team7327.robot.Util.WrappedTalonSRX;
-import org.usfirst.frc.team7327.robot.Util.WrappedVictorSPX;
+//import org.usfirst.frc.team7327.robot.Util.DriveCommand;
+//import org.usfirst.frc.team7327.robot.Util.WrappedTalonSRX;
+//import org.usfirst.frc.team7327.robot.Util.WrappedVictorSPX;
 
 
 public class SwerveModule{
     //private AnalogInput SteeringAnalog = new AnalogInput(0);
-    private WrappedTalonSRX mDrive; 
-    private WrappedVictorSPX mSteering;
+    //private WrappedTalonSRX mDrive; 
+    //private WrappedVictorSPX mSteering;
     private Notifier pidLoop;           //A notifier is a thread. Basically think of a thread as something running in the background.
     //private volatile double sumError, errorChange, lastError; 
     private volatile double currentError, pidOutput;
@@ -46,9 +46,9 @@ public class SwerveModule{
      * @param kD            the steering kD gain
      */
     public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, boolean isReversed, double offset, double kP, double kI, double kD){
-        mDrive = new WrappedTalonSRX(kDriveID);
-        mSteering = new WrappedVictorSPX(kSteeringID);
-        mDrive.setNeutralMode(NeutralMode.Coast); 
+       // mDrive = new WrappedTalonSRX(kDriveID);
+       // mSteering = new WrappedVictorSPX(kSteeringID);
+       // mDrive.setNeutralMode(NeutralMode.Coast); 
         //this.offset = offset;
 
         lastAngle = 0;
@@ -56,8 +56,8 @@ public class SwerveModule{
         this.steeringEncoder = steeringEncoder;
 
         //reset the Talons before use
-        mDrive.reset();
-        mSteering.reset();
+      //  mDrive.reset();
+      //  mSteering.reset();
 
         //Configure steering Talon SRX
         //mSteering.configSelectedFeedbackSensor(FeedbackDevice.Analog, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
@@ -90,7 +90,7 @@ public class SwerveModule{
             errorChange = (currentError-lastError)/dt;
 */
             pidOutput = kP * currentError; //+ kI * sumError + kD * errorChange; //you guys know this, or at least you better...
-            mSteering.set(ControlMode.PercentOutput, pidOutput);
+           // mSteering.set(ControlMode.PercentOutput, pidOutput);
             //lastError = currentError;   //update the last error to be the current error
         });
 
@@ -161,10 +161,10 @@ public class SwerveModule{
      * @param power the power of the wheel, where power is [-1.0, 1.0]
      */
     public void setDrivePower(double power){
-        if(isReversed)
-            mDrive.set(ControlMode.PercentOutput, -power);
-        else
-            mDrive.set(ControlMode.PercentOutput, power);
+       // if(isReversed)
+           // mDrive.set(ControlMode.PercentOutput, -power);
+        //else
+          //  mDrive.set(ControlMode.PercentOutput, power);
     }
 
     /**
@@ -196,7 +196,7 @@ public class SwerveModule{
     }
 */
     public void setSteeringPower(double x){
-        mSteering.set(ControlMode.PercentOutput, x);
+        //mSteering.set(ControlMode.PercentOutput, x);
     }
 
     public void set(double degrees, double power){
@@ -214,9 +214,9 @@ public class SwerveModule{
         }
     }
 
-    public void set(DriveCommand command){
-        set(command.getDegrees(), command.getSpeed());
-    }
+   // public void set(DriveCommand command){
+     //   set(command.getDegrees(), command.getSpeed());
+    //}
 
     /*
     public void configEncValues(int posMin, int posMax, int negMin, int negMax){
