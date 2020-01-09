@@ -41,17 +41,50 @@ public class Autonomous {
 
     public static void NewLane(){
         MoveForward(26);
-        Robot.TurnLeft();
+        Leftyturn();
         MoveForward(9);
-        Robot.TurnLeft();
+        Leftyturn();
         MoveForward(10);
-        Robot.TurnLeft();
+        Leftyturn();
         MoveForward(16);
-        Robot.TurnLeft();
+        Leftyturn();
         MoveForward(10);
     }
 
-}
+
+
+
+
+public class Drivinginsquare2 {
+    public static void Drivinginsquare(){
+
+
+    int x = 0;
+    while (x < 71){
+                Robot.MoveForward();
+            if (x = 26){
+                Robot.TurnRight();
+            }
+            if (x = 9){
+                Robot.TurnRight();
+
+            }
+            if (x = 10){
+                Robot.TurnRight();
+
+            }
+            if (x = 16){
+                Robot.TurnRight();
+
+            }
+            if (x = 10){
+                Robot.TurnRight();
+
+            }
+            
+            x = x + 1; 
+      }
+
 
 
        /*
