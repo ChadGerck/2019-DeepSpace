@@ -9,13 +9,9 @@ public class Autonomous {
                                                              
     }
     public static void Leftyturn(){
-     
-       
-            Robot.TurnRight();
-            Robot.TurnRight();
-            Robot.TurnRight();
-
-        
+        Robot.TurnRight();
+        Robot.TurnRight();
+        Robot.TurnRight();
     }
 
 
@@ -51,53 +47,36 @@ public class Autonomous {
         MoveForward(10);
     }
 
-
-
-
-
-public class Drivinginsquare2 {
-    public static void Drivinginsquare(){
-
-
-    int x = 0;
-    while (x < 71){
-                Robot.MoveForward();
-            if (x = 26){
+    public static void Drivinginsquare2(){
+        int x = 0;
+        while (x < 71){
+            Robot.MoveForward();
+            if (x == 26){
                 Robot.TurnRight();
             }
-            if (x = 9){
+            if (x == 9){
                 Robot.TurnRight();
 
             }
-            if (x = 10){
+            if (x == 10){
                 Robot.TurnRight();
 
             }
-            if (x = 16){
+            if (x == 16){
                 Robot.TurnRight();
 
             }
-            if (x = 10){
+            if (x == 10){
                 Robot.TurnRight();
+
 
             }
             
             x = x + 1; 
-      }
-
-
-
-       /*
-    int x = 0; 
-    while( x < 10 ){
-        Robot.MoveForward();
-        x = x + 1; 
+        } 
     }
+}
 
-
-
-
-       */
 
     
 
