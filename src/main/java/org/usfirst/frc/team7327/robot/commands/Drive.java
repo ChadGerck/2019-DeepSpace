@@ -31,7 +31,11 @@ public class Drive extends Command {
     Robot.kDrivetrain.setNorthEast(oi.LeftY(P1)*1 - (oi.RightX(P1)*1 ) - (oi.LeftX(P1)*1) + (rotMag)); 
     //rotMag 
     
+<<<<<<< Updated upstream
   //smegmaif( oi.RightMag(P1) > .7 ) { rightArc = oi.RightArc(P1); 
+=======
+  if( oi.RightMag(P1) > .7 ) { rightArc = oi.RightArc(P1); 
+>>>>>>> Stashed changes
     try { Robot.kDrivetrain.turning.setYaw(rightArc - Robot.NavAngle());} catch (Exception e) {}
     rotMag = Robot.kDrivetrain.turning.getPIDOutput();}
    else {rotMag = 0;}  
