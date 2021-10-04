@@ -13,27 +13,26 @@ public class Drive extends Command {
 
   @Override protected void execute() {
 
-    
-    if(oi.StartButton(P1)) { Robot.nav.reset(); }
 
-    if(oi.LeftY(P1) > .3){
-      Robot.kDrivetrain.setDrive(.2);
+    Robot.kDrivetrain.setDrive(oi.LeftY(P1));
+
+      /*
+    else(oi.LeftY(P1) < -.3){
+      Robot.kDrivetrain.setDrive(oi.LeftY(P1));
     }
-    else if(oi.LeftY(P1) < -.3){
-      Robot.kDrivetrain.setDrive(-.2);
+    else(oi.RightX(P1) > .3){
+      Robot.kDrivetrain.setRight(oi.RightX(P1));
+      Robot.kDrivetrain.setLeft(oi.LeftY(P1));
     }
-    else if(oi.RightX(P1) > .3){
-      Robot.kDrivetrain.setRight(.2);
-      Robot.kDrivetrain.setLeft(-.2);
-    }
-    else if(oi.RightX(P1) < -.3){
-      Robot.kDrivetrain.setRight(-.2);
-      Robot.kDrivetrain.setLeft(.2);
+    else (oi.RightX(P1) < -.3){
+      Robot.kDrivetrain.setRight(RightX);
+      Robot.kDrivetrain.setLeft(LeftY);
     }
     else { 
       Robot.kDrivetrain.setRight(0);
       Robot.kDrivetrain.setLeft(0); 
     }
+    */
     
 		
   }
